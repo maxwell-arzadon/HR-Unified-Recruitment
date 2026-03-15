@@ -20,16 +20,15 @@ export default function Hero() {
       className="relative pt-20 w-full bg-cover bg-center bg-no-repeat min-h-[520px] md:min-h-[580px] flex flex-col"
       style={{ backgroundImage: "url('/hero_bg.png')" }}
     >
-      {/* Dark overlay — also full bleed */}
       <div className="absolute inset-0 bg-black/40" />
 
-      {/* Content capped at 1440px and centered */}
+      {/* Main Div for Hero */}
       <div className="relative z-10 flex-1 flex items-center w-full">
         <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 md:px-16 lg:px-[80px] py-16">
           <div className="flex flex-col md:flex-row items-start justify-between gap-10">
-            {/* Left — headline + CTA */}
+            {/* headline + CTA */}
             <div className="flex-1 max-w-xl">
-              {/* Now Hiring pill */}
+              {/* Now Hiring */}
               <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-white text-xs font-semibold px-4 py-1.5 rounded-full mb-6 backdrop-blur-sm">
                 <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
                 Now Hiring • 24 Open Positions

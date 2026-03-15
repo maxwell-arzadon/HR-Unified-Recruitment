@@ -6,13 +6,22 @@ import JobCard from "./JobCard";
 const tabs = ["All", "Full Time", "Freelance", "Language"];
 const locations = ["All Locations", "Office Based", "Remote", "Hybrid"];
 
-export default function JobListings({ activeFilter, setActiveFilter }) {
+export default function JobListings({
+  activeFilter,
+  setActiveFilter,
+  searchQuery,
+  setSearchQuery,
+}) {
   const [location, setLocation] = useState("All Locations");
 
   const filtered = jobs.filter(
     (j) =>
       (activeFilter === "All" || j.type === activeFilter) &&
-      (location === "All Locations" || j.location === location),
+      (location === "All Locations" || j.location === location) &&
+      (!searchQuery ||
+        j.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        j.type.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        j.location.toLowerCase().includes(searchQuery.toLowerCase())),
   );
 
   return (
@@ -30,11 +39,7 @@ export default function JobListings({ activeFilter, setActiveFilter }) {
                 key={tab}
                 onClick={() => setActiveFilter(tab)}
                 className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold font-jakarta transition-colors
-                  ${
-                    activeFilter === tab
-                      ? "bg-black text-white"
-                      : "text-zinc-500 hover:text-black"
-                  }`}
+                  ${activeFilter === tab ? "bg-black text-white" : "text-zinc-500 hover:text-black"}`}
               >
                 {tab}
                 {tab !== "All" && (
@@ -70,16 +75,61 @@ export default function JobListings({ activeFilter, setActiveFilter }) {
         </div>
       </div>
 
+      {/* Count / search indicator — only one, not two */}
       <p className="text-sm text-zinc-400 mb-6">
-        Showing <span className="font-bold text-black">{filtered.length}</span>{" "}
-        positions
+        {searchQuery ? (
+          filtered.length === 0 ? (
+            <span>
+              No results for{" "}
+              <span className="font-bold text-black">"{searchQuery}"</span>
+            </span>
+          ) : (
+            <>
+              Showing{" "}
+              <span className="font-bold text-black">{filtered.length}</span>{" "}
+              results for{" "}
+              <span className="font-bold text-black">"{searchQuery}"</span>
+              <button
+                onClick={() => setSearchQuery("")}
+                className="ml-2 text-primary hover:opacity-70 font-semibold transition-opacity"
+              >
+                Clear ✕
+              </button>
+            </>
+          )
+        ) : (
+          <>
+            Showing{" "}
+            <span className="font-bold text-black">{filtered.length}</span>{" "}
+            positions
+          </>
+        )}
       </p>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        {filtered.map((job) => (
-          <JobCard key={job.id} job={job} />
-        ))}
-      </div>
+      {/* Jobs grid or empty state */}
+      {filtered.length === 0 ? (
+        <div className="text-center py-16">
+          <div className="text-4xl mb-4">🔍</div>
+          <p className="font-jakarta font-bold text-black text-lg mb-2">
+            No jobs found
+          </p>
+          <p className="text-sm text-zinc-400 mb-6">
+            Try a different keyword or{" "}
+            <button
+              onClick={() => setSearchQuery("")}
+              className="text-primary font-semibold hover:opacity-70 transition-opacity"
+            >
+              clear the search
+            </button>
+          </p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {filtered.map((job) => (
+            <JobCard key={job.id} job={job} />
+          ))}
+        </div>
+      )}
     </section>
   );
 }

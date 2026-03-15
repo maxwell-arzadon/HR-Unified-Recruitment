@@ -7,6 +7,7 @@ import FooterCTA from "../components/shared/FooterCTA";
 
 export default function Landing() {
   const [activeFilter, setActiveFilter] = useState("All");
+  const [searchQuery, setSearchQuery] = useState("");
 
   const handleCategoryClick = (type) => {
     setActiveFilter(type);
@@ -21,7 +22,7 @@ export default function Landing() {
     <div className="bg-bg min-h-screen">
       <div className="sticky top-0 z-50 bg-transparent pointer-events-none">
         <div className="max-w-[1440px] mx-auto px-6 sm:px-10 md:px-16 lg:px-[80px] pt-4 pointer-events-auto">
-          <Navbar />
+          <Navbar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
         </div>
       </div>
 
@@ -35,6 +36,8 @@ export default function Landing() {
         <JobListings
           activeFilter={activeFilter}
           setActiveFilter={setActiveFilter}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
         />
       </div>
 
