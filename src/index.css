@@ -4,28 +4,32 @@
 
 @layer base {
   body {
-    background-color: #FBF9FC;
+    background-color: #fbf9fc;
   }
   * {
-    border-color: #F2EFF4;
+    border-color: #f2eff4;
   }
 }
 
 @layer utilities {
   .gradient-text {
-    background: linear-gradient(90deg, #F13338, #F17F33);
+    background: linear-gradient(90deg, #f13338, #f17f33);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
-    .gradient-bg {
-    background: linear-gradient(90deg, #F13338, #F17F33);
+  .gradient-bg {
+    background: linear-gradient(90deg, #f13338, #f17f33);
   }
 }
 
 @keyframes scroll {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 .animate-scroll {

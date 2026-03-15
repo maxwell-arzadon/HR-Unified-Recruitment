@@ -11,7 +11,9 @@ export default function Landing() {
   const handleCategoryClick = (type) => {
     setActiveFilter(type);
     setTimeout(() => {
-      document.getElementById("job-listings")?.scrollIntoView({ behavior: "smooth" });
+      document
+        .getElementById("job-listings")
+        ?.scrollIntoView({ behavior: "smooth" });
     }, 50);
   };
 
@@ -30,7 +32,10 @@ export default function Landing() {
       <CategoryCards onCategoryClick={handleCategoryClick} />
 
       <div id="job-listings">
-        <JobListings activeFilter={activeFilter} setActiveFilter={setActiveFilter} />
+        <JobListings
+          activeFilter={activeFilter}
+          setActiveFilter={setActiveFilter}
+        />
       </div>
 
       <FooterCTA />

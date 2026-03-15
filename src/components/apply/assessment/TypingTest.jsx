@@ -1,21 +1,26 @@
 import { useState, useEffect, useRef } from "react";
 
-const PASSAGE  = "Lorem ipsum dolor sit amet consectetur. Sed adipiscing imperdiet id magna magna lorem sed imperdiet. Ut arcu eget a aliquam molestie euismod pretium mus. In ultrices purus eget at adipiscing malesuada. A vivamus tempus habitant facilisis id integer in arcu.";
+const PASSAGE =
+  "Lorem ipsum dolor sit amet consectetur. Sed adipiscing imperdiet id magna magna lorem sed imperdiet. Ut arcu eget a aliquam molestie euismod pretium mus. In ultrices purus eget at adipiscing malesuada. A vivamus tempus habitant facilisis id integer in arcu.";
 const DURATION = 60;
 
 export default function TypingTest({ onStart }) {
   const [timeLeft, setTimeLeft] = useState(DURATION);
-  const [input, setInput]       = useState("");
-  const [started, setStarted]   = useState(false);
+  const [input, setInput] = useState("");
+  const [started, setStarted] = useState(false);
   const [finished, setFinished] = useState(false);
-  const intervalRef             = useRef(null);
-  const inputRef                = useRef(null);
+  const intervalRef = useRef(null);
+  const inputRef = useRef(null);
 
   useEffect(() => {
     if (started && !finished) {
       intervalRef.current = setInterval(() => {
-        setTimeLeft(t => {
-          if (t <= 1) { clearInterval(intervalRef.current); setFinished(true); return 0; }
+        setTimeLeft((t) => {
+          if (t <= 1) {
+            clearInterval(intervalRef.current);
+            setFinished(true);
+            return 0;
+          }
           return t - 1;
         });
       }, 1000);
@@ -23,29 +28,40 @@ export default function TypingTest({ onStart }) {
     return () => clearInterval(intervalRef.current);
   }, [started, finished]);
 
-  const handleInput = e => {
-    if (!started) { setStarted(true); onStart?.(); }
+  const handleInput = (e) => {
+    if (!started) {
+      setStarted(true);
+      onStart?.();
+    }
     if (!finished) setInput(e.target.value);
   };
 
-  const words        = input.trim().split(/\s+/).filter(Boolean).length;
+  const words = input.trim().split(/\s+/).filter(Boolean).length;
   const passageWords = PASSAGE.trim().split(/\s+/);
-  const inputWords   = input.trim().split(/\s+/);
-  const correct      = inputWords.filter((w, i) => w === passageWords[i]).length;
-  const accuracy     = inputWords.length > 0 ? Math.round((correct / inputWords.length) * 100) : 100;
-  const progress     = Math.min(Math.round((input.length / PASSAGE.length) * 100), 100);
-  const fmtTime      = s => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
-  const timeColor    = timeLeft <= 10 ? "text-primary" : "text-success";
+  const inputWords = input.trim().split(/\s+/);
+  const correct = inputWords.filter((w, i) => w === passageWords[i]).length;
+  const accuracy =
+    inputWords.length > 0
+      ? Math.round((correct / inputWords.length) * 100)
+      : 100;
+  const progress = Math.min(
+    Math.round((input.length / PASSAGE.length) * 100),
+    100,
+  );
+  const fmtTime = (s) =>
+    `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
+  const timeColor = timeLeft <= 10 ? "text-primary" : "text-success";
 
   // Build highlighted passage
   const renderPassage = () => {
     return PASSAGE.split("").map((char, i) => {
-      const typed   = input[i];
+      const typed = input[i];
       const isCursor = i === input.length;
 
       let className = "text-zinc-400"; // untyped
       if (typed !== undefined) {
-        className = typed === char ? "text-black" : "bg-red-100 text-primary rounded-sm";
+        className =
+          typed === char ? "text-black" : "bg-red-100 text-primary rounded-sm";
       }
 
       return (
@@ -67,22 +83,34 @@ export default function TypingTest({ onStart }) {
           <div className="w-4 h-4 rounded-full border-2 border-success flex items-center justify-center">
             <div className="w-1.5 h-1.5 rounded-full bg-success" />
           </div>
-          <span className="text-sm font-medium text-zinc-500">Time Remaining</span>
+          <span className="text-sm font-medium text-zinc-500">
+            Time Remaining
+          </span>
         </div>
-        <span className={`font-jakarta font-bold text-lg ${timeColor}`}>{fmtTime(timeLeft)}</span>
+        <span className={`font-jakarta font-bold text-lg ${timeColor}`}>
+          {fmtTime(timeLeft)}
+        </span>
       </div>
 
-      <h2 className="font-jakarta font-bold text-black text-lg mb-1">Typing Test</h2>
-      <p className="text-sm text-zinc-400 mb-6">Type the passage below as accurately as possible within 1 minute</p>
+      <h2 className="font-jakarta font-bold text-black text-lg mb-1">
+        Typing Test
+      </h2>
+      <p className="text-sm text-zinc-400 mb-6">
+        Type the passage below as accurately as possible within 1 minute
+      </p>
 
       {/* Stats */}
       <div className="grid grid-cols-3 gap-4 mb-6">
         <div className="border border-border rounded-2xl p-4 text-center">
-          <div className="font-jakarta font-bold text-2xl text-success mb-1">{accuracy}%</div>
+          <div className="font-jakarta font-bold text-2xl text-success mb-1">
+            {accuracy}%
+          </div>
           <div className="text-xs text-zinc-400">Accuracy</div>
         </div>
         <div className="border border-border rounded-2xl p-4 text-center">
-          <div className="font-jakarta font-bold text-2xl text-primary mb-1">{progress}%</div>
+          <div className="font-jakarta font-bold text-2xl text-primary mb-1">
+            {progress}%
+          </div>
           <div className="text-xs text-zinc-400">Progress</div>
         </div>
         <div className="border border-border rounded-2xl p-4 text-center">

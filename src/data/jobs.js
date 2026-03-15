@@ -7,7 +7,8 @@ export const jobs = [
     slots: 2,
     icon: "mail",
     schedule: "Flexible",
-    overview: "Lorem ipsum dolor sit amet consectetur. Sed adipiscing imperdiet id magna magna lorem sed imperdiet. Ut arcu eget a aliquam molestie euismod pretium mus. In ultrices purus eget at adipiscing malesuada. A vivamus tempus habitant facilisis id integer in arcu.",
+    overview:
+      "Lorem ipsum dolor sit amet consectetur. Sed adipiscing imperdiet id magna magna lorem sed imperdiet. Ut arcu eget a aliquam molestie euismod pretium mus. In ultrices purus eget at adipiscing malesuada. A vivamus tempus habitant facilisis id integer in arcu.",
     responsibilities: [
       "Lorem ipsum dolor sit amet consectetur.",
       "Lorem ipsum dolor sit amet consectetur.",
@@ -15,15 +16,22 @@ export const jobs = [
       "Lorem ipsum dolor sit amet consectetur.",
       "Lorem ipsum dolor sit amet consectetur.",
     ],
-    description: "Lorem ipsum dolor sit amet consectetur. Sed adipiscing imperdiet id magna magna lorem sed imperdiet.",
+    description:
+      "Lorem ipsum dolor sit amet consectetur. Sed adipiscing imperdiet id magna magna lorem sed imperdiet.",
     requirements: [
       "Lorem ipsum dolor sit amet consectetur.",
       "Lorem ipsum dolor sit amet consectetur.",
       "Lorem ipsum dolor sit amet consectetur.",
     ],
     faq: [
-      { q: "What is the work schedule?", a: "Flexible hours depending on your availability." },
-      { q: "Is training provided?",      a: "Yes, full training is provided upon hiring." },
+      {
+        q: "What is the work schedule?",
+        a: "Flexible hours depending on your availability.",
+      },
+      {
+        q: "Is training provided?",
+        a: "Yes, full training is provided upon hiring.",
+      },
     ],
   },
   {
@@ -34,7 +42,8 @@ export const jobs = [
     slots: 3,
     icon: "headset",
     schedule: "Flexible",
-    overview: "Lorem ipsum dolor sit amet consectetur. Sed adipiscing imperdiet id magna magna lorem sed imperdiet.",
+    overview:
+      "Lorem ipsum dolor sit amet consectetur. Sed adipiscing imperdiet id magna magna lorem sed imperdiet.",
     responsibilities: [
       "Lorem ipsum dolor sit amet consectetur.",
       "Lorem ipsum dolor sit amet consectetur.",

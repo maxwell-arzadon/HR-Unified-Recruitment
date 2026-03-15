@@ -11,11 +11,12 @@ import Step3AppForm from "../components/apply/Step3AppForm";
 import SuccessScreen from "../components/apply/SuccessScreen";
 
 export default function Apply() {
-  const { id }          = useParams();
-  const job             = jobs.find(j => j.id === Number(id));
+  const { id } = useParams();
+  const job = jobs.find((j) => j.id === Number(id));
   const [step, setStep] = useState(1);
 
-  if (!job) return <div className="p-10 text-center text-zinc-400">Job not found.</div>;
+  if (!job)
+    return <div className="p-10 text-center text-zinc-400">Job not found.</div>;
 
   return (
     <div className="bg-bg min-h-screen">
@@ -28,9 +29,13 @@ export default function Apply() {
       <div className="max-w-[1440px] mx-auto px-6 sm:px-10 md:px-16 lg:px-[80px] py-10">
         {step <= 3 && (
           <>
-            <h1 className="font-jakarta font-bold text-black text-3xl mb-2">Application</h1>
+            <h1 className="font-jakarta font-bold text-black text-3xl mb-2">
+              Application
+            </h1>
             <div className="flex items-center gap-2 mb-8">
-              <span className="text-success text-xs font-bold">{job.title}</span>
+              <span className="text-success text-xs font-bold">
+                {job.title}
+              </span>
               <JobBadge type={job.type} />
               <LocationBadge location={job.location} />
             </div>
@@ -41,8 +46,15 @@ export default function Apply() {
         )}
 
         {step === 1 && <Step1BasicInfo onNext={() => setStep(2)} />}
-        {step === 2 && <Step2Assessment onNext={() => setStep(3)} onBack={() => setStep(1)} />}
-        {step === 3 && <Step3AppForm onNext={() => setStep(4)} onBack={() => setStep(2)} />}
+        {step === 2 && (
+          <Step2Assessment
+            onNext={() => setStep(3)}
+            onBack={() => setStep(1)}
+          />
+        )}
+        {step === 3 && (
+          <Step3AppForm onNext={() => setStep(4)} onBack={() => setStep(2)} />
+        )}
         {step === 4 && <SuccessScreen job={job} />}
       </div>
     </div>

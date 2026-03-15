@@ -1,33 +1,43 @@
 import { useState } from "react";
 import { CaretDown } from "@phosphor-icons/react";
 
-const countries = ["Philippines", "United States", "United Kingdom", "Canada", "Australia", "Japan", "Singapore"];
+const countries = [
+  "Philippines",
+  "United States",
+  "United Kingdom",
+  "Canada",
+  "Australia",
+  "Japan",
+  "Singapore",
+];
 
 export default function Step1BasicInfo({ onNext }) {
   const [form, setForm] = useState({
-    firstName:   "",
-    surname:     "",
-    email:       "",
-    birthday:    "",
-    mobile:      "",
-    gender:      "Male",
-    address:     "",
-    city:        "",
-    country:     "Philippines",
-    sssNumber:   "",
+    firstName: "",
+    surname: "",
+    email: "",
+    birthday: "",
+    mobile: "",
+    gender: "Male",
+    address: "",
+    city: "",
+    country: "Philippines",
+    sssNumber: "",
   });
 
-  const set = (k, v) => setForm(f => ({ ...f, [k]: v }));
+  const set = (k, v) => setForm((f) => ({ ...f, [k]: v }));
 
   return (
     <div className="bg-white border border-border rounded-2xl p-8 max-w-[860px]">
-
       {/* Header */}
-      <h2 className="font-jakarta font-bold text-black text-lg mb-1">Basic Information</h2>
-      <p className="text-sm text-zinc-400 mb-8">Please provide all the required information</p>
+      <h2 className="font-jakarta font-bold text-black text-lg mb-1">
+        Basic Information
+      </h2>
+      <p className="text-sm text-zinc-400 mb-8">
+        Please provide all the required information
+      </p>
 
       <div className="flex flex-col gap-6">
-
         {/* First Name + Surname */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="flex flex-col gap-1.5">
@@ -37,7 +47,7 @@ export default function Step1BasicInfo({ onNext }) {
             <input
               placeholder="Juan"
               value={form.firstName}
-              onChange={e => set("firstName", e.target.value)}
+              onChange={(e) => set("firstName", e.target.value)}
               className="border border-border rounded-xl px-4 py-2.5 text-sm placeholder-zinc-300 outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all"
             />
           </div>
@@ -48,7 +58,7 @@ export default function Step1BasicInfo({ onNext }) {
             <input
               placeholder="Dela Cruz"
               value={form.surname}
-              onChange={e => set("surname", e.target.value)}
+              onChange={(e) => set("surname", e.target.value)}
               className="border border-border rounded-xl px-4 py-2.5 text-sm placeholder-zinc-300 outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all"
             />
           </div>
@@ -63,7 +73,7 @@ export default function Step1BasicInfo({ onNext }) {
             type="email"
             placeholder="juandelacruz@gmail.com"
             value={form.email}
-            onChange={e => set("email", e.target.value)}
+            onChange={(e) => set("email", e.target.value)}
             className="border border-border rounded-xl px-4 py-2.5 text-sm placeholder-zinc-300 outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all"
           />
         </div>
@@ -77,7 +87,7 @@ export default function Step1BasicInfo({ onNext }) {
             <input
               type="date"
               value={form.birthday}
-              onChange={e => set("birthday", e.target.value)}
+              onChange={(e) => set("birthday", e.target.value)}
               className="border border-border rounded-xl px-4 py-2.5 text-sm text-zinc-400 outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all"
             />
           </div>
@@ -92,7 +102,7 @@ export default function Step1BasicInfo({ onNext }) {
               <input
                 placeholder="912 345 6789"
                 value={form.mobile}
-                onChange={e => set("mobile", e.target.value)}
+                onChange={(e) => set("mobile", e.target.value)}
                 className="flex-1 px-4 py-2.5 text-sm placeholder-zinc-300 outline-none bg-transparent"
               />
             </div>
@@ -105,7 +115,7 @@ export default function Step1BasicInfo({ onNext }) {
             Gender <span className="text-primary">*</span>
           </label>
           <div className="flex items-center gap-6">
-            {["Male", "Female", "Other"].map(g => (
+            {["Male", "Female", "Other"].map((g) => (
               <label key={g} className="flex items-center gap-2 cursor-pointer">
                 <div
                   onClick={() => set("gender", g)}
@@ -130,7 +140,7 @@ export default function Step1BasicInfo({ onNext }) {
           <input
             placeholder="Street, Barangay"
             value={form.address}
-            onChange={e => set("address", e.target.value)}
+            onChange={(e) => set("address", e.target.value)}
             className="border border-border rounded-xl px-4 py-2.5 text-sm placeholder-zinc-300 outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all"
           />
         </div>
@@ -144,7 +154,7 @@ export default function Step1BasicInfo({ onNext }) {
             <input
               placeholder="Quezon City"
               value={form.city}
-              onChange={e => set("city", e.target.value)}
+              onChange={(e) => set("city", e.target.value)}
               className="border border-border rounded-xl px-4 py-2.5 text-sm placeholder-zinc-300 outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all"
             />
           </div>
@@ -155,12 +165,17 @@ export default function Step1BasicInfo({ onNext }) {
             <div className="relative">
               <select
                 value={form.country}
-                onChange={e => set("country", e.target.value)}
+                onChange={(e) => set("country", e.target.value)}
                 className="w-full appearance-none border border-border rounded-xl px-4 py-2.5 text-sm text-black outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all cursor-pointer pr-10"
               >
-                {countries.map(c => <option key={c}>{c}</option>)}
+                {countries.map((c) => (
+                  <option key={c}>{c}</option>
+                ))}
               </select>
-              <CaretDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none" />
+              <CaretDown
+                size={14}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none"
+              />
             </div>
           </div>
         </div>
@@ -173,7 +188,7 @@ export default function Step1BasicInfo({ onNext }) {
           <input
             placeholder="XX-XXXXXXX-X"
             value={form.sssNumber}
-            onChange={e => set("sssNumber", e.target.value)}
+            onChange={(e) => set("sssNumber", e.target.value)}
             className="border border-border rounded-xl px-4 py-2.5 text-sm placeholder-zinc-300 outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all"
           />
         </div>
@@ -185,12 +200,17 @@ export default function Step1BasicInfo({ onNext }) {
             className="gradient-bg hover:opacity-90 text-white font-semibold font-jakarta text-sm px-8 py-3 rounded-full flex items-center gap-2 transition-opacity"
           >
             Next: Assessment Test
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              viewBox="0 0 24 24"
+            >
+              <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
           </button>
         </div>
-
       </div>
     </div>
   );
