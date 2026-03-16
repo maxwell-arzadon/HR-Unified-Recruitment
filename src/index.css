@@ -39,3 +39,41 @@
 .animate-scroll:hover {
   animation-play-state: paused;
 }
+
+/* Toggle Switch */
+.toggle-track {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  flex-shrink: 0;
+  padding: 0;
+}
+
+.toggle-track.active {
+  background-color: #16a34a;
+}
+.toggle-track.inactive {
+  background-color: #9f96a5;
+}
+
+.toggle-thumb {
+  position: absolute;
+  top: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  transition: left 0.2s;
+}
+
+.toggle-thumb.active {
+  left: 23px;
+}
+.toggle-thumb.inactive {
+  left: 3px;
+}

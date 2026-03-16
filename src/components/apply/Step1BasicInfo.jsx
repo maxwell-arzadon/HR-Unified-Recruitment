@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CaretDown } from "@phosphor-icons/react";
+import { CaretDown, WarningCircle } from "@phosphor-icons/react";
 
 const countries = [
   "Philippines",
@@ -10,6 +10,43 @@ const countries = [
   "Japan",
   "Singapore",
 ];
+
+const validate = (form) => {
+  const errors = {};
+  if (!form.firstName.trim()) errors.firstName = "First name is required";
+  if (!form.surname.trim()) errors.surname = "Surname is required";
+  if (!form.email.trim()) errors.email = "Email is required";
+  else if (!/\S+@\S+\.\S+/.test(form.email))
+    errors.email = "Enter a valid email address";
+  if (!form.birthday) errors.birthday = "Birthday is required";
+  if (!form.mobile.trim()) errors.mobile = "Mobile number is required";
+  else if (!/^\d{10}$/.test(form.mobile.replace(/\s/g, "")))
+    errors.mobile = "Enter a valid 10-digit number";
+  if (!form.address.trim()) errors.address = "Address is required";
+  if (!form.city.trim()) errors.city = "City is required";
+  if (!form.sssNumber.trim()) errors.sssNumber = "SSS number is required";
+  else if (!/^\d{2}-\d{7}-\d$/.test(form.sssNumber))
+    errors.sssNumber = "Format: XX-XXXXXXX-X";
+  return errors;
+};
+
+// Error message component
+const FieldError = ({ msg }) =>
+  msg ? (
+    <div className="flex items-center gap-1.5 mt-1">
+      <WarningCircle size={13} className="text-primary flex-shrink-0" />
+      <span className="text-xs text-primary">{msg}</span>
+    </div>
+  ) : null;
+
+// Input class helper
+const inputClass = (error) =>
+  `border rounded-xl px-4 py-2.5 text-sm placeholder-zinc-300 outline-none transition-all w-full
+  ${
+    error
+      ? "border-primary bg-red-50 focus:border-primary focus:ring-2 focus:ring-primary/10"
+      : "border-border focus:border-primary focus:ring-2 focus:ring-primary/10"
+  }`;
 
 export default function Step1BasicInfo({ onNext }) {
   const [form, setForm] = useState({
@@ -24,12 +61,38 @@ export default function Step1BasicInfo({ onNext }) {
     country: "Philippines",
     sssNumber: "",
   });
+  const [errors, setErrors] = useState({});
+  const [touched, setTouched] = useState({});
 
   const set = (k, v) => setForm((f) => ({ ...f, [k]: v }));
+  const touch = (k) => setTouched((t) => ({ ...t, [k]: true }));
+
+  const handleNext = () => {
+    const errs = validate(form);
+    if (Object.keys(errs).length > 0) {
+      setErrors(errs);
+      // Mark all as touched to show all errors
+      const allTouched = Object.keys(form).reduce(
+        (a, k) => ({ ...a, [k]: true }),
+        {},
+      );
+      setTouched(allTouched);
+      return;
+    }
+    onNext();
+  };
+
+  // Validate on blur
+  const handleBlur = (k) => {
+    touch(k);
+    const errs = validate(form);
+    setErrors(errs);
+  };
+
+  const err = (k) => (touched[k] ? errors[k] : undefined);
 
   return (
     <div className="bg-white border border-border rounded-2xl p-8 max-w-[860px]">
-      {/* Header */}
       <h2 className="font-jakarta font-bold text-black text-lg mb-1">
         Basic Information
       </h2>
@@ -40,7 +103,7 @@ export default function Step1BasicInfo({ onNext }) {
       <div className="flex flex-col gap-6">
         {/* First Name + Surname */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="flex flex-col gap-1.5">
+          <div>
             <label className="text-sm font-medium text-black">
               First Name <span className="text-primary">*</span>
             </label>
@@ -48,10 +111,12 @@ export default function Step1BasicInfo({ onNext }) {
               placeholder="Juan"
               value={form.firstName}
               onChange={(e) => set("firstName", e.target.value)}
-              className="border border-border rounded-xl px-4 py-2.5 text-sm placeholder-zinc-300 outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all"
+              onBlur={() => handleBlur("firstName")}
+              className={inputClass(err("firstName"))}
             />
+            <FieldError msg={err("firstName")} />
           </div>
-          <div className="flex flex-col gap-1.5">
+          <div>
             <label className="text-sm font-medium text-black">
               Surname <span className="text-primary">*</span>
             </label>
@@ -59,13 +124,15 @@ export default function Step1BasicInfo({ onNext }) {
               placeholder="Dela Cruz"
               value={form.surname}
               onChange={(e) => set("surname", e.target.value)}
-              className="border border-border rounded-xl px-4 py-2.5 text-sm placeholder-zinc-300 outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all"
+              onBlur={() => handleBlur("surname")}
+              className={inputClass(err("surname"))}
             />
+            <FieldError msg={err("surname")} />
           </div>
         </div>
 
         {/* Email */}
-        <div className="flex flex-col gap-1.5">
+        <div>
           <label className="text-sm font-medium text-black">
             Email Address <span className="text-primary">*</span>
           </label>
@@ -74,13 +141,15 @@ export default function Step1BasicInfo({ onNext }) {
             placeholder="juandelacruz@gmail.com"
             value={form.email}
             onChange={(e) => set("email", e.target.value)}
-            className="border border-border rounded-xl px-4 py-2.5 text-sm placeholder-zinc-300 outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all"
+            onBlur={() => handleBlur("email")}
+            className={inputClass(err("email"))}
           />
+          <FieldError msg={err("email")} />
         </div>
 
         {/* Birthday + Mobile */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="flex flex-col gap-1.5">
+          <div>
             <label className="text-sm font-medium text-black">
               Birthday <span className="text-primary">*</span>
             </label>
@@ -88,33 +157,40 @@ export default function Step1BasicInfo({ onNext }) {
               type="date"
               value={form.birthday}
               onChange={(e) => set("birthday", e.target.value)}
-              className="border border-border rounded-xl px-4 py-2.5 text-sm text-zinc-400 outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all"
+              onBlur={() => handleBlur("birthday")}
+              className={inputClass(err("birthday"))}
             />
+            <FieldError msg={err("birthday")} />
           </div>
-          <div className="flex flex-col gap-1.5">
+          <div>
             <label className="text-sm font-medium text-black">
               Mobile Number <span className="text-primary">*</span>
             </label>
-            <div className="flex items-center border border-border rounded-xl overflow-hidden focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/10 transition-all">
-              <span className="px-3 py-2.5 text-sm font-medium text-black border-r border-border bg-zinc-50">
+            <div
+              className={`flex items-center border rounded-xl overflow-hidden transition-all
+              ${err("mobile") ? "border-primary bg-red-50" : "border-border focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/10"}`}
+            >
+              <span className="px-3 py-2.5 text-sm font-medium text-black border-r border-border bg-zinc-50 flex-shrink-0">
                 +63
               </span>
               <input
                 placeholder="912 345 6789"
                 value={form.mobile}
                 onChange={(e) => set("mobile", e.target.value)}
+                onBlur={() => handleBlur("mobile")}
                 className="flex-1 px-4 py-2.5 text-sm placeholder-zinc-300 outline-none bg-transparent"
               />
             </div>
+            <FieldError msg={err("mobile")} />
           </div>
         </div>
 
         {/* Gender */}
-        <div className="flex flex-col gap-2">
+        <div>
           <label className="text-sm font-medium text-black">
             Gender <span className="text-primary">*</span>
           </label>
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-6 mt-2">
             {["Male", "Female", "Other"].map((g) => (
               <label key={g} className="flex items-center gap-2 cursor-pointer">
                 <div
@@ -133,7 +209,7 @@ export default function Step1BasicInfo({ onNext }) {
         </div>
 
         {/* Address */}
-        <div className="flex flex-col gap-1.5">
+        <div>
           <label className="text-sm font-medium text-black">
             Address <span className="text-primary">*</span>
           </label>
@@ -141,13 +217,15 @@ export default function Step1BasicInfo({ onNext }) {
             placeholder="Street, Barangay"
             value={form.address}
             onChange={(e) => set("address", e.target.value)}
-            className="border border-border rounded-xl px-4 py-2.5 text-sm placeholder-zinc-300 outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all"
+            onBlur={() => handleBlur("address")}
+            className={inputClass(err("address"))}
           />
+          <FieldError msg={err("address")} />
         </div>
 
         {/* City + Country */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="flex flex-col gap-1.5">
+          <div>
             <label className="text-sm font-medium text-black">
               City <span className="text-primary">*</span>
             </label>
@@ -155,10 +233,12 @@ export default function Step1BasicInfo({ onNext }) {
               placeholder="Quezon City"
               value={form.city}
               onChange={(e) => set("city", e.target.value)}
-              className="border border-border rounded-xl px-4 py-2.5 text-sm placeholder-zinc-300 outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all"
+              onBlur={() => handleBlur("city")}
+              className={inputClass(err("city"))}
             />
+            <FieldError msg={err("city")} />
           </div>
-          <div className="flex flex-col gap-1.5">
+          <div>
             <label className="text-sm font-medium text-black">
               Country <span className="text-primary">*</span>
             </label>
@@ -181,7 +261,7 @@ export default function Step1BasicInfo({ onNext }) {
         </div>
 
         {/* SSS Number */}
-        <div className="flex flex-col gap-1.5 max-w-xs">
+        <div className="max-w-xs">
           <label className="text-sm font-medium text-black">
             SSS Number <span className="text-primary">*</span>
           </label>
@@ -189,14 +269,16 @@ export default function Step1BasicInfo({ onNext }) {
             placeholder="XX-XXXXXXX-X"
             value={form.sssNumber}
             onChange={(e) => set("sssNumber", e.target.value)}
-            className="border border-border rounded-xl px-4 py-2.5 text-sm placeholder-zinc-300 outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all"
+            onBlur={() => handleBlur("sssNumber")}
+            className={inputClass(err("sssNumber"))}
           />
+          <FieldError msg={err("sssNumber")} />
         </div>
 
         {/* Next button */}
         <div className="flex justify-end mt-2">
           <button
-            onClick={onNext}
+            onClick={handleNext}
             className="gradient-bg hover:opacity-90 text-white font-semibold font-jakarta text-sm px-8 py-3 rounded-full flex items-center gap-2 transition-opacity"
           >
             Next: Assessment Test

@@ -18,7 +18,7 @@ import {
   TIME_TABS,
   COMPLETION_RATE,
   COMPLETION_DELTA,
-} from "../../../data/dashboard";
+} from "../../../data/dashboard.js";
 
 // ─── Stat Card Icons ──────────────────────────────────────────────
 const ICONS = {
@@ -87,7 +87,6 @@ const ICONS = {
   ),
 };
 
-// ─── Custom Bar Chart Tooltip ─────────────────────────────────────
 const CustomTooltip = ({ active, payload, label }) => {
   if (!active || !payload?.length) return null;
   return (
@@ -185,10 +184,10 @@ export default function AdminDashboard() {
       {/* Page Header */}
       <div className="flex items-start justify-between mb-8">
         <div>
-          <h1 className="font-jakarta font-bold text-2xl text-black">
+          <h1 className="font-jakarta font-semibold text-xl text-black">
             Dashboard
           </h1>
-          <p className="text-sm text-muted mt-0.5">
+          <p className="text-base text-muted mt-0.5">
             Overview of your recruitment pipeline
           </p>
         </div>
