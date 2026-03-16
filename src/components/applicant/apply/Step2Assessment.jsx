@@ -4,6 +4,7 @@ import AssessmentQuestions from "./assessment/AssessmentQuestions";
 import GrammarTest from "./assessment/GrammarTest";
 import TypingTest from "./assessment/TypingTest";
 import EssayTest from "./assessment/EssayTest";
+import { ArrowLeft, ArrowRight } from "@phosphor-icons/react";
 
 const tabs = [
   "Assessment Questions",
@@ -97,15 +98,7 @@ export default function Step2Assessment({ onNext, onBack }) {
               onClick={handleBack}
               className="flex-1 flex items-center justify-center gap-2 border border-border text-zinc-500 hover:text-black hover:border-zinc-300 font-semibold font-jakarta text-sm py-3 rounded-full transition-colors"
             >
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                viewBox="0 0 24 24"
-              >
-                <path d="M19 12H5M12 19l-7-7 7-7" />
-              </svg>
+              <ArrowLeft size={16} weight="bold" className="text-zinc-500" />
               Back
             </button>
           ) : null}
@@ -114,15 +107,7 @@ export default function Step2Assessment({ onNext, onBack }) {
             className="flex-1 gradient-bg hover:opacity-90 text-white font-semibold font-jakarta text-sm py-3 rounded-full flex items-center justify-center gap-2 transition-opacity"
           >
             Next
-            <svg
-              className="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              viewBox="0 0 24 24"
-            >
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
+            <ArrowRight size={16} weight="bold" className="text-white" />
           </button>
         </div>
       )}

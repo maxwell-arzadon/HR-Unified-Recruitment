@@ -38,8 +38,7 @@ export default function Stepper({ currentStep }) {
                     </span>
                   )}
                 </div>
-
-                {/* Label — hidden on mobile, visible on sm+ */}
+                {/* Hide step label if mobile */}
                 <span
                   className={`hidden sm:block text-sm font-semibold font-jakarta ${
                     isActive || isDone ? "text-black" : "text-zinc-400"
@@ -48,8 +47,7 @@ export default function Stepper({ currentStep }) {
                   {step.label}
                 </span>
               </div>
-
-              {/* Sub label — hidden on mobile, visible on sm+ */}
+              {/* Hide sub label if mobile */}
               <p
                 className={`hidden sm:block text-xs ml-10 ${
                   isActive ? "font-bold text-black" : "text-zinc-400"
@@ -57,8 +55,7 @@ export default function Stepper({ currentStep }) {
               >
                 {step.sub}
               </p>
-
-              {/* Mobile: show only sub label below circle, no ml offset */}
+              {/* Show sub label if mobile */}
               <p
                 className={`block sm:hidden text-[10px] text-center w-8 ${
                   isActive ? "font-bold text-black" : "text-zinc-400"

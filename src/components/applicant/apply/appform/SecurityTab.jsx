@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ShieldCheck, WarningCircle } from "@phosphor-icons/react";
+import { ShieldCheck, WarningCircle, CaretDown } from "@phosphor-icons/react";
 
 const questions = [
   "What was the name of your first pet?",
@@ -65,15 +65,10 @@ export default function SecurityTab() {
                 <option key={q}>{q}</option>
               ))}
             </select>
-            <svg
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none w-3.5 h-3.5"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-            >
-              <path d="M6 9l6 6 6-6" />
-            </svg>
+            <CaretDown
+              size={16}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none"
+            />
           </div>
           <FieldError msg={err("question")} />
         </div>

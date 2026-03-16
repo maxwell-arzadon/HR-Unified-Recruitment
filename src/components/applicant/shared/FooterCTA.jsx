@@ -4,10 +4,7 @@ export default function FooterCTA() {
       className="relative w-full bg-cover bg-center bg-no-repeat"
       style={{ backgroundImage: "url('/cta.png')" }}
     >
-      {/* Overlay */}
       <div className="absolute inset-0 bg-black/40" />
-
-      {/* Content capped at 1440px */}
       <div className="relative z-10 max-w-[1440px] mx-auto px-6 sm:px-10 md:px-16 lg:px-[80px] py-16 flex flex-col md:flex-row items-center justify-between gap-6">
         {/* Left — text */}
         <div>

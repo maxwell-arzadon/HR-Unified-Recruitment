@@ -87,7 +87,7 @@ export default function PersonalTab() {
 
       <div className="flex flex-col gap-5">
         {/* First Name + Surname */}
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className="text-sm font-medium text-black">
               First Name <span className="text-primary">*</span>
@@ -117,7 +117,7 @@ export default function PersonalTab() {
         </div>
 
         {/* Birthday + Marital Status */}
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className="text-sm font-medium text-black">
               Birthday <span className="text-primary">*</span>
@@ -161,7 +161,7 @@ export default function PersonalTab() {
           <label className="text-sm font-medium text-black">
             Gender <span className="text-primary">*</span>
           </label>
-          <div className="flex items-center gap-6 mt-2">
+          <div className="flex items-center flex-wrap gap-x-4 gap-y-2 mt-2">
             {["Male", "Female", "Other"].map((g) => (
               <label key={g} className="flex items-center gap-2 cursor-pointer">
                 <div
@@ -179,7 +179,7 @@ export default function PersonalTab() {
         </div>
 
         {/* Nationality + Mother's Maiden Name */}
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className="text-sm font-medium text-black">
               Nationality <span className="text-primary">*</span>
@@ -229,7 +229,7 @@ export default function PersonalTab() {
         </div>
 
         {/* City + Country */}
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className="text-sm font-medium text-black">
               City <span className="text-primary">*</span>
@@ -266,7 +266,7 @@ export default function PersonalTab() {
         </div>
 
         {/* Mobile + Email + Skype */}
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <div>
             <label className="text-sm font-medium text-black">
               Mobile Number <span className="text-primary">*</span>

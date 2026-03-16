@@ -74,7 +74,6 @@ export default function JobDetail() {
           <span className="text-primary font-semibold">{job.type}</span>
         </div>
 
-        {/* Main content + sidebar */}
         <div className="flex flex-col lg:flex-row gap-5 lg:gap-8 items-start w-full">
           {/* Left — main content */}
           <div className="w-full flex-1 bg-white border border-border rounded-2xl p-5 sm:p-8 min-w-0">

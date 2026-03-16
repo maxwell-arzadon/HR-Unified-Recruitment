@@ -55,6 +55,7 @@ export default function JobListings({
           })}
         </div>
 
+        {/* Location filter */}
         <div className="flex items-center gap-3">
           <span className="text-sm text-zinc-400 font-medium">Job Type</span>
           <div className="relative">
@@ -75,7 +76,7 @@ export default function JobListings({
         </div>
       </div>
 
-      {/* Count / search indicator — only one, not two */}
+      {/* Search query status */}
       <p className="text-sm text-zinc-400 mb-6">
         {searchQuery ? (
           filtered.length === 0 ? (

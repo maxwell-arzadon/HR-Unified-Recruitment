@@ -68,7 +68,6 @@ export default function BeforeYouApply({ onClose, jobId }) {
             {content[activeTab]}
           </div>
 
-          {/* Divider */}
           <div className="border-t border-border mx-6" />
 
           {/* Agree checkbox */}
@@ -99,7 +98,7 @@ export default function BeforeYouApply({ onClose, jobId }) {
             </p>
           </div>
 
-          {/* Actions */}
+          {/* Buttons */}
           <div className="px-6 pb-6 flex gap-3">
             <button
               onClick={onClose}

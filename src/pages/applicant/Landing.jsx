@@ -20,18 +20,22 @@ export default function Landing() {
 
   return (
     <div className="bg-bg min-h-screen">
+      {/* Navbar */}
       <div className="sticky top-0 z-50 bg-transparent pointer-events-none">
         <div className="max-w-[1440px] mx-auto px-6 sm:px-10 md:px-16 lg:px-[80px] pt-4 pointer-events-auto">
           <Navbar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
         </div>
       </div>
 
+      {/* Hero Section */}
       <div className="-mt-[80px]">
         <Hero />
       </div>
 
+      {/* Category Cards */}
       <CategoryCards onCategoryClick={handleCategoryClick} />
 
+      {/* Job Listings */}
       <div id="job-listings">
         <JobListings
           activeFilter={activeFilter}

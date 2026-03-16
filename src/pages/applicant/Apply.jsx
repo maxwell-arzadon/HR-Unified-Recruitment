@@ -26,6 +26,7 @@ export default function Apply() {
         </div>
       </div>
 
+      {/* Title */}
       <div className="max-w-[1440px] mx-auto px-6 sm:px-10 md:px-16 lg:px-[80px] py-10">
         {step <= 3 && (
           <>
@@ -45,6 +46,7 @@ export default function Apply() {
           </>
         )}
 
+        {/* Steps Content */}
         {step === 1 && <Step1BasicInfo onNext={() => setStep(2)} />}
         {step === 2 && (
           <Step2Assessment

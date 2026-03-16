@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { CaretDown, WarningCircle } from "@phosphor-icons/react";
+import { ArrowRight } from "@phosphor-icons/react";
 
 const countries = [
   "Philippines",
@@ -190,7 +191,8 @@ export default function Step1BasicInfo({ onNext }) {
           <label className="text-sm font-medium text-black">
             Gender <span className="text-primary">*</span>
           </label>
-          <div className="flex items-center gap-6 mt-2">
+          <div className="flex items-center flex-wrap gap-x-4 gap-y-2 mt-2">
+            {" "}
             {["Male", "Female", "Other"].map((g) => (
               <label key={g} className="flex items-center gap-2 cursor-pointer">
                 <div
@@ -282,15 +284,7 @@ export default function Step1BasicInfo({ onNext }) {
             className="gradient-bg hover:opacity-90 text-white font-semibold font-jakarta text-sm px-8 py-3 rounded-full flex items-center gap-2 transition-opacity"
           >
             Next: Assessment Test
-            <svg
-              className="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              viewBox="0 0 24 24"
-            >
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
+            <ArrowRight size={16} weight="bold" className="text-white" />
           </button>
         </div>
       </div>

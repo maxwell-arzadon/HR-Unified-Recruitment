@@ -4,6 +4,7 @@ import EducationTab from "./appform/EducationTab";
 import SkillsTab from "./appform/SkillsTab";
 import WorksTab from "./appform/WorksTab";
 import SecurityTab from "./appform/SecurityTab";
+import { ArrowLeft, ArrowRight, PaperPlaneTilt } from "@phosphor-icons/react";
 
 const tabs = [
   "Personal",
@@ -71,15 +72,7 @@ export default function Step3AppForm({ onNext, onBack }) {
           onClick={handleBack}
           className="flex-1 flex items-center justify-center gap-2 border border-border text-zinc-500 hover:text-black hover:border-zinc-300 font-semibold font-jakarta text-sm py-3 rounded-full transition-colors"
         >
-          <svg
-            className="w-4 h-4"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.5"
-            viewBox="0 0 24 24"
-          >
-            <path d="M19 12H5M12 19l-7-7 7-7" />
-          </svg>
+          <ArrowLeft size={16} weight="bold" className="text-zinc-500" />
           {activeIndex === 0 ? "Back to Assessment" : "Back"}
         </button>
         <button
@@ -89,28 +82,12 @@ export default function Step3AppForm({ onNext, onBack }) {
           {activeIndex === tabs.length - 1 ? (
             <>
               Submit Application
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                viewBox="0 0 24 24"
-              >
-                <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
-              </svg>
+              <PaperPlaneTilt size={16} weight="bold" className="text-white" />
             </>
           ) : (
             <>
               Next
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                viewBox="0 0 24 24"
-              >
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
+              <ArrowRight size={16} weight="bold" className="text-white" />
             </>
           )}
         </button>

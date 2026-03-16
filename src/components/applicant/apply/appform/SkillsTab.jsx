@@ -118,7 +118,7 @@ export default function SkillsTab() {
           </label>
           <button
             onClick={addLang}
-            className="text-sm font-semibold text-primary hover:opacity-70 transition-opacity"
+            className="text-sm font-semibold text-primary text-right hover:opacity-70 transition-opacity"
           >
             + Add Language
           </button>
@@ -126,13 +126,19 @@ export default function SkillsTab() {
 
         <div className="flex flex-col gap-3">
           {langEntries.map((entry, i) => (
-            <div key={entry.id} className="grid grid-cols-3 gap-3 items-end">
+            <div
+              key={entry.id}
+              className="grid grid-cols-1 sm:grid-cols-3 gap-3 items-end"
+            >
               <div>
                 {i === 0 && (
-                  <label className="text-xs font-medium text-zinc-400 mb-1.5 block">
+                  <label className="hidden sm:block text-xs font-medium text-zinc-400 mb-1.5">
                     Language
                   </label>
                 )}
+                <label className="sm:hidden text-xs font-medium text-zinc-400 mb-1.5 block">
+                  Language
+                </label>
                 <div className="relative">
                   <select
                     value={entry.language}
@@ -153,10 +159,13 @@ export default function SkillsTab() {
               </div>
               <div>
                 {i === 0 && (
-                  <label className="text-xs font-medium text-zinc-400 mb-1.5 block">
+                  <label className="hidden sm:block text-xs font-medium text-zinc-400 mb-1.5">
                     Spoken Level
                   </label>
                 )}
+                <label className="sm:hidden text-xs font-medium text-zinc-400 mb-1.5 block">
+                  Spoken Level
+                </label>
                 <div className="relative">
                   <select
                     value={entry.spoken}
@@ -179,10 +188,13 @@ export default function SkillsTab() {
               <div className="flex items-end gap-2">
                 <div className="flex-1">
                   {i === 0 && (
-                    <label className="text-xs font-medium text-zinc-400 mb-1.5 block">
+                    <label className="hidden sm:block text-xs font-medium text-zinc-400 mb-1.5">
                       Written Level
                     </label>
                   )}
+                  <label className="sm:hidden text-xs font-medium text-zinc-400 mb-1.5 block">
+                    Written Level
+                  </label>
                   <div className="relative">
                     <select
                       value={entry.written}

@@ -56,7 +56,7 @@ export default function EducationTab() {
 
             <div className="flex flex-col gap-4">
               {/* Level + School */}
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="text-sm font-medium text-black">
                     Educational Level <span className="text-primary">*</span>
@@ -94,7 +94,7 @@ export default function EducationTab() {
               </div>
 
               {/* Course + Year */}
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="text-sm font-medium text-black">
                     Course / Degree <span className="text-primary">*</span>
@@ -110,26 +110,28 @@ export default function EducationTab() {
                   <label className="text-sm font-medium text-black">
                     Year Attended <span className="text-primary">*</span>
                   </label>
-                  <div className="flex items-center gap-2 mt-1.5">
-                    <input
-                      placeholder="2016"
-                      value={entry.yearFrom}
-                      onChange={(e) =>
-                        update(entry.id, "yearFrom", e.target.value)
-                      }
-                      className="w-full border border-border rounded-xl px-4 py-2.5 text-sm placeholder-zinc-300 outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all"
-                    />
-                    <span className="text-zinc-400 flex-shrink-0">—</span>
-                    <input
-                      placeholder="2020"
-                      value={entry.yearTo}
-                      onChange={(e) =>
-                        update(entry.id, "yearTo", e.target.value)
-                      }
-                      disabled={entry.present}
-                      className="w-full border border-border rounded-xl px-4 py-2.5 text-sm placeholder-zinc-300 outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all disabled:opacity-40"
-                    />
-                    <label className="flex items-center gap-1.5 flex-shrink-0 cursor-pointer">
+                  <div className="flex flex-col gap-2 mt-1.5">
+                    <div className="flex items-center gap-2">
+                      <input
+                        placeholder="2016"
+                        value={entry.yearFrom}
+                        onChange={(e) =>
+                          update(entry.id, "yearFrom", e.target.value)
+                        }
+                        className="w-full border border-border rounded-xl px-4 py-2.5 text-sm placeholder-zinc-300 outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all"
+                      />
+                      <span className="text-zinc-400 flex-shrink-0">—</span>
+                      <input
+                        placeholder="2020"
+                        value={entry.yearTo}
+                        onChange={(e) =>
+                          update(entry.id, "yearTo", e.target.value)
+                        }
+                        disabled={entry.present}
+                        className="w-full border border-border rounded-xl px-4 py-2.5 text-sm placeholder-zinc-300 outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all disabled:opacity-40"
+                      />
+                    </div>
+                    <label className="flex items-center gap-1.5 cursor-pointer w-fit">
                       <input
                         type="checkbox"
                         checked={entry.present}
