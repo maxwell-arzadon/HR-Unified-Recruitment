@@ -1,7 +1,7 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import Landing from "./pages/Landing";
-import JobDetail from "./pages/JobDetail";
-import Apply from "./pages/Apply";
+import Landing from "./pages/applicant/Landing";
+import JobDetail from "./pages/applicant/JobDetail";
+import Apply from "./pages/applicant/Apply";
 import AdminLogin from "./pages/admin/AdminLogin";
 import AdminApp from "./pages/admin/AdminApp";
 
@@ -13,7 +13,7 @@ const ProtectedRoute = ({ children }) => {
 export default function App() {
   return (
     <Routes>
-      {/* Applicant-facing routes */}
+      {/* Applicant page routes */}
       <Route path="/" element={<Landing />} />
       <Route path="/jobs/:id" element={<JobDetail />} />
       <Route path="/apply/:id" element={<Apply />} />

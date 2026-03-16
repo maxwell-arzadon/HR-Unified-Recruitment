@@ -1,10 +1,21 @@
+// ─── Job ID Reference (from jobsData.js) ─────────────────────────
+// id: 1 → Non Voice Customer Support
+// id: 2 → Customer Support
+// id: 3 → Senior Programmer
+// id: 4 → Non Voice Customer Support
+// id: 5 → Customer Support
+// id: 6 → Senior Programmer
+// id: 7 → Non Voice Customer Support
+// id: 8 → Non Voice Customer Support
+
 // ─── New Applicants Data ──────────────────────────────────────────
 export const APPLICANTS = [
   {
     id: 1,
+    jobId: 1,
     date: "May 22, 2025",
     name: "Milan Hopper",
-    position: "Billing Specialist",
+    position: "Non Voice Customer Support",
     jobType: "Full Time",
     status: "Interview",
     source: "Website",
@@ -38,9 +49,10 @@ export const APPLICANTS = [
   },
   {
     id: 2,
+    jobId: 1,
     date: "May 22, 2025",
     name: "Abby Floyd",
-    position: "Customer Support",
+    position: "Non Voice Customer Support",
     jobType: "Full Time",
     status: "Orientation",
     source: "LinkedIn",
@@ -74,6 +86,7 @@ export const APPLICANTS = [
   },
   {
     id: 3,
+    jobId: 3,
     date: "May 21, 2025",
     name: "Jason Heigh",
     position: "Senior Programmer",
@@ -106,9 +119,10 @@ export const APPLICANTS = [
   },
   {
     id: 4,
+    jobId: 2,
     date: "May 20, 2025",
     name: "Keith Atherton",
-    position: "Billing Specialist",
+    position: "Customer Support",
     jobType: "Full Time",
     status: "Certification",
     source: "Website",
@@ -138,6 +152,7 @@ export const APPLICANTS = [
   },
   {
     id: 5,
+    jobId: 2,
     date: "May 20, 2025",
     name: "Nate Hartley",
     position: "Customer Support",
@@ -170,9 +185,10 @@ export const APPLICANTS = [
   },
   {
     id: 6,
+    jobId: 4,
     date: "May 19, 2025",
     name: "Sara Kim",
-    position: "Billing Specialist",
+    position: "Non Voice Customer Support",
     jobType: "Full Time",
     status: "Orientation",
     source: "Referral",
@@ -202,6 +218,7 @@ export const APPLICANTS = [
   },
   {
     id: 7,
+    jobId: 6,
     date: "May 18, 2025",
     name: "Tom Reyes",
     position: "Senior Programmer",
@@ -234,6 +251,7 @@ export const APPLICANTS = [
   },
   {
     id: 8,
+    jobId: 5,
     date: "May 17, 2025",
     name: "Lena Park",
     position: "Customer Support",
@@ -270,9 +288,10 @@ export const APPLICANTS = [
 export const TRAINEES = [
   {
     id: 101,
+    jobId: 1,
     date: "May 22, 2025",
     name: "Milan Hopper",
-    position: "Billing Specialist",
+    position: "Non Voice Customer Support",
     jobType: "Full Time",
     status: "On-going",
     source: "Website",
@@ -281,7 +300,7 @@ export const TRAINEES = [
     phone: "+639999999991",
     city: "Manila",
     dateApplied: "May 22, 2025",
-    jobTypeDetail: "Lorem",
+    jobTypeDetail: "Full Time",
     based: "Office Based",
     service: "Lorem Ipsum",
     language: "English",
@@ -293,6 +312,7 @@ export const TRAINEES = [
   },
   {
     id: 102,
+    jobId: 2,
     date: "May 22, 2025",
     name: "Abby Floyd",
     position: "Customer Support",
@@ -304,7 +324,7 @@ export const TRAINEES = [
     phone: "+639999999999",
     city: "Baguio City",
     dateApplied: "May 22, 2020",
-    jobTypeDetail: "Lorem",
+    jobTypeDetail: "Full Time",
     based: "Office Based",
     service: "Lorem Ipsum",
     language: "English",
@@ -316,6 +336,7 @@ export const TRAINEES = [
   },
   {
     id: 103,
+    jobId: 3,
     date: "May 21, 2025",
     name: "Jason Heigh",
     position: "Senior Programmer",
@@ -327,7 +348,7 @@ export const TRAINEES = [
     phone: "+639999999992",
     city: "Cebu City",
     dateApplied: "May 21, 2025",
-    jobTypeDetail: "Lorem",
+    jobTypeDetail: "Freelance",
     based: "Remote",
     service: "IT Services",
     language: "English",
@@ -339,9 +360,10 @@ export const TRAINEES = [
   },
   {
     id: 104,
+    jobId: 4,
     date: "May 20, 2025",
     name: "Keith Atherton",
-    position: "Billing Specialist",
+    position: "Non Voice Customer Support",
     jobType: "Full Time",
     status: "Failed",
     source: "Website",
@@ -350,7 +372,7 @@ export const TRAINEES = [
     phone: "+639999999993",
     city: "Davao",
     dateApplied: "May 20, 2025",
-    jobTypeDetail: "Lorem",
+    jobTypeDetail: "Full Time",
     based: "Office Based",
     service: "Finance",
     language: "English",
@@ -362,6 +384,7 @@ export const TRAINEES = [
   },
   {
     id: 105,
+    jobId: 5,
     date: "May 20, 2025",
     name: "Nate Hartley",
     position: "Customer Support",
@@ -373,7 +396,7 @@ export const TRAINEES = [
     phone: "+639999999994",
     city: "Manila",
     dateApplied: "May 20, 2025",
-    jobTypeDetail: "Lorem",
+    jobTypeDetail: "Full Time",
     based: "Office Based",
     service: "Support",
     language: "English",
@@ -385,10 +408,11 @@ export const TRAINEES = [
   },
   {
     id: 106,
+    jobId: 6,
     date: "May 19, 2025",
     name: "Sara Kim",
-    position: "Billing Specialist",
-    jobType: "Full Time",
+    position: "Senior Programmer",
+    jobType: "Freelance",
     status: "Passed",
     source: "Referral",
     avatar: null,
@@ -396,7 +420,7 @@ export const TRAINEES = [
     phone: "+639999999995",
     city: "Quezon City",
     dateApplied: "May 19, 2025",
-    jobTypeDetail: "Lorem",
+    jobTypeDetail: "Freelance",
     based: "Office Based",
     service: "Finance",
     language: "Korean",

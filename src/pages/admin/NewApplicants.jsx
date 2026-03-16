@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Bell } from "@phosphor-icons/react";
+import PageHeader from "../../components/admin/PageHeader";
 import ApplicantTable from "../../components/admin/applicants/ApplicantTable";
 import ApplicantDrawer from "../../components/admin/applicants/ApplicantDrawer";
 import { APPLICANTS } from "../../data/applicants";
@@ -10,19 +10,10 @@ export default function NewApplicants() {
   return (
     <div className="p-8 min-h-screen">
       {/* Page Header */}
-      <div className="flex items-start justify-between mb-8">
-        <div>
-          <h1 className="font-jakarta font-semibold text-xl text-black">
-            New Applicants
-          </h1>
-          <p className="text-base text-muted mt-0.5">
-            Manage and review incoming applications
-          </p>
-        </div>
-        <button className="w-10 h-10 rounded-xl border border-border flex items-center justify-center text-muted hover:text-black hover:border-primary/30 transition-all">
-          <Bell size={18} />
-        </button>
-      </div>
+      <PageHeader
+        title="New Applicants"
+        subtitle="Manage and review incoming applications"
+      />
 
       {/* Table */}
       <ApplicantTable

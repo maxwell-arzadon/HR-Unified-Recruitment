@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import PageHeader from "../../../components/admin/PageHeader";
 import {
-  Bell,
   MagnifyingGlass,
   CaretRight,
   PencilSimple,
@@ -57,17 +57,7 @@ export default function Jobs() {
   return (
     <div className="p-8 min-h-screen">
       {/* Page Header */}
-      <div className="flex items-start justify-between mb-8">
-        <div>
-          <h1 className="font-jakarta font-bold text-2xl text-black">Jobs</h1>
-          <p className="text-sm text-muted mt-0.5">
-            Manage job postings and view applicants
-          </p>
-        </div>
-        <button className="w-10 h-10 rounded-xl border border-border flex items-center justify-center text-muted hover:text-black hover:border-primary/30 transition-all">
-          <Bell size={18} />
-        </button>
-      </div>
+      <PageHeader title="Jobs" subtitle="Manage all job postings" />
 
       {/* Table card */}
       <div className="bg-white rounded-2xl border border-border overflow-hidden">

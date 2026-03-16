@@ -17,7 +17,7 @@ const categories = [
 export default function Hero() {
   return (
     <section
-      className="relative pt-20 w-full bg-cover bg-center bg-no-repeat min-h-[520px] md:min-h-[580px] flex flex-col"
+      className="relative pt-20 w-full bg-cover bg-center bg-no-repeat min-h-[520px] md:min-h-[580px] flex flex-col overflow-hidden"
       style={{ backgroundImage: "url('/hero_bg.png')" }}
     >
       <div className="absolute inset-0 bg-black/40" />
@@ -27,7 +27,7 @@ export default function Hero() {
         <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 md:px-16 lg:px-[80px] py-16">
           <div className="flex flex-col md:flex-row items-start justify-between gap-10">
             {/* headline + CTA */}
-            <div className="flex-1 max-w-xl">
+            <div className="flex-1 max-w-xl w-full min-w-0">
               {/* Now Hiring */}
               <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-white text-xs font-semibold px-4 py-1.5 rounded-full mb-6 backdrop-blur-sm">
                 <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
@@ -47,7 +47,7 @@ export default function Hero() {
               </p>
 
               {/* CTA buttons */}
-              <div className="flex items-center gap-3 mb-10">
+              <div className="flex items-center flex-wrap gap-3 mb-10">
                 <button
                   onClick={() => {
                     document
@@ -76,19 +76,22 @@ export default function Hero() {
                       .getElementById("job-listings")
                       ?.scrollIntoView({ behavior: "smooth" });
                   }}
-                  className="border border-white/40 hover:border-white text-white font-semibold font-jakarta text-sm px-6 py-3 rounded-full transition-colors"
+                  className="border border-white/40 hover:border-white text-white font-semibold font-jakarta text-sm px-6 py-3 rounded-full"
                 >
                   View Openings
                 </button>
               </div>
 
               {/* Auto-scrolling category pills */}
-              <div className="overflow-hidden w-full max-w-lg">
+              <div
+                className="overflow-hidden w-full max-w-lg"
+                style={{ maxWidth: "100vw" }}
+              >
                 <div className="flex gap-2 animate-scroll w-max">
                   {[...categories, ...categories].map((cat, i) => (
                     <span
                       key={i}
-                      className="flex-shrink-0 backdrop-blur-md bg-white/10 border border-white/20 text-white/80 text-xs font-medium px-4 py-1.5 rounded-full hover:border-white hover:text-white cursor-pointer transition-colors whitespace-nowrap"
+                      className="backdrop-blur-md bg-white/10 border border-white/20 text-gray text-xs px-4 py-1.5 rounded-full hover:border-white hover:text-white whitespace-nowrap"
                     >
                       {cat}
                     </span>

@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Bell } from "@phosphor-icons/react";
+import PageHeader from "../../components/admin/PageHeader";
+import AdminCard from "../../components/admin/AdminCard";
 import {
   BarChart,
   Bar,
@@ -18,73 +19,22 @@ import {
   TIME_TABS,
   COMPLETION_RATE,
   COMPLETION_DELTA,
-} from "../../../data/dashboard.js";
+} from "../../data/dashboard.js";
 
-// ─── Stat Card Icons ──────────────────────────────────────────────
+import {
+  Users,
+  UserCirclePlus,
+  HourglassMedium,
+  UserCheck,
+  UserCircleMinus,
+} from "@phosphor-icons/react";
+
 const ICONS = {
-  total: (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      className="w-5 h-5 text-gray"
-      stroke="currentColor"
-      strokeWidth="1.8"
-    >
-      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-      <circle cx="9" cy="7" r="4" />
-      <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-    </svg>
-  ),
-  candidate: (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      className="w-5 h-5 text-info"
-      stroke="currentColor"
-      strokeWidth="1.8"
-    >
-      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-      <circle cx="12" cy="7" r="4" />
-    </svg>
-  ),
-  process: (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      className="w-5 h-5 text-accent"
-      stroke="currentColor"
-      strokeWidth="1.8"
-    >
-      <circle cx="12" cy="12" r="10" />
-      <polyline points="12 6 12 12 16 14" />
-    </svg>
-  ),
-  hired: (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      className="w-5 h-5 text-success"
-      stroke="currentColor"
-      strokeWidth="1.8"
-    >
-      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-      <circle cx="12" cy="7" r="4" />
-      <polyline points="16 11 18 13 22 9" />
-    </svg>
-  ),
-  rejected: (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      className="w-5 h-5 text-primary"
-      stroke="currentColor"
-      strokeWidth="1.8"
-    >
-      <circle cx="12" cy="12" r="10" />
-      <line x1="4.93" y1="4.93" x2="19.07" y2="19.07" />
-    </svg>
-  ),
+  total: <Users size={20} className="text-gray" />,
+  candidate: <UserCirclePlus size={20} className="text-info" />,
+  process: <HourglassMedium size={20} className="text-accent" />,
+  hired: <UserCheck size={20} className="text-success" />,
+  rejected: <UserCircleMinus size={20} className="text-primary" />,
 };
 
 const CustomTooltip = ({ active, payload, label }) => {
@@ -106,23 +56,14 @@ const CustomTooltip = ({ active, payload, label }) => {
   );
 };
 
-// ─── SVG Arc Progress ─────────────────────────────────────────────
-// - Two circles share the same center, radius, and rotation
-// - stroke-dasharray controls how much of the circumference is "drawn"
-// - The track covers 240° (SWEEP_DEG), leaving a 120° gap at the bottom
-// - The fill arc is a fraction of the track based on the percent value
-// - rotate(150) positions the gap symmetrically at the bottom
-// - stroke-linecap="round" gives soft rounded ends on both arcs
-
 const RADIUS = 72;
 const STROKE = 12;
-const CIRCUMFERENCE = 2 * Math.PI * RADIUS; // ≈ 452.4
+const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
 const SWEEP_DEG = 240;
 const SWEEP_FRAC = SWEEP_DEG / 360; // 0.667
 const TRACK_LENGTH = CIRCUMFERENCE * SWEEP_FRAC;
 const GAP_LENGTH = CIRCUMFERENCE - TRACK_LENGTH;
-const ROTATE = 150; // starts the arc at bottom-left, ends at bottom-right
-
+const ROTATE = 150;
 function ArcProgress({ percent = 45 }) {
   const fillLength = TRACK_LENGTH * (percent / 100);
 
@@ -174,7 +115,6 @@ function ArcProgress({ percent = 45 }) {
   );
 }
 
-// ─── Page ─────────────────────────────────────────────────────────
 export default function AdminDashboard() {
   const [activeFilter, setActiveFilter] = useState("All");
   const [activeTime, setActiveTime] = useState("Weekly");
@@ -182,19 +122,10 @@ export default function AdminDashboard() {
   return (
     <div className="p-8 min-h-screen">
       {/* Page Header */}
-      <div className="flex items-start justify-between mb-8">
-        <div>
-          <h1 className="font-jakarta font-semibold text-xl text-black">
-            Dashboard
-          </h1>
-          <p className="text-base text-muted mt-0.5">
-            Overview of your recruitment pipeline
-          </p>
-        </div>
-        <button className="w-10 h-10 rounded-xl border border-border flex items-center justify-center text-muted hover:text-black hover:border-primary/30 transition-all">
-          <Bell size={18} />
-        </button>
-      </div>
+      <PageHeader
+        title="Dashboard"
+        subtitle="Overview of your recruitment pipeline"
+      />
 
       {/* Filter Tabs + Time Toggle */}
       <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
@@ -262,7 +193,8 @@ export default function AdminDashboard() {
 
       {/* Row 2: Hiring Pipeline + Application Sources */}
       <div className="grid grid-cols-2 gap-4 mb-4">
-        <div className="bg-white rounded-2xl border border-border p-6">
+        <AdminCard className="flex flex-col">
+          {" "}
           <h3 className="font-jakarta font-bold text-base text-black mb-5">
             Hiring Pipeline
           </h3>
@@ -284,9 +216,10 @@ export default function AdminDashboard() {
               </div>
             ))}
           </div>
-        </div>
+        </AdminCard>
 
-        <div className="bg-white rounded-2xl border border-border p-6">
+        <AdminCard className="flex flex-col">
+          {" "}
           <h3 className="font-jakarta font-bold text-base text-black mb-5">
             Application Sources
           </h3>
@@ -309,12 +242,13 @@ export default function AdminDashboard() {
               </div>
             ))}
           </div>
-        </div>
+        </AdminCard>
       </div>
 
       {/* Row 3: Application Statistics + Application Status */}
       <div className="grid grid-cols-2 gap-4">
-        <div className="bg-white rounded-2xl border border-border p-6">
+        <AdminCard className="flex flex-col">
+          {" "}
           <div className="flex items-center justify-between mb-6">
             <h3 className="font-jakarta font-bold text-base text-black">
               Application Statistics
@@ -332,7 +266,6 @@ export default function AdminDashboard() {
               </svg>
             </button>
           </div>
-
           <ResponsiveContainer width="100%" height={220}>
             <BarChart data={BAR_DATA} barCategoryGap="30%" barGap={2}>
               <XAxis
@@ -356,7 +289,6 @@ export default function AdminDashboard() {
               <Bar dataKey="offered" fill="#16A34A" radius={[3, 3, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
-
           <div className="flex items-center gap-5 mt-2 justify-center">
             {BAR_LEGEND.map((l) => (
               <div key={l.label} className="flex items-center gap-1.5">
@@ -365,10 +297,10 @@ export default function AdminDashboard() {
               </div>
             ))}
           </div>
-        </div>
+        </AdminCard>
 
         {/* SVG Arc Progress Card */}
-        <div className="bg-white rounded-2xl border border-border p-6 flex flex-col">
+        <AdminCard className="flex flex-col">
           <h3 className="font-jakarta font-bold text-base text-black mb-1">
             Application Status
           </h3>
@@ -384,7 +316,7 @@ export default function AdminDashboard() {
               increase from last week
             </p>
           </div>
-        </div>
+        </AdminCard>
       </div>
     </div>
   );

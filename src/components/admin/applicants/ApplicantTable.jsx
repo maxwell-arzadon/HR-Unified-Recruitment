@@ -8,35 +8,57 @@ import {
   FILTER_TABS,
 } from "../../../data/applicants";
 
-// statusOptions can be overridden per page (e.g. Trainees uses different statuses)
-
+// ── Constants (outside component, no hooks) ──────────────────────
 const TABLE_HEADERS = [
-  "DATE",
-  "NAME",
-  "APPLIED POSITION",
-  "JOB TYPE",
-  "STATUS",
-  "SOURCE",
+  { label: "DATE", key: "date" },
+  { label: "NAME", key: "name" },
+  { label: "APPLIED POSITION", key: "position" },
+  { label: "JOB TYPE", key: "jobType" },
+  { label: "STATUS", key: "status" },
+  { label: "SOURCE", key: "source" },
 ];
+
 const PAGE_SIZE = 8;
 
+// ── Component ─────────────────────────────────────────────────────
 export default function ApplicantTable({
   applicants,
   onRowClick,
   statusOptions,
+  showPeriodFilter = false,
 }) {
   const resolvedStatuses = statusOptions ?? STATUSES;
+
+  // All useState hooks at the top of the component
   const [activeTab, setActiveTab] = useState("All");
   const [search, setSearch] = useState("");
   const [showFilter, setShowFilter] = useState(false);
   const [jobTypeFilter, setJobTypeFilter] = useState("All Job Types");
   const [statusFilter, setStatusFilter] = useState("All Status");
   const [sourceFilter, setSourceFilter] = useState("All Sources");
+  const [period, setPeriod] = useState("This Week");
   const [dateFrom, setDateFrom] = useState("");
   const [dateTo, setDateTo] = useState("");
   const [page, setPage] = useState(1);
+  const [sortKey, setSortKey] = useState(null);
+  const [sortDir, setSortDir] = useState("asc");
 
-  // ── Filtering ──────────────────────────────────────────────────
+  // ── Handlers ────────────────────────────────────────────────────
+  const handleSort = (key) => {
+    if (sortKey === key) {
+      setSortDir((d) => (d === "asc" ? "desc" : "asc"));
+    } else {
+      setSortKey(key);
+      setSortDir("asc");
+    }
+  };
+
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+    setPage(1);
+  };
+
+  // ── Filtering ────────────────────────────────────────────────────
   const filtered = applicants.filter((a) => {
     const matchTab = activeTab === "All" || a.jobType === activeTab;
     const matchSearch =
@@ -51,14 +73,19 @@ export default function ApplicantTable({
     return matchTab && matchSearch && matchType && matchStatus && matchSource;
   });
 
-  // ── Pagination ────────────────────────────────────────────────
-  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
-  const paginated = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+  // ── Sorting ──────────────────────────────────────────────────────
+  const sorted = [...filtered].sort((a, b) => {
+    if (!sortKey) return 0;
+    const valA = a[sortKey]?.toString().toLowerCase() ?? "";
+    const valB = b[sortKey]?.toString().toLowerCase() ?? "";
+    if (valA < valB) return sortDir === "asc" ? -1 : 1;
+    if (valA > valB) return sortDir === "asc" ? 1 : -1;
+    return 0;
+  });
 
-  const handleTabChange = (tab) => {
-    setActiveTab(tab);
-    setPage(1);
-  };
+  // ── Pagination ────────────────────────────────────────────────────
+  const totalPages = Math.max(1, Math.ceil(sorted.length / PAGE_SIZE));
+  const paginated = sorted.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 
   const selectClass =
     "border border-border rounded-xl px-3 py-2 text-sm text-black bg-white outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all cursor-pointer";
@@ -190,12 +217,31 @@ export default function ApplicantTable({
         <table className="w-full">
           <thead>
             <tr className="border-b border-border bg-bg">
-              {TABLE_HEADERS.map((h) => (
+              {TABLE_HEADERS.map(({ label, key }) => (
                 <th
-                  key={h}
-                  className="text-left px-5 py-3 text-[10px] font-bold text-muted tracking-widest uppercase"
+                  key={label}
+                  onClick={() => handleSort(key)}
+                  className="text-left px-5 py-3 text-[10px] font-bold text-muted tracking-widest uppercase cursor-pointer select-none hover:text-black transition-colors group"
                 >
-                  {h}
+                  <div className="flex items-center gap-1.5">
+                    {label}
+                    <span className="flex flex-col gap-px opacity-40 group-hover:opacity-100 transition-opacity">
+                      <svg
+                        className={`w-2 h-2 ${sortKey === key && sortDir === "asc" ? "text-primary opacity-100" : ""}`}
+                        viewBox="0 0 8 5"
+                        fill="currentColor"
+                      >
+                        <path d="M4 0L8 5H0L4 0Z" />
+                      </svg>
+                      <svg
+                        className={`w-2 h-2 ${sortKey === key && sortDir === "desc" ? "text-primary opacity-100" : ""}`}
+                        viewBox="0 0 8 5"
+                        fill="currentColor"
+                      >
+                        <path d="M4 5L0 0H8L4 5Z" />
+                      </svg>
+                    </span>
+                  </div>
                 </th>
               ))}
             </tr>

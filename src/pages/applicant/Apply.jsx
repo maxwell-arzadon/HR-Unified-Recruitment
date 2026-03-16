@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { jobs } from "../data/jobs";
-import Navbar from "../components/layout/Navbar";
-import Stepper from "../components/shared/Stepper";
-import JobBadge from "../components/shared/JobBadge";
-import LocationBadge from "../components/shared/LocationBadge";
-import Step1BasicInfo from "../components/apply/Step1BasicInfo";
-import Step2Assessment from "../components/apply/Step2Assessment";
-import Step3AppForm from "../components/apply/Step3AppForm";
-import SuccessScreen from "../components/apply/SuccessScreen";
+import { jobs } from "../../data/jobs";
+import Navbar from "../../components/applicant/layout/Navbar";
+import Stepper from "../../components/applicant/shared/Stepper";
+import JobBadge from "../../components/applicant/shared/JobBadge";
+import LocationBadge from "../../components/applicant/shared/LocationBadge";
+import Step1BasicInfo from "../../components/applicant/apply/Step1BasicInfo";
+import Step2Assessment from "../../components/applicant/apply/Step2Assessment";
+import Step3AppForm from "../../components/applicant/apply/Step3AppForm";
+import SuccessScreen from "../../components/applicant/apply/SuccessScreen";
 
 export default function Apply() {
   const { id } = useParams();

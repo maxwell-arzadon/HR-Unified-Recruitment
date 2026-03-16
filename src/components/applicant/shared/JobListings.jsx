@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { CaretDown } from "@phosphor-icons/react";
-import { jobs } from "../../data/jobs";
+import { jobs } from "../../../data/jobs";
 import JobCard from "./JobCard";
 
 const tabs = ["All", "Full Time", "Freelance", "Language"];
@@ -28,7 +28,7 @@ export default function JobListings({
     <section className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 md:px-16 lg:px-[80px] py-10">
       {/* Toolbar */}
       <div className="flex items-center justify-between gap-4 flex-wrap mb-3">
-        <div className="flex items-center gap-1">
+        <div className="flex flex-wrap items-center gap-1">
           {tabs.map((tab) => {
             const count =
               tab === "All"
@@ -61,7 +61,7 @@ export default function JobListings({
             <select
               value={location}
               onChange={(e) => setLocation(e.target.value)}
-              className="appearance-none bg-white border border-border rounded-xl px-4 py-2 pr-9 text-sm font-medium text-black outline-none cursor-pointer hover:border-zinc-300 transition-colors"
+              className="appearance-none bg-white border border-border rounded-xl px-4 py-2 pr-9 text-sm font-medium text-black outline-none cursor-pointer hover:border-zinc-300"
             >
               {locations.map((l) => (
                 <option key={l}>{l}</option>

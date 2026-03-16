@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { jobs } from "../data/jobs";
-import Navbar from "../components/layout/Navbar";
-import JobBadge from "../components/shared/JobBadge";
-import LocationBadge from "../components/shared/LocationBadge";
-import BeforeYouApply from "../components/shared/BeforeYouApply";
+import { jobs } from "../../data/jobs";
+import Navbar from "../../components/applicant/layout/Navbar";
+import JobBadge from "../../components/applicant/shared/JobBadge";
+import LocationBadge from "../../components/applicant/shared/LocationBadge";
+import BeforeYouApply from "../../components/applicant/shared/BeforeYouApply";
 import {
   EnvelopeSimple,
   Headset,
@@ -51,7 +51,7 @@ export default function JobDetail() {
     return <div className="p-10 text-center text-zinc-400">Job not found.</div>;
 
   return (
-    <div className="bg-bg min-h-screen">
+    <div className="bg-bg min-h-screen w-full overflow-x-hidden">
       {/* Sticky floating navbar */}
       <div className="sticky top-0 z-50 bg-transparent pointer-events-none">
         <div className="max-w-[1440px] mx-auto px-6 sm:px-10 md:px-16 lg:px-[80px] pt-4 pointer-events-auto">
@@ -59,9 +59,9 @@ export default function JobDetail() {
         </div>
       </div>
 
-      <div className="max-w-[1440px] mx-auto px-6 sm:px-10 md:px-16 lg:px-[80px] py-8">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-10 md:px-16 lg:px-[80px] py-6 sm:py-8">
         {/* Breadcrumb */}
-        <div className="flex items-center gap-2 text-sm mb-8">
+        <div className="flex flex-wrap items-center gap-2 text-sm mb-5 sm:mb-8">
           <span
             onClick={() => navigate("/")}
             className="text-zinc-400 hover:text-black cursor-pointer transition-colors"
@@ -75,13 +75,13 @@ export default function JobDetail() {
         </div>
 
         {/* Main content + sidebar */}
-        <div className="flex flex-col lg:flex-row gap-8 items-start">
+        <div className="flex flex-col lg:flex-row gap-5 lg:gap-8 items-start w-full">
           {/* Left — main content */}
-          <div className="flex-1 bg-white border border-border rounded-2xl p-8 min-w-0">
+          <div className="w-full flex-1 bg-white border border-border rounded-2xl p-5 sm:p-8 min-w-0">
             {/* Job header */}
-            <div className="flex items-start gap-4 mb-6">
+            <div className="flex items-start gap-3 mb-6">
               <div
-                className={`w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0 ${iconColors[job.type]}`}
+                className={`w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center flex-shrink-0 ${iconColors[job.type]}`}
               >
                 {iconMap[job.icon]}
               </div>
@@ -100,12 +100,12 @@ export default function JobDetail() {
             </div>
 
             {/* Tabs */}
-            <div className="flex items-center gap-0 border-b border-border mb-6">
+            <div className="flex items-center gap-0 border-b border-border mb-6 overflow-x-auto scrollbar-none">
               {tabs.map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
-                  className={`px-4 py-3 text-sm font-semibold font-jakarta transition-colors border-b-2 -mb-px
+                  className={`px-4 py-3 text-sm font-semibold font-jakarta transition-colors border-b-2 -mb-px whitespace-nowrap flex-shrink-0
                     ${
                       activeTab === tab
                         ? "text-primary border-primary"
@@ -173,7 +173,7 @@ export default function JobDetail() {
           </div>
 
           {/* Right — sidebar */}
-          <div className="w-full lg:w-72 flex flex-col gap-4 flex-shrink-0">
+          <div className="w-full lg:w-72 flex flex-col sm:flex-row lg:flex-col gap-4 flex-shrink-0">
             {/* Job Overview card */}
             <div className="bg-white border border-border rounded-2xl p-6">
               <h3 className="font-jakarta font-bold text-black text-base mb-5">

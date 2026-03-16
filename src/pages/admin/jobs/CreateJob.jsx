@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Bell, Plus, Trash, Check, CaretRight } from "@phosphor-icons/react";
+import PageHeader from "../../../components/admin/PageHeader";
+import AdminCard from "../../../components/admin/AdminCard";
+import { Plus, Trash, Check, CaretRight } from "@phosphor-icons/react";
 import {
   DEPARTMENTS,
   JOB_TYPE_OPTIONS,
@@ -59,17 +61,7 @@ export default function CreateJob() {
   return (
     <div className="p-8 min-h-screen">
       {/* Page Header */}
-      <div className="flex items-start justify-between mb-6">
-        <div>
-          <h1 className="font-jakarta font-bold text-2xl text-black">
-            Create Job
-          </h1>
-          <p className="text-sm text-muted mt-0.5">Add a new job posting</p>
-        </div>
-        <button className="w-10 h-10 rounded-xl border border-border flex items-center justify-center text-muted hover:text-black hover:border-primary/30 transition-all">
-          <Bell size={18} />
-        </button>
-      </div>
+      <PageHeader title="Create Job" subtitle="Add a new job posting" />
 
       {/* Breadcrumb */}
       <div className="flex items-center gap-2 text-sm mb-6">
@@ -88,7 +80,8 @@ export default function CreateJob() {
         {/* ── Left: Job Information ─────────────────────────────── */}
         <div className="flex-1 flex flex-col gap-5">
           {/* Job Information card */}
-          <div className="bg-white rounded-2xl border border-border p-6">
+          <AdminCard className="flex flex-col">
+            {" "}
             <h2 className="font-jakarta font-bold text-base text-black mb-5">
               Job Information
             </h2>
@@ -133,10 +126,11 @@ export default function CreateJob() {
                 />
               </div>
             </div>
-          </div>
+          </AdminCard>
 
           {/* Assessment Questions card */}
-          <div className="bg-white rounded-2xl border border-border p-6">
+          <AdminCard className="flex flex-col">
+            {" "}
             <div className="flex items-center justify-between mb-5">
               <h2 className="font-jakarta font-bold text-base text-black">
                 Assessment Questions
@@ -172,13 +166,14 @@ export default function CreateJob() {
                 </div>
               ))}
             </div>
-          </div>
+          </AdminCard>
         </div>
 
         {/* ── Right: Job Details + Process Settings ────────────── */}
         <div className="w-[280px] flex flex-col gap-5 flex-shrink-0">
           {/* Job Details card */}
-          <div className="bg-white rounded-2xl border border-border p-6">
+          <AdminCard className="flex flex-col">
+            {" "}
             <h2 className="font-jakarta font-bold text-base text-black mb-5">
               Job Details
             </h2>
@@ -226,10 +221,11 @@ export default function CreateJob() {
                 </select>
               </div>
             </div>
-          </div>
+          </AdminCard>
 
           {/* Process Settings card */}
-          <div className="bg-white rounded-2xl border border-border p-6">
+          <AdminCard className="flex flex-col">
+            {" "}
             <h2 className="font-jakarta font-bold text-base text-black mb-5">
               Process Settings
             </h2>
@@ -247,7 +243,7 @@ export default function CreateJob() {
                 </div>
               ))}
             </div>
-          </div>
+          </AdminCard>
         </div>
       </div>
 

@@ -20,36 +20,61 @@ export default function Stepper({ currentStep }) {
                 {/* Circle */}
                 <div
                   className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 border-2 transition-all
-                  ${isDone || isActive ? "gradient-bg border-transparent" : "border-zinc-300 bg-white"}`}
+                    ${
+                      isDone || isActive
+                        ? "gradient-bg border-transparent"
+                        : "border-zinc-300 bg-white"
+                    }`}
                 >
                   {isDone ? (
                     <Check size={14} weight="bold" className="text-white" />
                   ) : (
                     <span
-                      className={`text-sm font-bold font-jakarta ${isActive ? "text-white" : "text-zinc-400"}`}
+                      className={`text-sm font-bold font-jakarta ${
+                        isActive ? "text-white" : "text-zinc-400"
+                      }`}
                     >
                       {step.number}
                     </span>
                   )}
                 </div>
+
+                {/* Label — hidden on mobile, visible on sm+ */}
                 <span
-                  className={`text-sm font-semibold font-jakarta ${isActive || isDone ? "text-black" : "text-zinc-400"}`}
+                  className={`hidden sm:block text-sm font-semibold font-jakarta ${
+                    isActive || isDone ? "text-black" : "text-zinc-400"
+                  }`}
                 >
                   {step.label}
                 </span>
               </div>
+
+              {/* Sub label — hidden on mobile, visible on sm+ */}
               <p
-                className={`text-xs ml-10 ${isActive ? "font-bold text-black" : "text-zinc-400"}`}
+                className={`hidden sm:block text-xs ml-10 ${
+                  isActive ? "font-bold text-black" : "text-zinc-400"
+                }`}
+              >
+                {step.sub}
+              </p>
+
+              {/* Mobile: show only sub label below circle, no ml offset */}
+              <p
+                className={`block sm:hidden text-[10px] text-center w-8 ${
+                  isActive ? "font-bold text-black" : "text-zinc-400"
+                }`}
               >
                 {step.sub}
               </p>
             </div>
 
-            {/* Connector */}
+            {/* Connector line */}
             {i < steps.length - 1 && (
-              <div className="flex-1 mt-4 mx-3">
+              <div className="flex-1 mt-4 mx-2 sm:mx-3">
                 <div
-                  className={`h-px w-full ${isDone ? "bg-primary" : "bg-zinc-200"}`}
+                  className={`h-px w-full ${
+                    isDone ? "bg-primary" : "bg-zinc-200"
+                  }`}
                 />
               </div>
             )}
