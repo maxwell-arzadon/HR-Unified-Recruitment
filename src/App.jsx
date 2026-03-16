@@ -13,10 +13,12 @@ const ProtectedRoute = ({ children }) => {
 export default function App() {
   return (
     <Routes>
+      {/* Applicant-facing routes */}
       <Route path="/" element={<Landing />} />
       <Route path="/jobs/:id" element={<JobDetail />} />
       <Route path="/apply/:id" element={<Apply />} />
 
+      {/* Admin routes */}
       <Route path="/admin/login" element={<AdminLogin />} />
       <Route
         path="/admin/*"

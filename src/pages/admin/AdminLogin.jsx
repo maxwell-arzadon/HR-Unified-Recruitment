@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { EnvelopeSimple, Lock, Eye, EyeSlash } from "@phosphor-icons/react";
 
-// Hardcoded admin credentials for frontend-only
+// ADMIN CREDENTIALS
 const ADMIN_EMAIL = "admin@recruitmentcenter.com";
 const ADMIN_PASSWORD = "admin123";
 

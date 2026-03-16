@@ -60,7 +60,7 @@ export default function Navbar({ searchQuery = "", setSearchQuery }) {
   };
 
   return (
-    <nav className="bg-white rounded-2xl px-6 py-3 flex items-center justify-between gap-4 shadow-sm">
+    <nav className="bg-white rounded-full px-6 py-3 flex items-center justify-between gap-4 shadow-sm">
       {/* Logo */}
       <div
         className="flex items-center gap-2 flex-shrink-0 cursor-pointer"
