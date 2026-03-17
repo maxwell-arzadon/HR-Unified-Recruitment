@@ -85,7 +85,7 @@ export default function Hero() {
                   }}
                   className="border border-white/40 hover:border-white text-white font-semibold font-jakarta text-sm px-6 py-3 rounded-full"
                 >
-                  View Openings
+                  Contact Us
                 </button>
               </div>
 
