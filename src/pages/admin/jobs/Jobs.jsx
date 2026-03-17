@@ -1,3 +1,10 @@
+/**
+ * Jobs.jsx
+ * Lists all job postings in a searchable, filterable table.
+ * Supports toggling job active status, navigating to
+ * job applicants, and creating new job postings.
+ */
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PageHeader from "../../../components/admin/PageHeader";

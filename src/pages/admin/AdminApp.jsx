@@ -1,3 +1,10 @@
+/**
+ * AdminApp.jsx
+ * Root layout for the admin panel.
+ * Handles protected routing, sidebar state (collapsed/mobile),
+ * and renders all admin sub-pages via nested React Router routes.
+ */
+
 import { useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Sidebar from "../../components/admin/Sidebar";

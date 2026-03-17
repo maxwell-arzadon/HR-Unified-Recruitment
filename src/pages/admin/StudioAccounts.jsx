@@ -1,3 +1,10 @@
+/**
+ * StudioAccounts.jsx
+ * Manages studio account assignments in a two-panel layout.
+ * Left panel lists studio accounts; right panel shows
+ * applicants assigned to the selected account.
+ */
+
 import { useState } from "react";
 import PageHeader from "../../components/admin/PageHeader";
 import {

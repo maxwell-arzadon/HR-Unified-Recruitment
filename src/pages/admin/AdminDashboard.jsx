@@ -1,3 +1,10 @@
+/**
+ * AdminDashboard.jsx
+ * Main dashboard page for the admin panel.
+ * Displays recruitment pipeline stats, application sources,
+ * bar chart statistics, and overall completion rate arc.
+ */
+
 import { useState } from "react";
 import PageHeader from "../../components/admin/PageHeader";
 import AdminCard from "../../components/admin/AdminCard";

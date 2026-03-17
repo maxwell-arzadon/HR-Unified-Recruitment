@@ -1,3 +1,10 @@
+/**
+ * AdminLogin.jsx
+ * Login page for admin access.
+ * Validates hardcoded admin credentials and sets
+ * localStorage auth token on successful login.
+ */
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { EnvelopeSimple, Lock, Eye, EyeSlash } from "@phosphor-icons/react";

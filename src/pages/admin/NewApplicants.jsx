@@ -1,3 +1,10 @@
+/**
+ * NewApplicants.jsx
+ * Displays incoming applicants in a filterable, sortable table.
+ * Clicking a row opens the ApplicantDrawer with full applicant details,
+ * assessment scores, and interview scheduling.
+ */
+
 import { useState } from "react";
 import PageHeader from "../../components/admin/PageHeader";
 import ApplicantTable from "../../components/admin/applicants/ApplicantTable";

@@ -1,3 +1,10 @@
+/**
+ * JobDetail.jsx
+ * Detailed view of a single job posting.
+ * Shows job overview, description, system requirements,
+ * FAQ tabs, and a sidebar with application CTA.
+ */
+
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { jobs } from "../../data/jobs_applicant";

@@ -1,3 +1,10 @@
+/**
+ * JobApplicants.jsx
+ * Displays applicants filtered by a specific job posting.
+ * Linked from the Jobs list via job ID in the URL params.
+ * Reuses ApplicantTable and ApplicantDrawer components.
+ */
+
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import PageHeader from "../../../components/admin/PageHeader";

@@ -1,3 +1,10 @@
+/**
+ * Trainees.jsx
+ * Displays applicants currently in trainee status.
+ * Uses the shared ApplicantTable and ApplicantDrawer
+ * with the "trainee" variant for status updates.
+ */
+
 import { useState } from "react";
 import PageHeader from "../../components/admin/PageHeader";
 import ApplicantTable from "../../components/admin/applicants/ApplicantTable";

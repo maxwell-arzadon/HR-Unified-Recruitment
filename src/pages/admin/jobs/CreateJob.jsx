@@ -1,3 +1,10 @@
+/**
+ * CreateJob.jsx
+ * Form page for creating a new job posting.
+ * Includes job information, assessment questions,
+ * job details, and process settings configuration.
+ */
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PageHeader from "../../../components/admin/PageHeader";

@@ -1,3 +1,10 @@
+/**
+ * Calendar.jsx
+ * Interview calendar page for the admin panel.
+ * Renders a monthly grid view of scheduled interviews,
+ * a day detail panel, and a notes section.
+ */
+
 import { useState } from "react";
 import { CaretLeft, CaretRight } from "@phosphor-icons/react";
 import { INTERVIEWS, CHIP_COLORS } from "../../data/calendar";

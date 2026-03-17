@@ -1,3 +1,10 @@
+/**
+ * Apply.jsx
+ * Multi-step application form for job seekers.
+ * Steps: Basic Information → Assessment Test → Application Form.
+ * Manages step navigation and form state across all steps.
+ */
+
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { jobs } from "../../data/jobs_applicant";

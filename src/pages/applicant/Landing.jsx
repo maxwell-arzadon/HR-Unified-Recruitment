@@ -1,3 +1,10 @@
+/**
+ * Landing.jsx
+ * Public landing page for job seekers.
+ * Displays the hero section, job category cards,
+ * job listings, and footer CTA.
+ */
+
 import { useState } from "react";
 import Navbar from "../../components/applicant/layout/Navbar";
 import Hero from "../../components/applicant/layout/Hero";
