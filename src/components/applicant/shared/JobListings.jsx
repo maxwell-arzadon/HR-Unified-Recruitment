@@ -63,7 +63,7 @@ export default function JobListings({
 
         {/* Location filter */}
         <div className="flex items-center gap-3">
-          <span className="text-sm text-zinc-400 font-medium">Job Type</span>
+          <span className="text-sm text-zinc-400 font-medium">Work Setup</span>
           <div className="relative">
             <select
               value={location}
