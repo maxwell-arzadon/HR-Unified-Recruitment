@@ -1,3 +1,9 @@
+/**
+ * CategoryCards.jsx
+ * Displays job category cards on the landing page.
+ * Each card represents a job type with a count of open positions.
+ */
+
 import { Briefcase, Laptop, Translate } from "@phosphor-icons/react";
 
 const categories = [

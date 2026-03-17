@@ -1,3 +1,11 @@
+/**
+ * ApplicantDrawer.jsx
+ * Reusable slide-in drawer for viewing applicant details.
+ * Supports two variants:
+ * - "new"     → tabbed layout (Overview, Assessment, Schedule)
+ * - "trainee" → single view (Update Status, Test Scores, Details)
+ */
+
 import { useState } from "react";
 import { X, CalendarBlank, Check } from "@phosphor-icons/react";
 import { StatusBadge } from "./StatusBadge";

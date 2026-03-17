@@ -1,3 +1,10 @@
+/**
+ * AssessmentQuestions.jsx
+ * First section of the assessment step.
+ * Displays a set of multiple choice or open-ended questions
+ * that the applicant must answer before proceeding.
+ */
+
 import { useState } from "react";
 
 const questions = [

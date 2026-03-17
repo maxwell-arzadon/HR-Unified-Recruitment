@@ -1,3 +1,10 @@
+/**
+ * SkillsTab.jsx
+ * Skills and language proficiency tab within the application form.
+ * Supports dynamic skill tag input and multiple language
+ * entries with spoken and written proficiency levels.
+ */
+
 import { useState, useRef } from "react";
 import { CaretDown, X } from "@phosphor-icons/react";
 

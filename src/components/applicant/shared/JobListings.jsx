@@ -1,3 +1,9 @@
+/**
+ * JobListings.jsx
+ * Renders the full list of available job postings on the landing page.
+ * Supports search filtering and displays jobs grouped or listed by type.
+ */
+
 import { useState } from "react";
 import { CaretDown } from "@phosphor-icons/react";
 import { jobs } from "../../../data/jobs_applicant";

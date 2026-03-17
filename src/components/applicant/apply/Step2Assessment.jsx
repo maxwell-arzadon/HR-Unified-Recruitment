@@ -1,3 +1,10 @@
+/**
+ * Step2Assessment.jsx
+ * Second step of the application form — assessment tests.
+ * Contains four tabbed sections: Assessment Questions,
+ * Grammar Test, Typing Test, and Essay Test.
+ */
+
 import { useState } from "react";
 import { Check } from "@phosphor-icons/react";
 import AssessmentQuestions from "./assessment/AssessmentQuestions";

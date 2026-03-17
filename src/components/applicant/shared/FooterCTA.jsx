@@ -1,3 +1,9 @@
+/**
+ * FooterCTA.jsx
+ * Footer call-to-action section on the landing page.
+ * Encourages applicants to browse openings or start their application.
+ */
+
 export default function FooterCTA() {
   return (
     <section

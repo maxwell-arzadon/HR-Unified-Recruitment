@@ -1,3 +1,10 @@
+/**
+ * PageHeader.jsx
+ * Shared page header for all admin pages.
+ * Displays the page title, subtitle, a notification bell,
+ * and a hamburger menu button visible on mobile/tablet.
+ */
+
 import { Bell, List } from "@phosphor-icons/react";
 
 export default function PageHeader({ title, subtitle, onMenuOpen }) {

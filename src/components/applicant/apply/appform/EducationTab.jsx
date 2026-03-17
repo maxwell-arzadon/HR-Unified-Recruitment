@@ -1,3 +1,10 @@
+/**
+ * EducationTab.jsx
+ * Education background tab within the application form.
+ * Allows applicants to add multiple education entries with
+ * level, school, course, and year attended fields.
+ */
+
 import { useState } from "react";
 import { CaretDown, Trash } from "@phosphor-icons/react";
 

@@ -1,3 +1,9 @@
+/**
+ * SuccessScreen.jsx
+ * Confirmation screen shown after a successful application submission.
+ * Displays a success message and next steps for the applicant.
+ */
+
 import { useNavigate } from "react-router-dom";
 import { Check, House } from "@phosphor-icons/react";
 import JobBadge from "../shared/JobBadge";

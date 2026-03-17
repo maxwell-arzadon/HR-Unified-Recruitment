@@ -1,3 +1,10 @@
+/**
+ * SecurityTab.jsx
+ * Security information tab within the application form.
+ * Collects government ID numbers and other
+ * security-related applicant information.
+ */
+
 import { useState } from "react";
 import { ShieldCheck, WarningCircle, CaretDown } from "@phosphor-icons/react";
 

@@ -1,3 +1,10 @@
+/**
+ * TypingTest.jsx
+ * Typing speed and accuracy test within the assessment step.
+ * Tracks WPM, accuracy, and progress against a fixed passage
+ * within a 60-second countdown timer.
+ */
+
 import { useState, useEffect, useRef } from "react";
 
 const PASSAGE =

@@ -1,3 +1,10 @@
+/**
+ * EssayTest.jsx
+ * Essay writing test within the assessment step.
+ * Presents a prompt and a timed textarea for the applicant
+ * to compose their response within the allotted time.
+ */
+
 import { useState, useEffect, useRef } from "react";
 
 const DURATION = 25 * 60; // 25 minutes

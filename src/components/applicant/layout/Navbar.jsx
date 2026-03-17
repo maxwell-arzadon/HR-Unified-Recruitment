@@ -1,3 +1,10 @@
+/**
+ * Navbar.jsx
+ * Floating navigation bar for the applicant-facing pages.
+ * Includes logo, nav links, search input, and a responsive
+ * hamburger menu for mobile/tablet viewports.
+ */
+
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { List, X } from "@phosphor-icons/react";

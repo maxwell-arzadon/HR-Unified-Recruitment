@@ -1,3 +1,10 @@
+/**
+ * GrammarTest.jsx
+ * Grammar assessment within the assessment step.
+ * Presents multiple choice grammar questions and
+ * displays a score summary after submission.
+ */
+
 import { Check, X } from "@phosphor-icons/react";
 
 const questions = [

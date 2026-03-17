@@ -1,3 +1,10 @@
+/**
+ * WorksTab.jsx
+ * Work experience tab within the application form.
+ * Allows applicants to add multiple work history entries
+ * with company, position, and date range fields.
+ */
+
 import { useState, useRef } from "react";
 import { UploadSimple, Check, X } from "@phosphor-icons/react";
 

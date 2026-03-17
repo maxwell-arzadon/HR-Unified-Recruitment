@@ -1,3 +1,10 @@
+/**
+ * Stepper.jsx
+ * Multi-step progress indicator for the application form.
+ * Shows three steps with active, completed, and upcoming states.
+ * Responsive — hides labels on mobile, shows only step numbers.
+ */
+
 import { Check } from "@phosphor-icons/react";
 
 const steps = [

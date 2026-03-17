@@ -1,3 +1,9 @@
+/**
+ * JobBadge.jsx
+ * Colored badge indicating the job type (Full Time, Freelance, Language).
+ * Used across job cards, job detail pages, and applicant tables.
+ */
+
 export default function JobBadge({ type }) {
   const styles = {
     "Full Time": "bg-red-50 text-primary",

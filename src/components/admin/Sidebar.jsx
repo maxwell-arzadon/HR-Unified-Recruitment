@@ -1,3 +1,10 @@
+/**
+ * Sidebar.jsx
+ * Main navigation sidebar for the admin panel.
+ * Supports collapsible desktop mode and a slide-in overlay for mobile.
+ * Contains nav links, collapsible Applicants submenu, and admin profile.
+ */
+
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import {

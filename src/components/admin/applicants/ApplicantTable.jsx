@@ -1,3 +1,10 @@
+/**
+ * ApplicantTable.jsx
+ * Reusable filterable, sortable, paginated table for applicants.
+ * Supports search, job type/status/source filters, date range,
+ * and an optional period filter for job-specific views.
+ */
+
 import { useState } from "react";
 import { MagnifyingGlass, Funnel } from "@phosphor-icons/react";
 import { JobTypeBadge, StatusBadge } from "./StatusBadge";

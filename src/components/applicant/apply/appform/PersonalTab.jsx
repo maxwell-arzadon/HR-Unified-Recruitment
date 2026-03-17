@@ -1,3 +1,10 @@
+/**
+ * PersonalTab.jsx
+ * Personal information tab within the application form.
+ * Collects name, birthday, gender, nationality, address,
+ * and contact details with inline field validation.
+ */
+
 import { useState } from "react";
 import { CaretDown, WarningCircle } from "@phosphor-icons/react";
 

@@ -1,3 +1,10 @@
+/**
+ * BeforeYouApply.jsx
+ * Modal shown before an applicant starts the application form.
+ * Displays requirements and instructions the applicant
+ * should be aware of before proceeding.
+ */
+
 import { useState } from "react";
 import { ShieldCheck, X } from "@phosphor-icons/react";
 import { useNavigate } from "react-router-dom";

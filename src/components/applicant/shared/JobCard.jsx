@@ -1,3 +1,9 @@
+/**
+ * JobCard.jsx
+ * Card component displaying a single job listing.
+ * Shows job title, type, location, slots, and a link to the job detail page.
+ */
+
 import { useNavigate } from "react-router-dom";
 import JobBadge from "./JobBadge";
 import LocationBadge from "./LocationBadge";

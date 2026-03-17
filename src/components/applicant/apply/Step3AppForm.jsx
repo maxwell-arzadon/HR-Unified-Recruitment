@@ -1,3 +1,9 @@
+/**
+ * Step3AppForm.jsx
+ * Third and final step of the application form.
+ * Collects detailed applicant information before submission.
+ */
+
 import { useState } from "react";
 import PersonalTab from "./appform/PersonalTab";
 import EducationTab from "./appform/EducationTab";

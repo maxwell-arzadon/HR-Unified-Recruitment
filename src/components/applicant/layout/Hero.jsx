@@ -1,3 +1,10 @@
+/**
+ * Hero.jsx
+ * Landing page hero section.
+ * Displays the headline, CTA buttons, auto-scrolling category pills,
+ * and a dynamic stats card pulled from the jobs data.
+ */
+
 const stats = [
   { value: "24", label: "Open Positions", color: "text-primary" },
   { value: "3", label: "Job Categories", color: "text-accent" },

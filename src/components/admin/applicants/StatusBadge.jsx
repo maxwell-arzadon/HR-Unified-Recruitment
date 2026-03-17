@@ -1,4 +1,9 @@
-// Reusable colored pill badge for Job Type and Status columns
+/**
+ * StatusBadge.jsx
+ * Reusable colored pill badge components for applicant tables.
+ * Exports JobTypeBadge and StatusBadge with color-coded styles
+ * based on job type (Full Time, Freelance) and status (Interview, Passed, etc.).
+ */
 
 const JOB_TYPE_STYLES = {
   "Full Time": "text-primary border border-primary/40 bg-primary/5",

@@ -1,3 +1,9 @@
+/**
+ * AdminCard.jsx
+ * Reusable white card container used across all admin pages.
+ * Accepts an optional className prop for additional Tailwind utilities.
+ */
+
 export default function AdminCard({ children, className = "" }) {
   return (
     <div

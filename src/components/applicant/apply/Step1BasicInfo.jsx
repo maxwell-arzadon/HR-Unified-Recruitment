@@ -1,3 +1,10 @@
+/**
+ * Step1BasicInfo.jsx
+ * First step of the application form.
+ * Collects the applicant's basic personal information
+ * before proceeding to the assessment step.
+ */
+
 import { useState } from "react";
 import { CaretDown, WarningCircle } from "@phosphor-icons/react";
 import { ArrowRight } from "@phosphor-icons/react";
