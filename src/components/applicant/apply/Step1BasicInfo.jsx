@@ -281,7 +281,7 @@ export default function Step1BasicInfo({ onNext }) {
         <div className="flex justify-end mt-2">
           <button
             onClick={handleNext}
-            className="gradient-bg hover:opacity-90 text-white font-semibold font-jakarta text-sm px-8 py-3 rounded-full flex items-center gap-2 transition-opacity"
+            className="w-full justify-center gradient-bg hover:opacity-90 text-white font-semibold font-jakarta text-sm px-8 py-3 rounded-full flex items-center gap-2 transition-opacity"
           >
             Next: Assessment Test
             <ArrowRight size={16} weight="bold" className="text-white" />

@@ -17,17 +17,18 @@ export default function Step2Assessment({ onNext, onBack }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [typingStarted, setTypingStarted] = useState(false);
   const [essayStarted, setEssayStarted] = useState(false);
+  const [typingDone, setTypingDone] = useState(false);
 
   // Lifted grammar state
   const [grammarAnswers, setGrammarAnswers] = useState({});
   const [grammarChecked, setGrammarChecked] = useState(false);
 
   const isTimerActive =
-    (activeIndex === 2 && typingStarted) || (activeIndex === 3 && essayStarted);
-
-  const showBackButton = !isTimerActive;
+    (activeIndex === 2 && typingStarted && !typingDone) ||
+    (activeIndex === 3 && essayStarted);
 
   const handleNext = () => {
+    if (activeIndex === 2) setTypingDone(false); // reset on leaving typing tab
     if (activeIndex < tabs.length - 1) setActiveIndex((i) => i + 1);
     else onNext();
   };
@@ -83,7 +84,10 @@ export default function Step2Assessment({ onNext, onBack }) {
           />
         )}
         {activeIndex === 2 && (
-          <TypingTest onStart={() => setTypingStarted(true)} />
+          <TypingTest
+            onStart={() => setTypingStarted(true)}
+            onFinish={() => setTypingDone(true)}
+          />
         )}
         {activeIndex === 3 && (
           <EssayTest onStart={() => setEssayStarted(true)} />

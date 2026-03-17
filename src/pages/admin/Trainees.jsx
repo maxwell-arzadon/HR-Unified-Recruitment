@@ -4,7 +4,7 @@ import ApplicantTable from "../../components/admin/applicants/ApplicantTable";
 import ApplicantDrawer from "../../components/admin/applicants/ApplicantDrawer";
 import { TRAINEES, TRAINEE_STATUSES } from "../../data/applicants";
 
-export default function Trainees() {
+export default function Trainees({ onMenuOpen }) {
   const [selectedApplicant, setSelectedApplicant] = useState(null);
 
   return (
@@ -13,6 +13,7 @@ export default function Trainees() {
       <PageHeader
         title="Trainees"
         subtitle="Applicants currently in trainee status"
+        onMenuOpen={onMenuOpen}
       />
 
       {/* Table — pass trainee-specific statuses for the filter dropdown */}
@@ -22,7 +23,6 @@ export default function Trainees() {
         onRowClick={(applicant) => setSelectedApplicant(applicant)}
       />
 
-      {/* Drawer — trainee variant */}
       {selectedApplicant && (
         <ApplicantDrawer
           applicant={selectedApplicant}

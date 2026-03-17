@@ -27,6 +27,7 @@ import {
   HourglassMedium,
   UserCheck,
   UserCircleMinus,
+  CaretDown,
 } from "@phosphor-icons/react";
 
 const ICONS = {
@@ -115,7 +116,7 @@ function ArcProgress({ percent = 45 }) {
   );
 }
 
-export default function AdminDashboard() {
+export default function AdminDashboard({ onMenuOpen }) {
   const [activeFilter, setActiveFilter] = useState("All");
   const [activeTime, setActiveTime] = useState("Weekly");
 
@@ -125,16 +126,17 @@ export default function AdminDashboard() {
       <PageHeader
         title="Dashboard"
         subtitle="Overview of your recruitment pipeline"
+        onMenuOpen={onMenuOpen}
       />
 
       {/* Filter Tabs + Time Toggle */}
-      <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
+      <div className="flex items-center justify-between mb-6 flex-wrap gap-3 overflow-x-auto scrollbar-none">
         <div className="flex items-center gap-1">
           {FILTER_TABS.map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveFilter(tab)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all text-nowrap ${
                 activeFilter === tab
                   ? "gradient-bg text-white shadow-sm"
                   : "text-muted hover:text-black"
@@ -163,7 +165,7 @@ export default function AdminDashboard() {
       </div>
 
       {/* Stat Cards */}
-      <div className="grid grid-cols-5 gap-4 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-5 gap-4 mb-6">
         {STAT_CARDS.map((card) => (
           <div
             key={card.label}
@@ -192,7 +194,7 @@ export default function AdminDashboard() {
       </div>
 
       {/* Row 2: Hiring Pipeline + Application Sources */}
-      <div className="grid grid-cols-2 gap-4 mb-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
         <AdminCard className="flex flex-col">
           {" "}
           <h3 className="font-jakarta font-bold text-base text-black mb-5">
@@ -246,49 +248,52 @@ export default function AdminDashboard() {
       </div>
 
       {/* Row 3: Application Statistics + Application Status */}
-      <div className="grid grid-cols-2 gap-4">
-        <AdminCard className="flex flex-col">
-          {" "}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 min-w-0">
+        <AdminCard className="flex flex-col min-w-0 w-full">
           <div className="flex items-center justify-between mb-6">
             <h3 className="font-jakarta font-bold text-base text-black">
               Application Statistics
             </h3>
             <button className="flex items-center gap-1.5 border border-border rounded-lg px-3 py-1.5 text-sm text-black font-medium hover:border-primary/40 transition-colors">
               Weekly
-              <svg
-                className="w-3.5 h-3.5"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-              >
-                <path d="M6 9l6 6 6-6" />
-              </svg>
+              <CaretDown size={12} className="text-muted" />
             </button>
           </div>
-          <ResponsiveContainer width="100%" height={220}>
-            <BarChart data={BAR_DATA} barCategoryGap="30%" barGap={2}>
-              <XAxis
-                dataKey="date"
-                tick={{ fontSize: 11, fill: "#897F8E" }}
-                axisLine={false}
-                tickLine={false}
-              />
-              <YAxis
-                tick={{ fontSize: 11, fill: "#897F8E" }}
-                axisLine={false}
-                tickLine={false}
-                ticks={[0, 2, 5, 7, 10]}
-              />
-              <Tooltip
-                content={<CustomTooltip />}
-                cursor={{ fill: "transparent" }}
-              />
-              <Bar dataKey="applied" fill="#FF4545" radius={[3, 3, 0, 0]} />
-              <Bar dataKey="interviewed" fill="#F17F33" radius={[3, 3, 0, 0]} />
-              <Bar dataKey="offered" fill="#16A34A" radius={[3, 3, 0, 0]} />
-            </BarChart>
-          </ResponsiveContainer>
+          <div style={{ width: "100%", minWidth: 0 }}>
+            <ResponsiveContainer width="100%" height={220}>
+              <BarChart
+                data={BAR_DATA}
+                barCategoryGap="20%"
+                barGap={1}
+                barSize={6}
+              >
+                <XAxis
+                  dataKey="date"
+                  tick={{ fontSize: 10, fill: "#897F8E" }}
+                  axisLine={false}
+                  tickLine={false}
+                  interval="preserveStartEnd"
+                />
+                <YAxis
+                  tick={{ fontSize: 11, fill: "#897F8E" }}
+                  axisLine={false}
+                  tickLine={false}
+                  ticks={[0, 2, 5, 7, 10]}
+                />
+                <Tooltip
+                  content={<CustomTooltip />}
+                  cursor={{ fill: "transparent" }}
+                />
+                <Bar dataKey="applied" fill="#FF4545" radius={[3, 3, 0, 0]} />
+                <Bar
+                  dataKey="interviewed"
+                  fill="#F17F33"
+                  radius={[3, 3, 0, 0]}
+                />
+                <Bar dataKey="offered" fill="#16A34A" radius={[3, 3, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
           <div className="flex items-center gap-5 mt-2 justify-center">
             {BAR_LEGEND.map((l) => (
               <div key={l.label} className="flex items-center gap-1.5">

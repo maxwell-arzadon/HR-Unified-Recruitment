@@ -10,20 +10,14 @@ import {
   PROCESS_SETTINGS,
 } from "../../../data/jobs_admin";
 
-// ─── Toggle Switch ─────────────────────────────────────────────────
+//Toggle Switch
 function Toggle({ active, onChange }) {
   return (
     <button
       onClick={onChange}
-      className={`relative w-11 h-6 rounded-full transition-colors duration-200 flex-shrink-0 ${
-        active ? "bg-success" : "bg-gray/40"
-      }`}
+      className={`toggle-track ${active ? "active" : "inactive"}`}
     >
-      <span
-        className={`absolute top-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform duration-200 ${
-          active ? "translate-x-5" : "translate-x-0.5"
-        }`}
-      />
+      <span className={`toggle-thumb ${active ? "active" : "inactive"}`} />
     </button>
   );
 }
@@ -31,7 +25,7 @@ function Toggle({ active, onChange }) {
 const inputClass =
   "w-full border border-border rounded-xl px-4 py-3 text-sm text-black placeholder-muted outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all bg-white";
 
-export default function CreateJob() {
+export default function CreateJob({ onMenuOpen }) {
   const navigate = useNavigate();
 
   const [title, setTitle] = useState("");
@@ -59,9 +53,13 @@ export default function CreateJob() {
   const toggleProcess = (key) => setProcess((p) => ({ ...p, [key]: !p[key] }));
 
   return (
-    <div className="p-8 min-h-screen">
+    <div className="px-4 sm:px-8 pt-6 pb-8 min-h-screen">
       {/* Page Header */}
-      <PageHeader title="Create Job" subtitle="Add a new job posting" />
+      <PageHeader
+        title="Create Job"
+        subtitle="Add a new job posting"
+        onMenuOpen={onMenuOpen}
+      />
 
       {/* Breadcrumb */}
       <div className="flex items-center gap-2 text-sm mb-6">
@@ -76,8 +74,8 @@ export default function CreateJob() {
       </div>
 
       {/* Two-column layout */}
-      <div className="flex gap-5 items-start">
-        {/* ── Left: Job Information ─────────────────────────────── */}
+      <div className="flex flex-col lg:flex-row gap-5 items-start">
+        {/*Job INfo */}
         <div className="flex-1 flex flex-col gap-5">
           {/* Job Information card */}
           <AdminCard className="flex flex-col">
@@ -145,9 +143,9 @@ export default function CreateJob() {
             </div>
             <div className="flex flex-col gap-3">
               {questions.map((q, i) => (
-                <div key={i} className="flex items-center gap-3">
+                <div key={i} className="flex items-center gap-2 sm:gap-3">
                   {/* Number badge */}
-                  <div className="w-7 h-7 rounded-full border-2 border-primary/30 text-primary flex items-center justify-center text-xs font-bold flex-shrink-0">
+                  <div className="hidden sm:flex w-7 h-7 rounded-full border-2 border-primary/30 text-primary items-center justify-center text-xs font-bold flex-shrink-0">
                     {i + 1}
                   </div>
                   <input
@@ -169,8 +167,8 @@ export default function CreateJob() {
           </AdminCard>
         </div>
 
-        {/* ── Right: Job Details + Process Settings ────────────── */}
-        <div className="w-[280px] flex flex-col gap-5 flex-shrink-0">
+        {/* Job Details + Process Settings */}
+        <div className="w-full lg:w-[280px] flex flex-col gap-5 flex-shrink-0">
           {/* Job Details card */}
           <AdminCard className="flex flex-col">
             {" "}
@@ -247,15 +245,14 @@ export default function CreateJob() {
         </div>
       </div>
 
-      {/* Bottom action bar */}
-      <div className="flex items-center gap-3 mt-5 bg-white rounded-2xl border border-border px-6 py-4">
+      <div className="flex flex-col sm:flex-row gap-3 mt-5 bg-white rounded-2xl border border-border px-6 py-4">
         <button
           onClick={() => navigate("/admin/jobs")}
-          className="flex-1 border border-border rounded-xl py-3 text-sm font-semibold text-black hover:border-primary/30 hover:text-primary transition-all"
+          className="w-full sm:w-auto sm:flex-1 border border-border rounded-xl py-3 px-6 text-sm font-semibold text-black hover:border-primary/30 hover:text-primary transition-all"
         >
           Cancel
         </button>
-        <button className="flex-1 gradient-bg text-white font-semibold font-jakarta text-sm py-3 rounded-xl flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+        <button className="w-full sm:w-auto sm:flex-1 gradient-bg text-white font-semibold font-jakarta text-sm py-3 px-6 rounded-xl flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
           <Check size={16} weight="bold" />
           Save Job Posting
         </button>

@@ -3,7 +3,8 @@ import { CaretLeft, CaretRight } from "@phosphor-icons/react";
 import { INTERVIEWS, CHIP_COLORS } from "../../data/calendar";
 import PageHeader from "../../components/admin/PageHeader";
 
-const DAYS_OF_WEEK = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const DAYS_OF_WEEK_FULL = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const DAYS_OF_WEEK_SHORT = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
 const MONTHS = [
   "January",
   "February",
@@ -31,7 +32,7 @@ function toKey(year, month, day) {
   return `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
 }
 
-// ─── Reschedule Dropdown ──────────────────────────────────────────
+// Reschedule dropdown component used in interview cards
 function RescheduleDropdown() {
   const [open, setOpen] = useState(false);
   const options = ["Reschedule", "Cancel", "Mark Done"];
@@ -69,7 +70,7 @@ function RescheduleDropdown() {
   );
 }
 
-export default function Calendar() {
+export default function Calendar({ onMenuOpen }) {
   const today = new Date();
   const [year, setYear] = useState(2020);
   const [month, setMonth] = useState(4); // May = 4
@@ -99,13 +100,12 @@ export default function Calendar() {
   const selectedKey = toKey(year, month, selectedDay);
   const selectedInterviews = INTERVIEWS[selectedKey] ?? [];
 
-  // Build calendar grid cells: nulls for empty leading slots, then day numbers
+  // Build calendar grid cells
   const cells = [
     ...Array(firstDaySlot).fill(null),
     ...Array.from({ length: daysInMonth }, (_, i) => i + 1),
   ];
 
-  // Pad to complete last row
   while (cells.length % 7 !== 0) cells.push(null);
 
   const rows = [];
@@ -116,19 +116,20 @@ export default function Calendar() {
   const VIEW_TABS = ["Month", "Week", "Day", "Today"];
 
   return (
-    <div className="p-8 min-h-screen">
+    <div className="px-4 sm:px-8 pt-6 pb-8 min-h-screen">
       {/* Page Header */}
       <PageHeader
         title="Interview Calendar"
         subtitle="Scheduled interviews and appointments"
+        onMenuOpen={onMenuOpen}
       />
 
       {/* Two-column layout */}
-      <div className="flex gap-5 items-start">
-        {/* ── Calendar ─────────────────────────────────────────── */}
-        <div className="flex-1 bg-white rounded-2xl border border-border overflow-hidden">
+      <div className="flex flex-col lg:flex-row gap-5 items-start">
+        {/* Calendar - Left panel */}
+        <div className="w-full flex-1 bg-white rounded-2xl border border-border overflow-hidden">
           {/* Calendar header */}
-          <div className="flex items-center justify-between px-5 py-4 border-b border-border">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between px-5 py-4 border-b border-border gap-3">
             {/* Month nav */}
             <div className="flex items-center gap-3">
               <button
@@ -149,7 +150,7 @@ export default function Calendar() {
             </div>
 
             {/* View toggle */}
-            <div className="flex items-center border border-border rounded-xl overflow-hidden">
+            <div className="flex items-center border border-border rounded-xl overflow-x-auto scrollbar-none">
               {VIEW_TABS.map((v) => (
                 <button
                   key={v}
@@ -168,12 +169,13 @@ export default function Calendar() {
 
           {/* Day-of-week headers */}
           <div className="grid grid-cols-7 border-b border-border">
-            {DAYS_OF_WEEK.map((d) => (
+            {DAYS_OF_WEEK_FULL.map((d, i) => (
               <div
                 key={d}
                 className="py-3 text-center text-xs font-semibold text-muted tracking-wide"
               >
-                {d}
+                <span className="hidden sm:block">{DAYS_OF_WEEK_FULL[i]}</span>
+                <span className="sm:hidden">{DAYS_OF_WEEK_SHORT[i]}</span>
               </div>
             ))}
           </div>
@@ -198,7 +200,7 @@ export default function Calendar() {
                     <div
                       key={ci}
                       onClick={() => day && setSelectedDay(day)}
-                      className={`min-h-[90px] p-2 border-r border-border last:border-r-0 flex flex-col gap-1 ${
+                      className={`min-h-[40px] sm:min-h-[90px] p-1 sm:p-2 border-r border-border last:border-r-0 flex flex-col gap-1 overflow-hidden  ${
                         day
                           ? "cursor-pointer hover:bg-bg transition-colors"
                           : ""
@@ -207,7 +209,7 @@ export default function Calendar() {
                       {day && (
                         <>
                           <span
-                            className={`text-sm font-medium w-6 h-6 flex items-center justify-center rounded-full ${
+                            className={`text-xs sm:text-sm font-medium w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center rounded-full ${
                               isToday
                                 ? "bg-primary text-white font-bold"
                                 : isSelected
@@ -220,7 +222,7 @@ export default function Calendar() {
                           {dayEvents.map((ev, ei) => (
                             <span
                               key={ev.id}
-                              className={`text-white text-[10px] font-semibold px-2 py-0.5 rounded-md truncate ${
+                              className={`text-white text-[9px] sm:text-[10px] font-semibold px-1 sm:px-2 py-0.5 rounded-md truncate w-full block ${
                                 CHIP_COLORS[ei % CHIP_COLORS.length]
                               }`}
                             >
@@ -237,60 +239,59 @@ export default function Calendar() {
           </div>
         </div>
 
-        {/* ── Day Panel ─────────────────────────────────────────── */}
-        {/* ── Day Panel ─────────────────────────────────────────── */}
-        <div className="w-[280px] flex-shrink-0 bg-white rounded-2xl border border-border overflow-hidden">
-          {/* Date header */}
-          <div className="px-5 py-4 border-b border-border">
-            <p className="font-jakarta font-bold text-base text-black">
-              {MONTHS[month]} {selectedDay}, {year}
-            </p>
-            <p className="text-xs text-muted mt-0.5">
-              {selectedInterviews.length} interview
-              {selectedInterviews.length !== 1 ? "s" : ""} scheduled
-            </p>
-          </div>
-
-          {/* Interview cards */}
-          <div className="px-5 py-4 flex flex-col gap-3 border-b border-border">
-            {selectedInterviews.length === 0 ? (
-              <p className="text-sm text-muted text-center py-4">
-                No interviews scheduled
+        {/*Right Panel*/}
+        <div className="w-full lg:w-[280px] flex-shrink-0">
+          <div className="bg-white rounded-2xl border border-border overflow-hidden">
+            {/* Date header */}
+            <div className="px-5 py-4 border-b border-border">
+              <p className="font-jakarta font-bold text-base text-black">
+                {MONTHS[month]} {selectedDay}, {year}
               </p>
-            ) : (
-              selectedInterviews.map((iv) => (
-                <div
-                  key={iv.id}
-                  className="border border-border rounded-2xl px-4 py-4 bg-bg"
-                >
-                  <p className="font-jakarta font-bold text-sm text-black">
-                    {iv.name}
-                  </p>
-                  <p className="text-xs text-muted mt-0.5">{iv.time}</p>
-                  <p className="text-xs text-muted mt-3">
-                    Interviewer:{" "}
-                    <span className="font-bold text-black">
-                      {iv.interviewer}
-                    </span>
-                  </p>
-                  <RescheduleDropdown />
-                </div>
-              ))
-            )}
-          </div>
-
-          {/* Notes */}
-          <div className="px-5 py-4">
-            <p className="text-[10px] font-bold tracking-widest text-muted uppercase mb-3">
-              Notes
-            </p>
-            <textarea
-              value={notes}
-              onChange={(e) => setNotes(e.target.value)}
-              placeholder="Add notes for today..."
-              rows={4}
-              className="w-full text-sm text-black placeholder-muted outline-none resize-none bg-transparent border border-border rounded-xl px-3 py-2.5 focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all"
-            />
+              <p className="text-xs text-muted mt-0.5">
+                {selectedInterviews.length} interview
+                {selectedInterviews.length !== 1 ? "s" : ""} scheduled
+              </p>
+            </div>
+            {/* Interview cards */}
+            <div className="px-5 py-4 flex flex-col gap-3 border-b border-border">
+              {selectedInterviews.length === 0 ? (
+                <p className="text-sm text-muted text-center py-4">
+                  No interviews scheduled
+                </p>
+              ) : (
+                selectedInterviews.map((iv) => (
+                  <div
+                    key={iv.id}
+                    className="border border-border rounded-2xl px-4 py-4 bg-bg"
+                  >
+                    <p className="font-jakarta font-bold text-sm text-black">
+                      {iv.name}
+                    </p>
+                    <p className="text-xs text-muted mt-0.5">{iv.time}</p>
+                    <p className="text-xs text-muted mt-3">
+                      Interviewer:{" "}
+                      <span className="font-bold text-black">
+                        {iv.interviewer}
+                      </span>
+                    </p>
+                    <RescheduleDropdown />
+                  </div>
+                ))
+              )}
+            </div>
+            {/* Notes */}
+            <div className="px-5 py-4">
+              <p className="text-[10px] font-bold tracking-widest text-muted uppercase mb-3">
+                Notes
+              </p>
+              <textarea
+                value={notes}
+                onChange={(e) => setNotes(e.target.value)}
+                placeholder="Add notes for today..."
+                rows={4}
+                className="w-full text-sm text-black placeholder-muted outline-none resize-none bg-transparent border border-border rounded-xl px-3 py-2.5 focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all"
+              />
+            </div>
           </div>
         </div>
       </div>

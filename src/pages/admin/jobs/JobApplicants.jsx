@@ -7,7 +7,7 @@ import ApplicantDrawer from "../../../components/admin/applicants/ApplicantDrawe
 import { JOBS } from "../../../data/jobs_admin";
 import { APPLICANTS } from "../../../data/applicants";
 
-export default function JobApplicants() {
+export default function JobApplicants({ onMenuOpen }) {
   const { id } = useParams();
   const navigate = useNavigate();
   const [selectedApplicant, setSelectedApplicant] = useState(null);
@@ -20,6 +20,7 @@ export default function JobApplicants() {
       <PageHeader
         title="Job Applicants"
         subtitle="Applicants filtered by position"
+        onMenuOpen={onMenuOpen}
       />
 
       {/* Breadcrumb */}

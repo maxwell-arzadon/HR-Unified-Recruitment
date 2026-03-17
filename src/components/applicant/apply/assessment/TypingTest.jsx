@@ -4,7 +4,7 @@ const PASSAGE =
   "Lorem ipsum dolor sit amet consectetur. Sed adipiscing imperdiet id magna magna lorem sed imperdiet. Ut arcu eget a aliquam molestie euismod pretium mus. In ultrices purus eget at adipiscing malesuada. A vivamus tempus habitant facilisis id integer in arcu.";
 const DURATION = 60;
 
-export default function TypingTest({ onStart }) {
+export default function TypingTest({ onStart, onFinish }) {
   const [timeLeft, setTimeLeft] = useState(DURATION);
   const [input, setInput] = useState("");
   const [started, setStarted] = useState(false);
@@ -19,6 +19,7 @@ export default function TypingTest({ onStart }) {
           if (t <= 1) {
             clearInterval(intervalRef.current);
             setFinished(true);
+            onFinish?.(); // ← notify parent
             return 0;
           }
           return t - 1;
@@ -133,7 +134,6 @@ export default function TypingTest({ onStart }) {
         )}
       </div>
 
-      {/* Hidden-ish input — visible but minimal */}
       <textarea
         ref={inputRef}
         rows={4}

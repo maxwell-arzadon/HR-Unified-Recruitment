@@ -11,7 +11,7 @@ import { JOBS, JOB_DEPT_TABS } from "../../../data/jobs_admin";
 
 const PAGE_SIZE = 8;
 
-// ─── Toggle Switch ────────────────────────────────────────────────
+//Toggle Switch
 function Toggle({ active, onChange }) {
   return (
     <button
@@ -26,14 +26,14 @@ function Toggle({ active, onChange }) {
   );
 }
 
-export default function Jobs() {
+export default function Jobs({ onMenuOpen }) {
   const navigate = useNavigate();
   const [jobs, setJobs] = useState(JOBS);
   const [activeTab, setActiveTab] = useState("All");
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
 
-  // ── Filter ────────────────────────────────────────────────────
+  //Filter
   const filtered = jobs.filter((j) => {
     const matchTab = activeTab === "All" || j.department === activeTab;
     const matchSearch = j.title.toLowerCase().includes(search.toLowerCase());
@@ -57,19 +57,23 @@ export default function Jobs() {
   return (
     <div className="p-8 min-h-screen">
       {/* Page Header */}
-      <PageHeader title="Jobs" subtitle="Manage all job postings" />
+      <PageHeader
+        title="Jobs"
+        subtitle="Manage all job postings"
+        onMenuOpen={onMenuOpen}
+      />
 
       {/* Table card */}
       <div className="bg-white rounded-2xl border border-border overflow-hidden">
         {/* Top bar */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-border flex-wrap gap-3">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-border flex-wrap gap-3 overflow-x-auto scrollbar-none">
           {/* Dept tabs */}
           <div className="flex items-center gap-1">
             {JOB_DEPT_TABS.map((tab) => (
               <button
                 key={tab}
                 onClick={() => handleTabChange(tab)}
-                className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all relative ${
+                className={`px-4 py-1.5 rounded-full text-sm text-nowrap font-medium transition-all relative ${
                   activeTab === tab
                     ? "text-primary font-semibold"
                     : "text-muted hover:text-black"
@@ -100,7 +104,7 @@ export default function Jobs() {
             </div>
             <button
               onClick={() => navigate("/admin/jobs/create")}
-              className="gradient-bg text-white font-semibold font-jakarta text-sm px-4 py-2 rounded-xl flex items-center gap-2 hover:opacity-90 transition-opacity"
+              className="gradient-bg text-white text-nowrap font-semibold font-jakarta text-sm px-4 py-2 rounded-xl flex items-center gap-2 hover:opacity-90 transition-opacity"
             >
               <span className="text-lg leading-none">+</span> New Job
             </button>

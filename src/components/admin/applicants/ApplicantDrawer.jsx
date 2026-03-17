@@ -7,7 +7,7 @@ import {
   TRAINEE_STATUS_OPTIONS,
 } from "../../../data/applicants";
 
-// ─── Shared: Hiring Stage Stepper ────────────────────────────────
+// Shared: Hiring Stage Stepper
 function HiringStepper({ currentStage }) {
   const currentIndex = HIRING_STAGES.indexOf(currentStage);
   return (
@@ -47,7 +47,7 @@ function HiringStepper({ currentStage }) {
   );
 }
 
-// ─── Shared: Section Label ────────────────────────────────────────
+//Section Label
 function SectionLabel({ children }) {
   return (
     <p className="text-[10px] font-bold tracking-widest text-muted uppercase mb-3">
@@ -56,7 +56,7 @@ function SectionLabel({ children }) {
   );
 }
 
-// ─── Shared: Test Scores Cards ────────────────────────────────────
+//Test Scores Cards
 function TestScores({ assessment }) {
   return (
     <div className="grid grid-cols-3 gap-3">
@@ -100,7 +100,7 @@ function TestScores({ assessment }) {
   );
 }
 
-// ─── Shared: Details Table ────────────────────────────────────────
+//Details Table
 function DetailsTable({ rows }) {
   return (
     <div className="border border-border rounded-xl overflow-hidden">
@@ -119,7 +119,7 @@ function DetailsTable({ rows }) {
   );
 }
 
-// ─── Shared: Bottom Action Bar ────────────────────────────────────
+//Shared: Bottom Action Bar
 function EditIcon() {
   return (
     <svg
@@ -150,7 +150,7 @@ function DeleteIcon() {
   );
 }
 
-// ─── VARIANT: New Applicant Content ──────────────────────────────
+//Applicant Content
 function NewApplicantContent({ applicant }) {
   const [activeTab, setActiveTab] = useState("Overview");
   const TABS = ["Overview", "Assessment", "Schedule"];
@@ -200,7 +200,7 @@ function NewApplicantContent({ applicant }) {
 
       {/* Tab Content */}
       <div className="flex-1 overflow-y-auto px-6 py-5 flex flex-col gap-6">
-        {/* ── Overview ── */}
+        {/*Overview */}
         {activeTab === "Overview" && (
           <>
             <div>
@@ -268,7 +268,7 @@ function NewApplicantContent({ applicant }) {
           </>
         )}
 
-        {/* ── Assessment ── */}
+        {/* Assessment*/}
         {activeTab === "Assessment" && (
           <>
             <div>
@@ -323,7 +323,7 @@ function NewApplicantContent({ applicant }) {
           </>
         )}
 
-        {/* ── Schedule ── */}
+        {/*Schedule*/}
         {activeTab === "Schedule" && (
           <>
             <div>
@@ -409,7 +409,7 @@ function NewApplicantContent({ applicant }) {
   );
 }
 
-// ─── VARIANT: Trainee Content ─────────────────────────────────────
+//Trainee Content
 function TraineeContent({ applicant }) {
   const [newStatus, setNewStatus] = useState("");
 
@@ -475,8 +475,7 @@ function TraineeContent({ applicant }) {
   );
 }
 
-// ─── Main Drawer Shell ────────────────────────────────────────────
-// variant: "new" | "trainee"  (default: "new")
+//Main Drawer Component
 export default function ApplicantDrawer({
   applicant,
   onClose,

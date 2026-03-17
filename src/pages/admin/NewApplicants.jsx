@@ -4,7 +4,7 @@ import ApplicantTable from "../../components/admin/applicants/ApplicantTable";
 import ApplicantDrawer from "../../components/admin/applicants/ApplicantDrawer";
 import { APPLICANTS } from "../../data/applicants";
 
-export default function NewApplicants() {
+export default function NewApplicants({ onMenuOpen }) {
   const [selectedApplicant, setSelectedApplicant] = useState(null);
 
   return (
@@ -13,6 +13,7 @@ export default function NewApplicants() {
       <PageHeader
         title="New Applicants"
         subtitle="Manage and review incoming applications"
+        onMenuOpen={onMenuOpen}
       />
 
       {/* Table */}

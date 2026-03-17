@@ -8,7 +8,7 @@ import {
   FILTER_TABS,
 } from "../../../data/applicants";
 
-// ── Constants (outside component, no hooks) ──────────────────────
+//Constants
 const TABLE_HEADERS = [
   { label: "DATE", key: "date" },
   { label: "NAME", key: "name" },
@@ -20,7 +20,6 @@ const TABLE_HEADERS = [
 
 const PAGE_SIZE = 8;
 
-// ── Component ─────────────────────────────────────────────────────
 export default function ApplicantTable({
   applicants,
   onRowClick,
@@ -43,7 +42,7 @@ export default function ApplicantTable({
   const [sortKey, setSortKey] = useState(null);
   const [sortDir, setSortDir] = useState("asc");
 
-  // ── Handlers ────────────────────────────────────────────────────
+  //Handlers
   const handleSort = (key) => {
     if (sortKey === key) {
       setSortDir((d) => (d === "asc" ? "desc" : "asc"));
@@ -58,7 +57,7 @@ export default function ApplicantTable({
     setPage(1);
   };
 
-  // ── Filtering ────────────────────────────────────────────────────
+  //Filtering
   const filtered = applicants.filter((a) => {
     const matchTab = activeTab === "All" || a.jobType === activeTab;
     const matchSearch =
@@ -73,7 +72,7 @@ export default function ApplicantTable({
     return matchTab && matchSearch && matchType && matchStatus && matchSource;
   });
 
-  // ── Sorting ──────────────────────────────────────────────────────
+  //Sorting
   const sorted = [...filtered].sort((a, b) => {
     if (!sortKey) return 0;
     const valA = a[sortKey]?.toString().toLowerCase() ?? "";
@@ -83,7 +82,7 @@ export default function ApplicantTable({
     return 0;
   });
 
-  // ── Pagination ────────────────────────────────────────────────────
+  //Pagination
   const totalPages = Math.max(1, Math.ceil(sorted.length / PAGE_SIZE));
   const paginated = sorted.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 
@@ -93,14 +92,14 @@ export default function ApplicantTable({
   return (
     <div className="bg-white rounded-2xl border border-border overflow-hidden">
       {/* Top bar: tabs + search + filter toggle */}
-      <div className="flex items-center justify-between px-5 py-4 border-b border-border flex-wrap gap-3">
+      <div className="flex items-center justify-between px-5 py-4 border-b border-border flex-wrap gap-3 overflow-x-auto scrollbar-none">
         {/* Filter tabs */}
         <div className="flex items-center gap-1">
           {FILTER_TABS.map((tab) => (
             <button
               key={tab}
               onClick={() => handleTabChange(tab)}
-              className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all relative ${
+              className={`px-4 py-1.5 rounded-full text-sm text-nowrap font-medium transition-all relative ${
                 activeTab === tab
                   ? "text-primary font-semibold"
                   : "text-muted hover:text-black"

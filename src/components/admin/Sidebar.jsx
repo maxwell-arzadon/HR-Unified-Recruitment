@@ -10,19 +10,11 @@ import {
   CaretDown,
   CaretLeft,
   CaretRight,
-  UserCirclePlus,
-  GraduationCap,
-  CheckCircle,
-  XCircle,
-  ProhibitInset,
+  X,
 } from "@phosphor-icons/react";
 
 const NAV = [
-  {
-    label: "Dashboard",
-    icon: SquaresFour,
-    to: "/admin/dashboard",
-  },
+  { label: "Dashboard", icon: SquaresFour, to: "/admin/dashboard" },
   {
     label: "Applicants",
     icon: Users,
@@ -48,7 +40,12 @@ const NAV = [
   { label: "Studio Accounts", icon: Star, to: "/admin/studio" },
 ];
 
-export default function Sidebar({ collapsed, onToggle }) {
+export default function Sidebar({
+  collapsed,
+  onToggle,
+  mobileOpen,
+  onMobileClose,
+}) {
   const navigate = useNavigate();
   const [applicantsOpen, setApplicantsOpen] = useState(false);
 
@@ -57,28 +54,80 @@ export default function Sidebar({ collapsed, onToggle }) {
     navigate("/admin/login");
   };
 
+  const handleNavClick = () => onMobileClose?.();
+
   const baseLinkClass =
     "flex items-center rounded-xl text-sm font-medium transition-all duration-150 w-full text-left";
   const activeClass = "bg-primary/10 text-primary font-semibold";
   const inactiveClass = "text-muted hover:bg-border hover:text-black";
+  const desktopWidth = collapsed ? "w-[72px]" : "w-[220px]";
+
+  const sharedProps = {
+    collapsed,
+    onToggle,
+    applicantsOpen,
+    setApplicantsOpen,
+    handleLogout,
+    onNavClick: handleNavClick,
+    baseLinkClass,
+    activeClass,
+    inactiveClass,
+    navigate,
+  };
 
   return (
-    <aside
-      className={` fixed top-0 left-0 h-screen bg-white border-r border-border flex flex-col z-30 transition-all duration-300 ${
-        collapsed ? "w-[72px]" : "w-[220px]"
-      }`}
-    >
+    <>
+      {/* ── Desktop Sidebar ───────────────────────────────────── */}
+      <aside
+        className={`hidden lg:flex fixed top-0 left-0 h-full min-h-screen bg-white border-r border-border flex-col z-30 transition-all duration-300 ${desktopWidth}`}
+      >
+        <SidebarContent {...sharedProps} showToggle={true} />
+      </aside>
+
+      {/* ── Mobile Overlay Sidebar ────────────────────────────── */}
+      <aside
+        className={`lg:hidden fixed top-0 left-0 h-full min-h-screen w-[280px] bg-white border-r border-border flex flex-col z-30 transition-transform duration-300 ${
+          mobileOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
+        <button
+          onClick={onMobileClose}
+          className="absolute top-4 right-4 w-8 h-8 rounded-lg hover:bg-border flex items-center justify-center text-muted hover:text-black transition-all"
+        >
+          <X size={16} weight="bold" />
+        </button>
+        <SidebarContent {...sharedProps} collapsed={false} showToggle={false} />
+      </aside>
+    </>
+  );
+}
+
+// ─── Shared Sidebar Content ───────────────────────────────────────
+function SidebarContent({
+  collapsed,
+  onToggle,
+  applicantsOpen,
+  setApplicantsOpen,
+  handleLogout,
+  onNavClick,
+  baseLinkClass,
+  activeClass,
+  inactiveClass,
+  navigate,
+  showToggle,
+}) {
+  return (
+    <>
+      {/* Logo */}
       <div
         className={`flex items-center border-b border-border ${
-          collapsed
-            ? "justify-center px-0 py-6" // centered, no side padding
-            : "gap-3 px-5 py-6" // normal layout
+          collapsed ? "justify-center px-0 py-6" : "gap-3 px-5 py-6"
         }`}
       >
         <img
           src="/logo.png"
           alt="RC"
-          className="h-9 w-9 object-contain flex-shrink-0" // fixed width prevents compression
+          className="h-9 w-9 object-contain flex-shrink-0"
         />
         {!collapsed && (
           <div className="font-jakarta font-bold text-sm leading-tight text-black">
@@ -88,33 +137,35 @@ export default function Sidebar({ collapsed, onToggle }) {
         )}
       </div>
 
-      {/* ── Floating toggle on sidebar edge ──────────────────── */}
-      <button
-        onClick={onToggle}
-        title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
-        className="absolute -right-3 top-[52px] w-6 h-6 rounded-full bg-white border border-border flex items-center justify-center text-muted hover:text-primary hover:border-primary/30 shadow-sm transition-all z-50"
-      >
-        {collapsed ? (
-          <CaretRight size={10} weight="bold" />
-        ) : (
-          <CaretLeft size={10} weight="bold" />
-        )}
-      </button>
-      {/* ── Nav ──────────────────────────────────────────────── */}
+      {/* Floating collapse toggle — desktop only */}
+      {showToggle && (
+        <button
+          onClick={onToggle}
+          title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+          className="absolute -right-3 top-[52px] w-6 h-6 rounded-full bg-white border border-border flex items-center justify-center text-muted hover:text-primary hover:border-primary/30 shadow-sm transition-all z-50"
+        >
+          {collapsed ? (
+            <CaretRight size={10} weight="bold" />
+          ) : (
+            <CaretLeft size={10} weight="bold" />
+          )}
+        </button>
+      )}
+
+      {/* Nav */}
       <nav className="flex-1 overflow-y-auto px-3 py-4 flex flex-col gap-0.5">
         {NAV.map((item) => {
-          // ── Collapsible group (Applicants) ──
+          // ── Collapsible group ──
           if (item.children) {
             return (
               <div key={item.label}>
                 <button
-                  onClick={
-                    () =>
-                      collapsed
-                        ? navigate("/admin/applicants/new") // collapsed: go directly
-                        : setApplicantsOpen((v) => !v) // expanded: toggle dropdown
+                  onClick={() =>
+                    collapsed
+                      ? navigate("/admin/applicants/new")
+                      : setApplicantsOpen((v) => !v)
                   }
-                  title={collapsed ? "Applicants" : undefined}
+                  title={collapsed ? item.label : undefined}
                   className={`${baseLinkClass} ${inactiveClass} ${
                     collapsed
                       ? "justify-center py-2.5"
@@ -141,7 +192,6 @@ export default function Sidebar({ collapsed, onToggle }) {
                   )}
                 </button>
 
-                {/* Sub-items — hidden entirely when collapsed */}
                 {!collapsed && (
                   <div
                     className={`overflow-hidden transition-all duration-200 ${
@@ -155,6 +205,7 @@ export default function Sidebar({ collapsed, onToggle }) {
                         <NavLink
                           key={child.to}
                           to={child.to}
+                          onClick={onNavClick}
                           className={({ isActive }) =>
                             `${baseLinkClass} gap-3 px-3 py-2.5 text-xs ${
                               isActive ? activeClass : inactiveClass
@@ -176,6 +227,7 @@ export default function Sidebar({ collapsed, onToggle }) {
             <NavLink
               key={item.to}
               to={item.to}
+              onClick={onNavClick}
               title={collapsed ? item.label : undefined}
               className={({ isActive }) =>
                 `${baseLinkClass} ${isActive ? activeClass : inactiveClass} ${
@@ -190,7 +242,7 @@ export default function Sidebar({ collapsed, onToggle }) {
         })}
       </nav>
 
-      {/* ── Admin Profile + Logout ────────────────────────────── */}
+      {/* Admin Profile + Logout */}
       <div className="border-t border-border px-4 py-4">
         <div
           className={`flex items-center mb-3 ${collapsed ? "justify-center" : "gap-3"}`}
@@ -216,6 +268,6 @@ export default function Sidebar({ collapsed, onToggle }) {
           {!collapsed && "Logout"}
         </button>
       </div>
-    </aside>
+    </>
   );
 }

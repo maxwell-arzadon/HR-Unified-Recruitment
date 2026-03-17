@@ -65,8 +65,7 @@ function ApplicantCard({ applicant }) {
   );
 }
 
-// ─── Page ─────────────────────────────────────────────────────────
-export default function StudioAccounts() {
+export default function StudioAccounts({ onMenuOpen }) {
   const [selectedId, setSelectedId] = useState(STUDIO_ACCOUNTS[0].id);
   const [saSearch, setSaSearch] = useState("");
   const [appSearch, setAppSearch] = useState("");
@@ -90,17 +89,18 @@ export default function StudioAccounts() {
       .toUpperCase();
 
   return (
-    <div className="p-8 min-h-screen">
+    <div className="px-4 sm:px-8 pt-6 pb-8 min-h-screen">
       {/* Page Header */}
       <PageHeader
         title="Studio Accounts"
         subtitle="Manage studio account assignments"
+        onMenuOpen={onMenuOpen}
       />
 
       {/* Two-column layout */}
-      <div className="flex gap-5 items-start">
-        {/* ── Left: Studio Accounts list ───────────────────────── */}
-        <div className="w-[340px] flex-shrink-0 bg-white rounded-2xl border border-border overflow-hidden">
+      <div className="flex flex-col lg:flex-row gap-5 items-start">
+        {/* Left: Studio Accounts list */}
+        <div className="w-full lg:w-[340px] flex-shrink-0 bg-white rounded-2xl border border-border overflow-hidden">
           <div className="px-5 py-4 border-b border-border">
             <h2 className="font-jakarta font-bold text-base text-black mb-3">
               Studio Accounts
@@ -152,10 +152,10 @@ export default function StudioAccounts() {
           </div>
         </div>
 
-        {/* ── Right: Applicants panel ───────────────────────────── */}
-        <div className="flex-1 bg-white rounded-2xl border border-border overflow-hidden">
+        {/* Right: Applicants panel*/}
+        <div className="w-full flex-1 bg-white rounded-2xl border border-border overflow-hidden">
           {/* Panel header */}
-          <div className="flex items-center justify-between px-5 py-4 border-b border-border">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between px-5 py-4 border-b border-border gap-3">
             <div>
               <h2 className="font-jakarta font-bold text-base text-black">
                 Applicants – {selectedSA?.name}
@@ -165,7 +165,7 @@ export default function StudioAccounts() {
               </p>
             </div>
             {/* Search applicants */}
-            <div className="flex items-center gap-2 border border-border rounded-xl px-3 py-2 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/10 transition-all w-52">
+            <div className="flex items-center gap-2 border border-border rounded-xl px-3 py-2 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/10 transition-all w-full sm:w-52">
               <MagnifyingGlass size={15} className="text-muted flex-shrink-0" />
               <input
                 type="text"
@@ -183,7 +183,7 @@ export default function StudioAccounts() {
                 No applicants assigned.
               </p>
             ) : (
-              <div className="grid grid-cols-2 gap-3 mb-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {filteredApplicants.map((a) => (
                   <ApplicantCard key={a.id} applicant={a} />
                 ))}
@@ -191,7 +191,7 @@ export default function StudioAccounts() {
             )}
 
             {/* Add Applicant button */}
-            <button className="w-full flex items-center justify-center gap-2 border border-border rounded-2xl py-4 text-sm font-semibold text-black hover:border-primary/30 hover:text-primary transition-all mt-2">
+            <button className="w-full flex items-center justify-center gap-2 border border-border rounded-2xl py-4 text-sm font-semibold text-black hover:border-primary/30 hover:text-primary transition-all mt-4">
               <Plus size={15} />
               Add Applicant to Account
             </button>
