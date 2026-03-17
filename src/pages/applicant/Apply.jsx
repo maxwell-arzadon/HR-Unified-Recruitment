@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { jobs } from "../../data/jobs";
+import { jobs } from "../../data/jobs_applicant";
 import Navbar from "../../components/applicant/layout/Navbar";
 import Stepper from "../../components/applicant/shared/Stepper";
 import JobBadge from "../../components/applicant/shared/JobBadge";

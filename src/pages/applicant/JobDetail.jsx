@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { jobs } from "../../data/jobs";
+import { jobs } from "../../data/jobs_applicant";
 import Navbar from "../../components/applicant/layout/Navbar";
 import JobBadge from "../../components/applicant/shared/JobBadge";
 import LocationBadge from "../../components/applicant/shared/LocationBadge";

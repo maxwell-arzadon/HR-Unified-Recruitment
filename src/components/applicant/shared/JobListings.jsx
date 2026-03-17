@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { CaretDown } from "@phosphor-icons/react";
-import { jobs } from "../../../data/jobs";
+import { jobs } from "../../../data/jobs_applicant";
 import JobCard from "./JobCard";
 
 const tabs = ["All", "Full Time", "Freelance", "Language"];
