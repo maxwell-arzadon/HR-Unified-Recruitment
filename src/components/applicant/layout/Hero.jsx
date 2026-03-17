@@ -38,7 +38,7 @@ export default function Hero() {
               {/* Now Hiring */}
               <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-white text-xs font-semibold px-4 py-1.5 rounded-full mb-6 backdrop-blur-sm">
                 <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                Now Hiring • 24 Open Positions
+                Now Hiring
               </div>
 
               {/* Headline */}
