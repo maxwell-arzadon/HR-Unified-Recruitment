@@ -26,6 +26,7 @@ import {
   Users,
   Clock,
   Check,
+  Money,
 } from "@phosphor-icons/react";
 
 const iconMap = {
@@ -45,8 +46,6 @@ const iconColors = {
   Language: "text-muted bg-[#F2EFF4]",
 };
 
-const tabs = ["Overview", "Description", "System Requirements", "FAQ"];
-
 export default function JobDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -56,6 +55,13 @@ export default function JobDetail() {
   const job = jobs.find((j) => j.id === Number(id));
   if (!job)
     return <div className="p-10 text-center text-zinc-400">Job not found.</div>;
+
+  const tabs = [
+    "Overview",
+    "Description",
+    ...(job.location === "Remote" ? ["System Requirements"] : []),
+    "FAQ",
+  ];
 
   return (
     <div className="bg-bg min-h-screen w-full overflow-x-hidden">
@@ -99,7 +105,7 @@ export default function JobDetail() {
                   <JobBadge type={job.type} />
                   <LocationBadge location={job.location} />
                   <span className="bg-green-50 text-green-600 text-xs font-bold px-3 py-1 rounded-full">
-                    {job.slots} slots
+                    {job.salary}
                   </span>
                 </div>
               </div>
@@ -206,6 +212,11 @@ export default function JobDetail() {
                     icon: <Clock size={20} className="text-primary" />,
                     label: "SCHEDULE",
                     value: job.schedule,
+                  },
+                  {
+                    icon: <Money size={20} className="text-primary" />,
+                    label: "SALARY",
+                    value: job.salary,
                   },
                 ].map(({ icon, label, value }) => (
                   <div key={label} className="flex items-center gap-3">

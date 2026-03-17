@@ -84,7 +84,6 @@ export default function WorksTab() {
   const [selectedHours, setSelectedHours] = useState("");
   const [isAdult, setIsAdult] = useState(false);
   const [resume, setResume] = useState(null);
-  const [nbi, setNbi] = useState(null);
   const [govId, setGovId] = useState(null);
 
   return (
@@ -154,13 +153,6 @@ export default function WorksTab() {
           accept=".pdf,.docx"
           file={resume}
           onFile={setResume}
-        />
-        <FileUpload
-          label="NBI Clearance"
-          hint="PDF, JPG or PNG • Max 5MB"
-          accept=".pdf,.jpg,.jpeg,.png"
-          file={nbi}
-          onFile={setNbi}
         />
         <FileUpload
           label="Valid Government ID"

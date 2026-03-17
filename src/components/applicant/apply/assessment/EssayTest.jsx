@@ -136,7 +136,7 @@ export default function EssayTest() {
       {/* Essay input */}
       <textarea
         rows={7}
-        placeholder={`Write your essay here... (minimum ${MIN_CHARS} characters)`}
+        placeholder={`Write your essay here... (maximum ${MIN_CHARS} characters)`}
         value={essay}
         onChange={handleInput}
         disabled={finished}

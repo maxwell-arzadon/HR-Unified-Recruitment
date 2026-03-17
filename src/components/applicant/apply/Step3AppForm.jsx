@@ -9,16 +9,9 @@ import PersonalTab from "./appform/PersonalTab";
 import EducationTab from "./appform/EducationTab";
 import SkillsTab from "./appform/SkillsTab";
 import WorksTab from "./appform/WorksTab";
-import SecurityTab from "./appform/SecurityTab";
 import { ArrowLeft, ArrowRight, PaperPlaneTilt } from "@phosphor-icons/react";
 
-const tabs = [
-  "Personal",
-  "Education",
-  "Skills & Language",
-  "Works & Files",
-  "Security",
-];
+const tabs = ["Personal", "Education", "Skills & Language", "Works & Files"];
 
 export default function Step3AppForm({ onNext, onBack }) {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -69,7 +62,6 @@ export default function Step3AppForm({ onNext, onBack }) {
         {activeIndex === 1 && <EducationTab />}
         {activeIndex === 2 && <SkillsTab />}
         {activeIndex === 3 && <WorksTab />}
-        {activeIndex === 4 && <SecurityTab />}
       </div>
 
       {/* Footer */}

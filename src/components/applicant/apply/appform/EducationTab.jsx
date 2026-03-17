@@ -8,14 +8,7 @@
 import { useState } from "react";
 import { CaretDown, Trash } from "@phosphor-icons/react";
 
-const levels = [
-  "High School",
-  "Senior High School",
-  "Vocational",
-  "Bachelor's Degree",
-  "Master's Degree",
-  "Doctorate",
-];
+const levels = ["Bachelor's Degree", "Master's Degree", "Doctorate"];
 
 const emptyEntry = () => ({
   id: Date.now(),

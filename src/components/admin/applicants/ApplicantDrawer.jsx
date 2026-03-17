@@ -7,13 +7,22 @@
  */
 
 import { useState } from "react";
-import { X, CalendarBlank, Check } from "@phosphor-icons/react";
 import { StatusBadge } from "./StatusBadge";
 import {
   HIRING_STAGES,
   INTERVIEWERS,
   TRAINEE_STATUS_OPTIONS,
 } from "../../../data/applicants";
+import {
+  X,
+  Check,
+  Envelope,
+  Phone,
+  CalendarBlank,
+  GlobeSimple,
+  Archive,
+  PencilLine,
+} from "@phosphor-icons/react";
 
 // Shared: Hiring Stage Stepper
 function HiringStepper({ currentStage }) {
@@ -127,37 +136,6 @@ function DetailsTable({ rows }) {
   );
 }
 
-//Shared: Bottom Action Bar
-function EditIcon() {
-  return (
-    <svg
-      className="w-4 h-4"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      viewBox="0 0 24 24"
-    >
-      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-      <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
-    </svg>
-  );
-}
-function DeleteIcon() {
-  return (
-    <svg
-      className="w-4 h-4"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      viewBox="0 0 24 24"
-    >
-      <polyline points="3 6 5 6 21 6" />
-      <path d="M19 6l-1 14H6L5 6" />
-      <path d="M10 11v6M14 11v6M9 6V4h6v2" />
-    </svg>
-  );
-}
-
 //Applicant Content
 function NewApplicantContent({ applicant }) {
   const [activeTab, setActiveTab] = useState("Overview");
@@ -223,39 +201,19 @@ function NewApplicantContent({ applicant }) {
                     key={label}
                     className="flex items-center gap-3 bg-bg border border-border rounded-xl px-4 py-3"
                   >
-                    <div className="w-8 h-8 rounded-lg bg-white border border-border flex items-center justify-center flex-shrink-0">
-                      <svg
-                        className="w-4 h-4 text-muted"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.8"
-                        viewBox="0 0 24 24"
-                      >
-                        {label === "EMAIL" && (
-                          <>
-                            <rect x="2" y="4" width="20" height="16" rx="2" />
-                            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-                          </>
-                        )}
-                        {label === "PHONE" && (
-                          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.06 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16.92z" />
-                        )}
-                        {label === "DATE APPLIED" && (
-                          <>
-                            <rect x="3" y="4" width="18" height="18" rx="2" />
-                            <line x1="16" y1="2" x2="16" y2="6" />
-                            <line x1="8" y1="2" x2="8" y2="6" />
-                            <line x1="3" y1="10" x2="21" y2="10" />
-                          </>
-                        )}
-                        {label === "SOURCE" && (
-                          <>
-                            <circle cx="12" cy="12" r="10" />
-                            <line x1="2" y1="12" x2="22" y2="12" />
-                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-                          </>
-                        )}
-                      </svg>
+                    <div className="w-8 h-8 flex items-center justify-center flex-shrink-0">
+                      {label === "EMAIL" && (
+                        <Envelope size={24} className="text-muted" />
+                      )}
+                      {label === "PHONE" && (
+                        <Phone size={24} className="text-muted" />
+                      )}
+                      {label === "DATE APPLIED" && (
+                        <CalendarBlank size={24} className="text-muted" />
+                      )}
+                      {label === "SOURCE" && (
+                        <GlobeSimple size={24} className="text-muted" />
+                      )}
                     </div>
                     <div className="min-w-0">
                       <p className="text-[10px] text-muted font-medium tracking-wide">
@@ -402,10 +360,10 @@ function NewApplicantContent({ applicant }) {
       {/* Bottom Actions */}
       <div className="flex items-center gap-3 px-6 py-4 border-t border-border flex-shrink-0">
         <button className="flex-1 flex items-center justify-center gap-2 border border-border rounded-xl py-3 text-sm font-semibold text-black hover:border-primary/30 hover:text-primary transition-all">
-          <EditIcon /> Edit Profile
+          <PencilLine size={16} /> Edit Profile
         </button>
         <button className="flex-1 flex items-center justify-center gap-2 border border-primary/30 bg-primary/5 rounded-xl py-3 text-sm font-semibold text-primary hover:bg-primary/10 transition-all">
-          <DeleteIcon /> Delete
+          <Archive size={16} /> Archive
         </button>
         {activeTab !== "Schedule" && (
           <button className="flex-1 gradient-bg text-white rounded-xl py-3 text-sm font-semibold font-jakarta hover:opacity-90 transition-opacity flex items-center justify-center gap-2">

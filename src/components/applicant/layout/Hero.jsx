@@ -106,28 +106,6 @@ export default function Hero() {
                 </div>
               </div>
             </div>
-
-            {/* Right — stats card */}
-            <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl p-6 w-full md:w-64 flex-shrink-0 shadow-lg">
-              {stats.map((s, i) => (
-                <div key={s.label}>
-                  <div className={`font-jakarta font-bold ${s.color} text-5xl`}>
-                    {s.value}
-                  </div>
-                  <div className="text-white/60 text-sm mt-1 mb-4">
-                    {s.label}
-                  </div>
-                  {i < stats.length - 1 && (
-                    <div className="border-t border-white/10 mb-4" />
-                  )}
-                </div>
-              ))}
-              <div className="border-t border-white/10 pt-4">
-                <p className="text-white/50 text-xs">
-                  Updated daily. Accepting applications now.
-                </p>
-              </div>
-            </div>
           </div>
         </div>
       </div>

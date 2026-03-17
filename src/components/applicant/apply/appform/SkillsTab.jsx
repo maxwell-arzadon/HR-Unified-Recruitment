@@ -17,14 +17,7 @@ const languages = [
   "Korean",
   "Arabic",
 ];
-const proficiency = [
-  "Beginner",
-  "Elementary",
-  "Intermediate",
-  "Upper Intermediate",
-  "Advanced",
-  "Native",
-];
+const proficiency = ["Basic", "Intermediate", "Fluent"];
 
 export default function SkillsTab() {
   const [skills, setSkills] = useState([]);

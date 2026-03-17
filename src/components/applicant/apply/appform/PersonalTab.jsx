@@ -54,7 +54,7 @@ export default function PersonalTab() {
     country: "Philippines",
     mobile: "",
     email: "",
-    skypeId: "",
+    telegramUsername: "",
   });
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
@@ -72,7 +72,6 @@ export default function PersonalTab() {
     if (!f.mobile.trim()) e.mobile = "Required";
     if (!f.email.trim()) e.email = "Required";
     else if (!/\S+@\S+\.\S+/.test(f.email)) e.email = "Invalid email";
-    if (!f.skypeId.trim()) e.skypeId = "Required";
     return e;
   };
 
@@ -272,7 +271,7 @@ export default function PersonalTab() {
           </div>
         </div>
 
-        {/* Mobile + Email + Skype */}
+        {/* Mobile + Email + telegram */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <div>
             <label className="text-sm font-medium text-black">
@@ -310,16 +309,15 @@ export default function PersonalTab() {
           </div>
           <div>
             <label className="text-sm font-medium text-black">
-              Skype ID <span className="text-primary">*</span>
+              Telegram Username
             </label>
             <input
-              placeholder="live:juan.delacruz"
-              value={form.skypeId}
-              onChange={(e) => set("skypeId", e.target.value)}
-              onBlur={() => handleBlur("skypeId")}
-              className={inputClass(err("skypeId"))}
+              placeholder="@juandelacruz"
+              value={form.telegramUsername}
+              onChange={(e) => set("telegramUsername", e.target.value)}
+              onBlur={() => handleBlur("telegramUsername")}
+              className={inputClass(err("telegramUsername"))}
             />
-            <FieldError msg={err("skypeId")} />
           </div>
         </div>
       </div>

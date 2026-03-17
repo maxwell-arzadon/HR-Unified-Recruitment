@@ -1,7 +1,7 @@
 /**
  * JobListings.jsx
  * Renders the full list of available job postings on the landing page.
- * Supports search filtering and displays jobs grouped or listed by type.
+ * Supports search filtering by job type, work setup, and keyword.
  */
 
 import { useState } from "react";
@@ -10,7 +10,7 @@ import { jobs } from "../../../data/jobs_applicant";
 import JobCard from "./JobCard";
 
 const tabs = ["All", "Full Time", "Freelance", "Language"];
-const locations = ["All Locations", "Office Based", "Remote", "Hybrid"];
+const worksetups = ["All Work Setups", "Office Based", "Remote", "Hybrid"];
 
 export default function JobListings({
   activeFilter,
@@ -18,12 +18,14 @@ export default function JobListings({
   searchQuery,
   setSearchQuery,
 }) {
-  const [location, setLocation] = useState("All Locations");
+  const [worksetup, setWorkSetup] = useState("All Work Setups");
 
+  // ── Filtering ──────────────────────────────────────────────────
+  // Note: jobs data uses "location" field for work setup values
   const filtered = jobs.filter(
     (j) =>
       (activeFilter === "All" || j.type === activeFilter) &&
-      (location === "All Locations" || j.location === location) &&
+      (worksetup === "All Work Setups" || j.location === worksetup) &&
       (!searchQuery ||
         j.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         j.type.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -34,6 +36,7 @@ export default function JobListings({
     <section className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 md:px-16 lg:px-[80px] py-10">
       {/* Toolbar */}
       <div className="flex items-center justify-between gap-4 flex-wrap mb-3">
+        {/* Job type tabs */}
         <div className="flex flex-wrap items-center gap-1">
           {tabs.map((tab) => {
             const count =
@@ -61,17 +64,17 @@ export default function JobListings({
           })}
         </div>
 
-        {/* Location filter */}
+        {/* Work Setup filter */}
         <div className="flex items-center gap-3">
           <span className="text-sm text-zinc-400 font-medium">Work Setup</span>
           <div className="relative">
             <select
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
+              value={worksetup}
+              onChange={(e) => setWorkSetup(e.target.value)}
               className="appearance-none bg-white border border-border rounded-xl px-4 py-2 pr-9 text-sm font-medium text-black outline-none cursor-pointer hover:border-zinc-300"
             >
-              {locations.map((l) => (
-                <option key={l}>{l}</option>
+              {worksetups.map((w) => (
+                <option key={w}>{w}</option>
               ))}
             </select>
             <CaretDown

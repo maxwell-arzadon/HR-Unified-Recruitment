@@ -276,9 +276,7 @@ export default function ApplicantTable({
                     {a.name}
                   </td>
                   <td className="px-5 py-4 text-sm text-black">{a.position}</td>
-                  <td className="px-5 py-4">
-                    <JobTypeBadge type={a.jobType} />
-                  </td>
+                  <td className="px-5 py-4 text-sm text-black">{a.jobType}</td>
                   <td className="px-5 py-4">
                     <StatusBadge status={a.status} />
                   </td>

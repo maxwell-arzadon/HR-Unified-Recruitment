@@ -32,9 +32,6 @@ const validate = (form) => {
     errors.mobile = "Enter a valid 10-digit number";
   if (!form.address.trim()) errors.address = "Address is required";
   if (!form.city.trim()) errors.city = "City is required";
-  if (!form.sssNumber.trim()) errors.sssNumber = "SSS number is required";
-  else if (!/^\d{2}-\d{7}-\d$/.test(form.sssNumber))
-    errors.sssNumber = "Format: XX-XXXXXXX-X";
   return errors;
 };
 
@@ -271,9 +268,7 @@ export default function Step1BasicInfo({ onNext }) {
 
         {/* SSS Number */}
         <div className="max-w-xs">
-          <label className="text-sm font-medium text-black">
-            SSS Number <span className="text-primary">*</span>
-          </label>
+          <label className="text-sm font-medium text-black">SSS Number</label>
           <input
             placeholder="XX-XXXXXXX-X"
             value={form.sssNumber}
@@ -281,7 +276,6 @@ export default function Step1BasicInfo({ onNext }) {
             onBlur={() => handleBlur("sssNumber")}
             className={inputClass(err("sssNumber"))}
           />
-          <FieldError msg={err("sssNumber")} />
         </div>
 
         {/* Next button */}

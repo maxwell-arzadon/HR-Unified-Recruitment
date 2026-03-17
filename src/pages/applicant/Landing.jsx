@@ -11,6 +11,7 @@ import Hero from "../../components/applicant/layout/Hero";
 import CategoryCards from "../../components/applicant/shared/CategoryCards";
 import JobListings from "../../components/applicant/shared/JobListings";
 import FooterCTA from "../../components/applicant/shared/FooterCTA";
+import StatsBar from "../../components/applicant/shared/StatsBar";
 
 export default function Landing() {
   const [activeFilter, setActiveFilter] = useState("All");

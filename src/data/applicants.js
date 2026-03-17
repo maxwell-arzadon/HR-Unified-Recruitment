@@ -1,4 +1,4 @@
-// ─── Job ID Reference (from jobsData.js) ─────────────────────────
+// ─── Job ID Reference  ─────────────────────────
 // id: 1 → Non Voice Customer Support
 // id: 2 → Customer Support
 // id: 3 → Senior Programmer
@@ -91,7 +91,7 @@ export const APPLICANTS = [
     name: "Jason Heigh",
     position: "Senior Programmer",
     jobType: "Freelance",
-    status: "Passed",
+    status: "Certification",
     source: "Agency",
     avatar: null,
     email: "jason@email.com",
@@ -124,7 +124,7 @@ export const APPLICANTS = [
     name: "Keith Atherton",
     position: "Customer Support",
     jobType: "Full Time",
-    status: "Certification",
+    status: "Orientation",
     source: "Website",
     avatar: null,
     email: "keith@email.com",
@@ -135,7 +135,7 @@ export const APPLICANTS = [
     based: "Office Based",
     service: "Finance",
     language: "English",
-    hiringStage: "Certification",
+    hiringStage: "Orientation",
     assessment: {
       grammar: { score: 40, total: 60, percent: "67%" },
       typing: { wpm: 38, accuracy: "95%" },
@@ -223,7 +223,7 @@ export const APPLICANTS = [
     name: "Tom Reyes",
     position: "Senior Programmer",
     jobType: "Freelance",
-    status: "Failed",
+    status: "Interview",
     source: "Agency",
     avatar: null,
     email: "tom@email.com",
@@ -256,7 +256,7 @@ export const APPLICANTS = [
     name: "Lena Park",
     position: "Customer Support",
     jobType: "Full Time",
-    status: "Certification",
+    status: "Interview",
     source: "LinkedIn",
     avatar: null,
     email: "lena@email.com",
@@ -267,7 +267,7 @@ export const APPLICANTS = [
     based: "Office Based",
     service: "Support",
     language: "English",
-    hiringStage: "Certification",
+    hiringStage: "Interview",
     assessment: {
       grammar: { score: 48, total: 60, percent: "80%" },
       typing: { wpm: 46, accuracy: "99%" },
