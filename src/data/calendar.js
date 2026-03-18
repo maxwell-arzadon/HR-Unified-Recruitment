@@ -1,4 +1,3 @@
-// Interviews keyed by "YYYY-MM-DD"
 export const INTERVIEWS = {
   "2020-05-01": [
     {

@@ -6,7 +6,7 @@
  *
  */
 
-// ─── Stat Cards ───────────────────────────────────────────────────
+// Stat Cards
 export const STAT_CARDS = [
   {
     label: "Total",
@@ -64,7 +64,7 @@ export const STAT_CARDS = [
   },
 ];
 
-// ─── Applicants by Position ───────────────────────────────────────
+// Applicants by Position
 export const POSITION_DATA = [
   { position: "Non Voice Support", applicants: 98, hired: 28 },
   { position: "Customer Support", applicants: 82, hired: 24 },
@@ -74,7 +74,7 @@ export const POSITION_DATA = [
   { position: "SEO Personnel", applicants: 15, hired: 2 },
 ];
 
-// ─── Application Sources ──────────────────────────────────────────
+// Application Sources
 export const SOURCES = [
   {
     label: "Company Website",
@@ -105,7 +105,7 @@ export const BAR_LEGEND = [
   { label: "Offered", color: "bg-success" },
 ];
 
-// ─── Filter + Time Tabs ───────────────────────────────────────────
+// Filter + Time Tabs
 export const FILTER_TABS = [
   "All",
   "Full Time",
@@ -115,6 +115,6 @@ export const FILTER_TABS = [
 ];
 export const TIME_TABS = ["Daily", "Weekly", "Monthly"];
 
-// ─── Hire Rate ──────────────────────────────────────────────
+// Hire Rate
 export const COMPLETION_RATE = 53; // (68 + 47 + 44) / 300
 export const COMPLETION_DELTA = "+5%";

@@ -1,14 +1,4 @@
-// ─── Job ID Reference  ─────────────────────────
-// id: 1 → Non Voice Customer Support
-// id: 2 → Customer Support
-// id: 3 → Senior Programmer
-// id: 4 → Non Voice Customer Support
-// id: 5 → Customer Support
-// id: 6 → Senior Programmer
-// id: 7 → Non Voice Customer Support
-// id: 8 → Non Voice Customer Support
-
-// ─── New Applicants Data ──────────────────────────────────────────
+// New Applicants Data
 export const APPLICANTS = [
   {
     id: 1,

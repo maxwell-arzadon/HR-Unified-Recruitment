@@ -77,7 +77,9 @@ export default function ApplicantTable({
   useEffect(() => {
     if (showFilter && buttonRef.current) {
       const rect = buttonRef.current.getBoundingClientRect();
-      setDropdownPosition({ top: rect.bottom + 8, left: rect.right - 288 });
+      const width = 360;
+      const left = Math.min(rect.right - width, window.innerWidth - width - 16);
+      setDropdownPosition({ top: rect.bottom + 8, left: Math.max(16, left) });
     }
   }, [showFilter]);
 
@@ -210,7 +212,7 @@ export default function ApplicantTable({
               createPortal(
                 <div
                   ref={dropdownRef}
-                  className="fixed w-72 bg-white border border-border rounded-2xl shadow-xl z-[9999] overflow-hidden"
+                  className="fixed w-90 bg-white border border-border rounded-2xl shadow-xl z-[9999] overflow-hidden"
                   style={{
                     top: dropdownPosition.top,
                     left: dropdownPosition.left,
