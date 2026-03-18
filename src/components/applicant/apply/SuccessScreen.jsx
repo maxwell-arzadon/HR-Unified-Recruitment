@@ -92,9 +92,10 @@ export default function SuccessScreen({ job }) {
           <LocationBadge location={job.location} />
         </div>
         <p className="text-sm text-zinc-400 max-w-md mx-auto">
-          Thank you for applying! Save your reference number below to track your
-          application status. We'll review your application and get back to you
-          within 3–5 business days.
+          Thank you for applying! A confirmation email containing your
+          application reference number will be sent to you shortly. Save your
+          reference number below to track your application status. We'll review
+          your application and get back to you within 3–5 business days.
         </p>
       </div>
 

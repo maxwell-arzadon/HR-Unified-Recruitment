@@ -320,7 +320,7 @@ export const APPLICANTS = [
 export const TRAINEES = [
   {
     id: 101,
-    ref: "RC-ND56AQW34",
+    ref: "RC-ND56AQ34",
     jobId: 1,
     date: "May 22, 2025",
     name: "Milan Hopper",
