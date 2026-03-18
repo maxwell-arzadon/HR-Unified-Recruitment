@@ -314,10 +314,6 @@ export default function AdminDashboard({ onMenuOpen }) {
             <h3 className="font-jakarta font-bold text-base text-black">
               Application Statistics
             </h3>
-            <button className="flex items-center gap-1.5 border border-border rounded-lg px-3 py-1.5 text-sm text-black font-medium hover:border-primary/40 transition-colors">
-              Weekly
-              <CaretDown size={12} className="text-muted" />
-            </button>
           </div>
           <ResponsiveContainer width="100%" height={220}>
             <BarChart
