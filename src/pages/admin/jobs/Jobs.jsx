@@ -10,9 +10,9 @@ import { useNavigate } from "react-router-dom";
 import PageHeader from "../../../components/admin/PageHeader";
 import {
   MagnifyingGlass,
-  CaretRight,
   PencilSimple,
   Trash,
+  UsersThree,
 } from "@phosphor-icons/react";
 import { JOBS, JOB_DEPT_TABS } from "../../../data/jobs_admin";
 
@@ -159,19 +159,8 @@ export default function Jobs({ onMenuOpen }) {
                     }`}
                   >
                     {/* Job Title — clickable */}
-                    <td className="px-5 py-4">
-                      <button
-                        onClick={() =>
-                          navigate(`/admin/jobs/${job.id}/applicants`)
-                        }
-                        className="flex items-center gap-1.5 font-semibold text-sm text-black hover:text-primary transition-colors group"
-                      >
-                        {job.title}
-                        <CaretRight
-                          size={13}
-                          className="text-muted group-hover:text-primary transition-colors"
-                        />
-                      </button>
+                    <td className="px-5 py-4 text-sm font-semibold text-black">
+                      {job.title}
                     </td>
                     <td className="px-5 py-4 text-sm text-muted max-w-xs truncate">
                       {job.description}
@@ -196,9 +185,18 @@ export default function Jobs({ onMenuOpen }) {
                         onChange={() => handleToggle(job.id)}
                       />
                     </td>
-                    {/* Edit + Delete */}
+                    {/* Edit + Delete + See Applicants */}
                     <td className="px-5 py-4">
                       <div className="flex items-center gap-2">
+                        <button
+                          onClick={() =>
+                            navigate(`/admin/jobs/${job.id}/applicants`)
+                          }
+                          className="flex items-center gap-1.5 border border-border rounded-lg px-3 py-1.5 text-xs font-semibold text-black hover:border-primary/30 hover:text-primary transition-all"
+                        >
+                          <UsersThree size={13} />
+                          Applicants
+                        </button>
                         <button
                           onClick={() => navigate(`/admin/jobs/${job.id}/edit`)}
                           className="w-8 h-8 rounded-lg border border-border flex items-center justify-center text-muted hover:text-primary hover:border-primary/30 transition-all"

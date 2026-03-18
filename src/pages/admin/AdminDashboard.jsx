@@ -1,8 +1,8 @@
 /**
  * AdminDashboard.jsx
  * Main dashboard page for the admin panel.
- * Displays recruitment pipeline stats, application sources,
- * bar chart statistics, and overall completion rate arc.
+ * Displays recruitment stats, applicants by position,
+ * application sources, weekly statistics, and completion rate.
  */
 
 import { useState } from "react";
@@ -18,7 +18,7 @@ import {
 } from "recharts";
 import {
   STAT_CARDS,
-  PIPELINE,
+  POSITION_DATA,
   SOURCES,
   BAR_DATA,
   BAR_LEGEND,
@@ -27,24 +27,27 @@ import {
   COMPLETION_RATE,
   COMPLETION_DELTA,
 } from "../../data/dashboard.js";
-
 import {
   Users,
   UserCirclePlus,
   HourglassMedium,
   UserCheck,
   UserCircleMinus,
+  UserCircleDashed,
   CaretDown,
 } from "@phosphor-icons/react";
 
+// Stat Card Icons
 const ICONS = {
   total: <Users size={20} className="text-gray" />,
   candidate: <UserCirclePlus size={20} className="text-info" />,
   process: <HourglassMedium size={20} className="text-accent" />,
   hired: <UserCheck size={20} className="text-success" />,
   rejected: <UserCircleMinus size={20} className="text-primary" />,
+  discontinued: <UserCircleDashed size={20} className="text-muted" />,
 };
 
+// Custom Tooltip for weekly bar chart
 const CustomTooltip = ({ active, payload, label }) => {
   if (!active || !payload?.length) return null;
   return (
@@ -64,21 +67,41 @@ const CustomTooltip = ({ active, payload, label }) => {
   );
 };
 
+// Custom Tooltip for position chart
+const PositionTooltip = ({ active, payload, label }) => {
+  if (!active || !payload?.length) return null;
+  return (
+    <div className="bg-white border border-border rounded-xl shadow-lg px-4 py-3 text-xs">
+      <p className="font-semibold text-black mb-1.5">{label}</p>
+      <div className="flex items-center gap-2">
+        <span className="w-2 h-2 rounded-full bg-info" />
+        <span className="text-muted">Applicants:</span>
+        <span className="font-semibold text-black">{payload[0]?.value}</span>
+      </div>
+      <div className="flex items-center gap-2 mt-1">
+        <span className="w-2 h-2 rounded-full bg-success" />
+        <span className="text-muted">Hired:</span>
+        <span className="font-semibold text-black">{payload[1]?.value}</span>
+      </div>
+    </div>
+  );
+};
+
+// SVG Arc Progress
 const RADIUS = 72;
 const STROKE = 12;
 const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
 const SWEEP_DEG = 240;
-const SWEEP_FRAC = SWEEP_DEG / 360; // 0.667
+const SWEEP_FRAC = SWEEP_DEG / 360;
 const TRACK_LENGTH = CIRCUMFERENCE * SWEEP_FRAC;
 const GAP_LENGTH = CIRCUMFERENCE - TRACK_LENGTH;
 const ROTATE = 150;
+
 function ArcProgress({ percent = 45 }) {
   const fillLength = TRACK_LENGTH * (percent / 100);
-
   return (
     <div className="relative" style={{ width: 180, height: 180 }}>
       <svg width="180" height="180" viewBox="0 0 180 180">
-        {/* Grey track arc */}
         <circle
           cx="90"
           cy="90"
@@ -90,13 +113,12 @@ function ArcProgress({ percent = 45 }) {
           strokeDasharray={`${TRACK_LENGTH} ${GAP_LENGTH}`}
           transform={`rotate(${ROTATE} 90 90)`}
         />
-        {/* Red fill arc */}
         <circle
           cx="90"
           cy="90"
           r={RADIUS}
           fill="none"
-          stroke="#FF4545"
+          stroke="#16A34A"
           strokeWidth={STROKE}
           strokeLinecap="round"
           strokeDasharray={`${fillLength} ${CIRCUMFERENCE - fillLength}`}
@@ -104,14 +126,12 @@ function ArcProgress({ percent = 45 }) {
           style={{ transition: "stroke-dasharray 0.6s ease" }}
         />
       </svg>
-
-      {/* Center label overlay */}
       <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
         <div className="flex items-end leading-none">
-          <span className="font-jakarta font-bold text-4xl text-primary">
+          <span className="font-jakarta font-bold text-4xl text-success">
             {percent}
           </span>
-          <span className="font-jakarta font-bold text-lg text-primary mb-0.5">
+          <span className="font-jakarta font-bold text-lg text-success mb-0.5">
             %
           </span>
         </div>
@@ -123,6 +143,7 @@ function ArcProgress({ percent = 45 }) {
   );
 }
 
+// Page
 export default function AdminDashboard({ onMenuOpen }) {
   const [activeFilter, setActiveFilter] = useState("All");
   const [activeTime, setActiveTime] = useState("Weekly");
@@ -153,7 +174,6 @@ export default function AdminDashboard({ onMenuOpen }) {
             </button>
           ))}
         </div>
-
         <div className="flex items-center border border-border rounded-xl overflow-hidden">
           {TIME_TABS.map((t) => (
             <button
@@ -172,7 +192,7 @@ export default function AdminDashboard({ onMenuOpen }) {
       </div>
 
       {/* Stat Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-5 gap-4 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-6 gap-4 mb-6">
         {STAT_CARDS.map((card) => (
           <div
             key={card.label}
@@ -200,41 +220,73 @@ export default function AdminDashboard({ onMenuOpen }) {
         ))}
       </div>
 
-      {/* Row 2: Hiring Pipeline + Application Sources */}
+      {/* Row 2: Applicants by Position + Application Sources */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+        {/* Applicants by Position */}
         <AdminCard className="flex flex-col">
-          {" "}
           <h3 className="font-jakarta font-bold text-base text-black mb-5">
-            Hiring Pipeline
+            Applicants by Position
           </h3>
-          <div className="flex flex-col gap-5">
-            {PIPELINE.map((item) => (
-              <div key={item.label}>
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm text-black">{item.label}</span>
-                  <span className="text-sm font-bold text-black">
-                    {item.value}
-                  </span>
-                </div>
-                <div className="h-2 bg-border rounded-full overflow-hidden">
-                  <div
-                    className={`h-full rounded-full ${item.color} transition-all duration-700`}
-                    style={{ width: `${(item.value / item.max) * 100}%` }}
-                  />
-                </div>
-              </div>
-            ))}
+          <ResponsiveContainer width="100%" height={220}>
+            <BarChart
+              data={POSITION_DATA}
+              layout="vertical"
+              barCategoryGap="20%"
+              barGap={3}
+              margin={{ top: 0, right: 0, bottom: 0, left: -30 }}
+            >
+              <XAxis
+                type="number"
+                tick={{ fontSize: 10, fill: "#897F8E" }}
+                axisLine={false}
+                tickLine={false}
+              />
+              <YAxis
+                type="category"
+                dataKey="position"
+                tick={{ fontSize: 10, fill: "#241E27" }}
+                axisLine={false}
+                tickLine={false}
+                width={110}
+              />
+              <Tooltip
+                content={<PositionTooltip />}
+                cursor={{ fill: "transparent" }}
+              />
+              <Bar
+                dataKey="applicants"
+                fill="#2563EB"
+                radius={[0, 4, 4, 0]}
+                barSize={8}
+              />
+              <Bar
+                dataKey="hired"
+                fill="#16A34A"
+                radius={[0, 4, 4, 0]}
+                barSize={8}
+              />
+            </BarChart>
+          </ResponsiveContainer>
+          <div className="flex items-center gap-5 mt-2 justify-center">
+            <div className="flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-info" />
+              <span className="text-xs text-muted">Applicants</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-success" />
+              <span className="text-xs text-muted">Hired</span>
+            </div>
           </div>
         </AdminCard>
 
+        {/* Application Sources */}
         <AdminCard className="flex flex-col">
-          {" "}
           <h3 className="font-jakarta font-bold text-base text-black mb-5">
             Application Sources
           </h3>
           <div className="flex flex-col gap-4">
             {SOURCES.map((src) => (
-              <div key={src.label} className="flex items-center gap-3">
+              <div key={src.label} className="flex items-center gap-3 w-full">
                 <span
                   className={`w-2 h-2 rounded-full flex-shrink-0 ${src.dot}`}
                 />
@@ -242,10 +294,10 @@ export default function AdminDashboard({ onMenuOpen }) {
                 <span className="text-sm font-bold text-black w-8 text-right">
                   {src.value}
                 </span>
-                <div className="w-28 h-1.5 bg-border rounded-full overflow-hidden">
+                <div className="flex-1 h-1.5 bg-border rounded-full overflow-hidden min-w-[40px] max-w-[200px]">
                   <div
                     className={`h-full rounded-full ${src.color}`}
-                    style={{ width: `${(src.value / 240) * 100}%` }}
+                    style={{ width: `${(src.value / 120) * 100}%` }}
                   />
                 </div>
               </div>
@@ -256,6 +308,7 @@ export default function AdminDashboard({ onMenuOpen }) {
 
       {/* Row 3: Application Statistics + Application Status */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 min-w-0">
+        {/* Weekly Bar Chart */}
         <AdminCard className="flex flex-col min-w-0 w-full">
           <div className="flex items-center justify-between mb-6">
             <h3 className="font-jakarta font-bold text-base text-black">
@@ -266,41 +319,36 @@ export default function AdminDashboard({ onMenuOpen }) {
               <CaretDown size={12} className="text-muted" />
             </button>
           </div>
-          <div style={{ width: "100%", minWidth: 0 }}>
-            <ResponsiveContainer width="100%" height={220}>
-              <BarChart
-                data={BAR_DATA}
-                barCategoryGap="20%"
-                barGap={1}
-                barSize={6}
-              >
-                <XAxis
-                  dataKey="date"
-                  tick={{ fontSize: 10, fill: "#897F8E" }}
-                  axisLine={false}
-                  tickLine={false}
-                  interval="preserveStartEnd"
-                />
-                <YAxis
-                  tick={{ fontSize: 11, fill: "#897F8E" }}
-                  axisLine={false}
-                  tickLine={false}
-                  ticks={[0, 2, 5, 7, 10]}
-                />
-                <Tooltip
-                  content={<CustomTooltip />}
-                  cursor={{ fill: "transparent" }}
-                />
-                <Bar dataKey="applied" fill="#FF4545" radius={[3, 3, 0, 0]} />
-                <Bar
-                  dataKey="interviewed"
-                  fill="#F17F33"
-                  radius={[3, 3, 0, 0]}
-                />
-                <Bar dataKey="offered" fill="#16A34A" radius={[3, 3, 0, 0]} />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
+          <ResponsiveContainer width="100%" height={220}>
+            <BarChart
+              data={BAR_DATA}
+              barCategoryGap="20%"
+              barGap={1}
+              barSize={8}
+              margin={{ top: 0, right: 0, bottom: 0, left: -30 }}
+            >
+              <XAxis
+                dataKey="date"
+                tick={{ fontSize: 10, fill: "#897F8E" }}
+                axisLine={false}
+                tickLine={false}
+                interval="preserveStartEnd"
+              />
+              <YAxis
+                tick={{ fontSize: 11, fill: "#897F8E" }}
+                axisLine={false}
+                tickLine={false}
+                ticks={[0, 20, 40, 60, 80]}
+              />
+              <Tooltip
+                content={<CustomTooltip />}
+                cursor={{ fill: "transparent" }}
+              />
+              <Bar dataKey="applied" fill="#2563EB" radius={[3, 3, 0, 0]} />
+              <Bar dataKey="interviewed" fill="#F17F33" radius={[3, 3, 0, 0]} />
+              <Bar dataKey="offered" fill="#16A34A" radius={[3, 3, 0, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
           <div className="flex items-center gap-5 mt-2 justify-center">
             {BAR_LEGEND.map((l) => (
               <div key={l.label} className="flex items-center gap-1.5">
@@ -311,13 +359,13 @@ export default function AdminDashboard({ onMenuOpen }) {
           </div>
         </AdminCard>
 
-        {/* SVG Arc Progress Card */}
+        {/* SVG Arc Progress */}
         <AdminCard className="flex flex-col">
           <h3 className="font-jakarta font-bold text-base text-black mb-1">
             Application Status
           </h3>
           <p className="text-xs text-muted mb-4">
-            Overall completion rate this period
+            Applications resolved this period. (Hired, Rejected, Discontinued)
           </p>
           <div className="flex-1 flex flex-col items-center justify-center gap-4">
             <ArcProgress percent={COMPLETION_RATE} />

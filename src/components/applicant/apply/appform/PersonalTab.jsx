@@ -3,12 +3,63 @@
  * Personal information tab within the application form.
  * Collects name, birthday, gender, nationality, address,
  * and contact details with inline field validation.
+ * Country is shown first — if Philippines, shows PH cities dropdown.
+ * If other country, shows free text city input.
  */
 
 import { useState } from "react";
 import { CaretDown, WarningCircle } from "@phosphor-icons/react";
 
-const nationalities = [
+// ─── Constants ────────────────────────────────────────────────────
+const PH_CITIES = [
+  "Angeles City",
+  "Antipolo",
+  "Bacolod",
+  "Baguio City",
+  "Batangas City",
+  "Biñan",
+  "Butuan",
+  "Cabanatuan",
+  "Cagayan de Oro",
+  "Calamba",
+  "Caloocan",
+  "Cebu City",
+  "Cotabato City",
+  "Dagupan",
+  "Davao City",
+  "General Santos",
+  "Iligan",
+  "Iloilo City",
+  "Lapu-Lapu City",
+  "Las Piñas",
+  "Legazpi City",
+  "Lucena",
+  "Makati",
+  "Malabon",
+  "Mandaluyong",
+  "Manila",
+  "Marikina",
+  "Masbate City",
+  "Muntinlupa",
+  "Navotas",
+  "Olongapo",
+  "Ormoc",
+  "Paranaque",
+  "Pasay",
+  "Pasig",
+  "Puerto Princesa",
+  "Quezon City",
+  "San Jose del Monte",
+  "San Juan",
+  "Santa Rosa",
+  "Santiago",
+  "Tacloban",
+  "Taguig",
+  "Valenzuela",
+  "Zamboanga City",
+];
+
+const NATIONALITIES = [
   "Filipino",
   "American",
   "British",
@@ -17,7 +68,8 @@ const nationalities = [
   "Japanese",
   "Singaporean",
 ];
-const countries = [
+
+const COUNTRIES = [
   "Philippines",
   "United States",
   "United Kingdom",
@@ -26,8 +78,10 @@ const countries = [
   "Japan",
   "Singapore",
 ];
-const maritalStatus = ["Single", "Married", "Divorced", "Widowed"];
 
+const MARITAL_STATUS = ["Single", "Married", "Divorced", "Widowed"];
+
+// ─── Helpers ──────────────────────────────────────────────────────
 const FieldError = ({ msg }) =>
   msg ? (
     <div className="flex items-center gap-1.5 mt-1">
@@ -38,8 +92,16 @@ const FieldError = ({ msg }) =>
 
 const inputClass = (error) =>
   `border rounded-xl px-4 py-2.5 text-sm placeholder-zinc-300 outline-none transition-all w-full
-  ${error ? "border-primary bg-red-50" : "border-border focus:border-primary focus:ring-2 focus:ring-primary/10"}`;
+  ${
+    error
+      ? "border-primary bg-red-50"
+      : "border-border focus:border-primary focus:ring-2 focus:ring-primary/10"
+  }`;
 
+const selectClass =
+  "appearance-none pr-10 border border-border rounded-xl px-4 py-2.5 text-sm text-black outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all w-full cursor-pointer";
+
+// ─── Component ────────────────────────────────────────────────────
 export default function PersonalTab() {
   const [form, setForm] = useState({
     firstName: "",
@@ -49,9 +111,8 @@ export default function PersonalTab() {
     gender: "Male",
     nationality: "Filipino",
     motherMaidenName: "",
-    address: "",
-    city: "",
     country: "Philippines",
+    city: "",
     mobile: "",
     email: "",
     telegramUsername: "",
@@ -59,7 +120,14 @@ export default function PersonalTab() {
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
 
-  const set = (k, v) => setForm((f) => ({ ...f, [k]: v }));
+  const set = (k, v) => {
+    // Reset city when country changes
+    if (k === "country") {
+      setForm((f) => ({ ...f, country: v, city: "" }));
+    } else {
+      setForm((f) => ({ ...f, [k]: v }));
+    }
+  };
 
   const validate = (f) => {
     const e = {};
@@ -67,7 +135,6 @@ export default function PersonalTab() {
     if (!f.surname.trim()) e.surname = "Required";
     if (!f.birthday) e.birthday = "Required";
     if (!f.maritalStatus) e.maritalStatus = "Required";
-    if (!f.address.trim()) e.address = "Required";
     if (!f.city.trim()) e.city = "Required";
     if (!f.mobile.trim()) e.mobile = "Required";
     if (!f.email.trim()) e.email = "Required";
@@ -81,6 +148,8 @@ export default function PersonalTab() {
   };
 
   const err = (k) => (touched[k] ? errors[k] : undefined);
+
+  const isPhilippines = form.country === "Philippines";
 
   return (
     <div>
@@ -149,7 +218,7 @@ export default function PersonalTab() {
                 className={`appearance-none pr-10 ${inputClass(err("maritalStatus"))}`}
               >
                 <option value="">Select</option>
-                {maritalStatus.map((s) => (
+                {MARITAL_STATUS.map((s) => (
                   <option key={s}>{s}</option>
                 ))}
               </select>
@@ -172,7 +241,9 @@ export default function PersonalTab() {
               <label key={g} className="flex items-center gap-2 cursor-pointer">
                 <div
                   onClick={() => set("gender", g)}
-                  className={`w-5 h-5 rounded-full border-2 flex items-center justify-center cursor-pointer transition-all ${form.gender === g ? "border-primary" : "border-zinc-300"}`}
+                  className={`w-5 h-5 rounded-full border-2 flex items-center justify-center cursor-pointer transition-all ${
+                    form.gender === g ? "border-primary" : "border-zinc-300"
+                  }`}
                 >
                   {form.gender === g && (
                     <div className="w-2.5 h-2.5 rounded-full bg-primary" />
@@ -194,9 +265,9 @@ export default function PersonalTab() {
               <select
                 value={form.nationality}
                 onChange={(e) => set("nationality", e.target.value)}
-                className="appearance-none pr-10 border border-border rounded-xl px-4 py-2.5 text-sm text-black outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all w-full cursor-pointer"
+                className={selectClass}
               >
-                {nationalities.map((n) => (
+                {NATIONALITIES.map((n) => (
                   <option key={n}>{n}</option>
                 ))}
               </select>
@@ -219,36 +290,9 @@ export default function PersonalTab() {
           </div>
         </div>
 
-        {/* Address */}
-        <div>
-          <label className="text-sm font-medium text-black">
-            Home Address <span className="text-primary">*</span>
-          </label>
-          <input
-            placeholder="Street, Barangay, City"
-            value={form.address}
-            onChange={(e) => set("address", e.target.value)}
-            onBlur={() => handleBlur("address")}
-            className={inputClass(err("address"))}
-          />
-          <FieldError msg={err("address")} />
-        </div>
-
-        {/* City + Country */}
+        {/* Country + City — Country first, City adapts based on country */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label className="text-sm font-medium text-black">
-              City <span className="text-primary">*</span>
-            </label>
-            <input
-              placeholder="Quezon City"
-              value={form.city}
-              onChange={(e) => set("city", e.target.value)}
-              onBlur={() => handleBlur("city")}
-              className={inputClass(err("city"))}
-            />
-            <FieldError msg={err("city")} />
-          </div>
+          {/* Country */}
           <div>
             <label className="text-sm font-medium text-black">
               Country <span className="text-primary">*</span>
@@ -257,9 +301,9 @@ export default function PersonalTab() {
               <select
                 value={form.country}
                 onChange={(e) => set("country", e.target.value)}
-                className="appearance-none pr-10 border border-border rounded-xl px-4 py-2.5 text-sm text-black outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all w-full cursor-pointer"
+                className={selectClass}
               >
-                {countries.map((c) => (
+                {COUNTRIES.map((c) => (
                   <option key={c}>{c}</option>
                 ))}
               </select>
@@ -269,16 +313,55 @@ export default function PersonalTab() {
               />
             </div>
           </div>
+
+          {/* City — dropdown for PH, free text for others */}
+          <div>
+            <label className="text-sm font-medium text-black">
+              City <span className="text-primary">*</span>
+            </label>
+            {isPhilippines ? (
+              <div className="relative">
+                <select
+                  value={form.city}
+                  onChange={(e) => set("city", e.target.value)}
+                  onBlur={() => handleBlur("city")}
+                  className={`appearance-none pr-10 ${inputClass(err("city"))}`}
+                >
+                  <option value="">Select city</option>
+                  {PH_CITIES.map((c) => (
+                    <option key={c}>{c}</option>
+                  ))}
+                </select>
+                <CaretDown
+                  size={14}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none"
+                />
+              </div>
+            ) : (
+              <input
+                placeholder="Enter your city"
+                value={form.city}
+                onChange={(e) => set("city", e.target.value)}
+                onBlur={() => handleBlur("city")}
+                className={inputClass(err("city"))}
+              />
+            )}
+            <FieldError msg={err("city")} />
+          </div>
         </div>
 
-        {/* Mobile + Email + telegram */}
+        {/* Mobile + Email + Telegram */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <div>
             <label className="text-sm font-medium text-black">
               Mobile Number <span className="text-primary">*</span>
             </label>
             <div
-              className={`flex items-center border rounded-xl overflow-hidden transition-all ${err("mobile") ? "border-primary bg-red-50" : "border-border focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/10"}`}
+              className={`flex items-center border rounded-xl overflow-hidden transition-all ${
+                err("mobile")
+                  ? "border-primary bg-red-50"
+                  : "border-border focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/10"
+              }`}
             >
               <span className="px-3 py-2.5 text-sm font-medium text-black border-r border-border bg-zinc-50 flex-shrink-0">
                 +63

@@ -12,6 +12,7 @@
 export const APPLICANTS = [
   {
     id: 1,
+    ref: "RC-ND563NBS",
     jobId: 1,
     date: "May 22, 2025",
     name: "Milan Hopper",
@@ -49,6 +50,7 @@ export const APPLICANTS = [
   },
   {
     id: 2,
+    ref: "RC-ND56SDFT",
     jobId: 1,
     date: "May 22, 2025",
     name: "Abby Floyd",
@@ -86,12 +88,13 @@ export const APPLICANTS = [
   },
   {
     id: 3,
+    ref: "RC-ND56P0O0",
     jobId: 3,
     date: "May 21, 2025",
     name: "Jason Heigh",
     position: "Senior Programmer",
     jobType: "Freelance",
-    status: "Certification",
+    status: "New",
     source: "Agency",
     avatar: null,
     email: "jason@email.com",
@@ -102,7 +105,7 @@ export const APPLICANTS = [
     based: "Remote",
     service: "IT Services",
     language: "English",
-    hiringStage: "Certification",
+    hiringStage: "New",
     assessment: {
       grammar: { score: 55, total: 60, percent: "92%" },
       typing: { wpm: 60, accuracy: "98%" },
@@ -119,6 +122,7 @@ export const APPLICANTS = [
   },
   {
     id: 4,
+    ref: "RC-ND56GT8I",
     jobId: 2,
     date: "May 20, 2025",
     name: "Keith Atherton",
@@ -152,6 +156,7 @@ export const APPLICANTS = [
   },
   {
     id: 5,
+    ref: "RC-ND56QUY4",
     jobId: 2,
     date: "May 20, 2025",
     name: "Nate Hartley",
@@ -185,12 +190,13 @@ export const APPLICANTS = [
   },
   {
     id: 6,
+    ref: "RC-ND56POI7",
     jobId: 4,
     date: "May 19, 2025",
     name: "Sara Kim",
     position: "Non Voice Customer Support",
     jobType: "Full Time",
-    status: "Orientation",
+    status: "New",
     source: "Referral",
     avatar: null,
     email: "sara@email.com",
@@ -201,7 +207,7 @@ export const APPLICANTS = [
     based: "Office Based",
     service: "Finance",
     language: "Korean",
-    hiringStage: "Orientation",
+    hiringStage: "New",
     assessment: {
       grammar: { score: 42, total: 60, percent: "70%" },
       typing: { wpm: 42, accuracy: "96%" },
@@ -218,6 +224,7 @@ export const APPLICANTS = [
   },
   {
     id: 7,
+    ref: "RC-ND563ASD",
     jobId: 6,
     date: "May 18, 2025",
     name: "Tom Reyes",
@@ -251,12 +258,13 @@ export const APPLICANTS = [
   },
   {
     id: 8,
+    ref: "RC-ND563N12",
     jobId: 5,
     date: "May 17, 2025",
     name: "Lena Park",
     position: "Customer Support",
     jobType: "Full Time",
-    status: "Interview",
+    status: "New",
     source: "LinkedIn",
     avatar: null,
     email: "lena@email.com",
@@ -267,7 +275,41 @@ export const APPLICANTS = [
     based: "Office Based",
     service: "Support",
     language: "English",
-    hiringStage: "Interview",
+    hiringStage: "New",
+    assessment: {
+      grammar: { score: 48, total: 60, percent: "80%" },
+      typing: { wpm: 46, accuracy: "99%" },
+      essay: "Passed",
+      essayQuestion: "Describe your most embarrassing moment.",
+      essayAnswer: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      essayTime: "04:30:00",
+      essayCharacters: "880",
+      answers: [
+        { q: "How did you hear about this position?", a: "LinkedIn" },
+        { q: "Preferred working hours?", a: "Morning shift" },
+      ],
+    },
+  },
+  {
+    id: 9,
+    ref: "RC-ND563N12",
+    jobId: 5,
+    date: "May 17, 2025",
+    name: "La Park",
+    position: "Customer Support",
+    jobType: "Full Time",
+    status: "New",
+    source: "LinkedIn",
+    avatar: null,
+    email: "lena@email.com",
+    phone: "+639999999997",
+    city: "Manila",
+    dateApplied: "May 17, 2025",
+    saIdOwner: "SA_Mae",
+    based: "Office Based",
+    service: "Support",
+    language: "English",
+    hiringStage: "New",
     assessment: {
       grammar: { score: 48, total: 60, percent: "80%" },
       typing: { wpm: 46, accuracy: "99%" },
@@ -288,6 +330,7 @@ export const APPLICANTS = [
 export const TRAINEES = [
   {
     id: 101,
+    ref: "RC-ND56AQW34",
     jobId: 1,
     date: "May 22, 2025",
     name: "Milan Hopper",
@@ -312,6 +355,7 @@ export const TRAINEES = [
   },
   {
     id: 102,
+    ref: "RC-ND5SGTY7",
     jobId: 2,
     date: "May 22, 2025",
     name: "Abby Floyd",
@@ -336,6 +380,7 @@ export const TRAINEES = [
   },
   {
     id: 103,
+    ref: "RC-ND5Q3RTR",
     jobId: 3,
     date: "May 21, 2025",
     name: "Jason Heigh",
@@ -360,6 +405,7 @@ export const TRAINEES = [
   },
   {
     id: 104,
+    ref: "RC-ND56GYUR",
     jobId: 4,
     date: "May 20, 2025",
     name: "Keith Atherton",
@@ -384,6 +430,7 @@ export const TRAINEES = [
   },
   {
     id: 105,
+    ref: "RC-ND565678",
     jobId: 5,
     date: "May 20, 2025",
     name: "Nate Hartley",
@@ -408,6 +455,7 @@ export const TRAINEES = [
   },
   {
     id: 106,
+    ref: "RC-ND56AQWER",
     jobId: 6,
     date: "May 19, 2025",
     name: "Sara Kim",
@@ -420,6 +468,31 @@ export const TRAINEES = [
     phone: "+639999999995",
     city: "Quezon City",
     dateApplied: "May 19, 2025",
+    jobTypeDetail: "Freelance",
+    based: "Office Based",
+    service: "Finance",
+    language: "Korean",
+    assessment: {
+      grammar: { score: 42, total: 60, percent: "70%" },
+      typing: { wpm: 42, accuracy: "96%" },
+      essay: "Passed",
+    },
+  },
+  {
+    id: 107,
+    ref: "RC-ND56AQSFR",
+    jobId: 6,
+    date: "May 20, 2025",
+    name: "Max Well",
+    position: "Senior Programmer",
+    jobType: "Freelance",
+    status: "Passed",
+    source: "Referral",
+    avatar: null,
+    email: "max@email.com",
+    phone: "+639999999995",
+    city: "Quezon City",
+    dateApplied: "May 20, 2025",
     jobTypeDetail: "Freelance",
     based: "Office Based",
     service: "Finance",
@@ -443,9 +516,9 @@ export const STATUSES = [
   "All Status",
   "Interview",
   "Orientation",
-  "Passed",
-  "Certification",
+  "Trainee",
   "Failed",
+  "Discontinued",
 ];
 export const TRAINEE_STATUSES = ["All Status", "On-going", "Passed", "Failed"];
 export const SOURCES = [
@@ -457,7 +530,7 @@ export const SOURCES = [
   "Referral",
 ];
 export const FILTER_TABS = ["All", "Full Time", "Freelance", "Language"];
-export const HIRING_STAGES = ["Interview", "Orientation", "Certification"];
+export const HIRING_STAGES = ["New", "Interview", "Orientation"];
 export const INTERVIEWERS = ["SA_Mae", "SA_John", "SA_Lee", "SA_Cruz"];
 export const TRAINEE_STATUS_OPTIONS = [
   "On-going",

@@ -27,30 +27,33 @@ export default function Apply() {
 
   return (
     <div className="bg-bg min-h-screen">
+      {/* Navbar */}
       <div className="sticky top-0 z-50 bg-transparent pointer-events-none">
         <div className="max-w-[1440px] mx-auto px-6 sm:px-10 md:px-16 lg:px-[80px] pt-4 pointer-events-auto">
           <Navbar activeLink="form" />
         </div>
       </div>
 
-      {/* Title */}
-      <div className="max-w-[1440px] mx-auto px-6 sm:px-10 md:px-16 lg:px-[80px] py-10">
+      <div className="max-w-[860px] mx-auto px-4 sm:px-8 py-10">
+        {/* Centered title + badges + stepper */}
         {step <= 3 && (
-          <>
-            <h1 className="font-jakarta font-bold text-black text-3xl mb-2">
+          <div className="flex flex-col items-center text-center mb-10">
+            <h1 className="font-jakarta font-bold text-black text-3xl mb-3">
               Application
             </h1>
-            <div className="flex items-center gap-2 mb-8">
+            <div className="flex items-center gap-2 flex-wrap justify-center mb-8">
               <span className="text-success text-xs font-bold">
                 {job.title}
               </span>
               <JobBadge type={job.type} />
               <LocationBadge location={job.location} />
             </div>
-            <div className="mb-10">
-              <Stepper currentStep={step} />
+            <div className="flex justify-center">
+              <div className="w-full max-w-2xl">
+                <Stepper currentStep={step} />
+              </div>
             </div>
-          </>
+          </div>
         )}
 
         {/* Steps Content */}
@@ -62,7 +65,11 @@ export default function Apply() {
           />
         )}
         {step === 3 && (
-          <Step3AppForm onNext={() => setStep(4)} onBack={() => setStep(2)} />
+          <Step3AppForm
+            onNext={() => setStep(4)}
+            onBack={() => setStep(2)}
+            job={job}
+          />
         )}
         {step === 4 && <SuccessScreen job={job} />}
       </div>

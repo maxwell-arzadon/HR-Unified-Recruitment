@@ -15,23 +15,8 @@ export default function Navbar({ searchQuery = "", setSearchQuery }) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const isForm = location.pathname.startsWith("/apply");
-  const isOpenings = !isForm;
-
-  const scrollToJobs = () => {
-    setMenuOpen(false);
-    if (location.pathname === "/") {
-      document
-        .getElementById("job-listings")
-        ?.scrollIntoView({ behavior: "smooth" });
-    } else {
-      navigate("/");
-      setTimeout(() => {
-        document
-          .getElementById("job-listings")
-          ?.scrollIntoView({ behavior: "smooth" });
-      }, 300);
-    }
-  };
+  const isTracking = location.pathname === "/track-application";
+  const isOpenings = !isForm && !isTracking;
 
   const handleSearch = (e) => {
     const val = e.target.value;
@@ -98,14 +83,14 @@ export default function Navbar({ searchQuery = "", setSearchQuery }) {
             Openings
           </span>
           <span
-            onClick={scrollToJobs}
-            className={`text-sm font-medium cursor-pointer transition-colors ${
-              isForm
-                ? "bg-primary text-white px-5 py-2 rounded-full font-semibold font-jakarta"
+            onClick={() => navigate("/track-application")}
+            className={`text-sm font-semibold font-jakarta px-5 py-2 rounded-full cursor-pointer transition-colors ${
+              isTracking
+                ? "bg-primary text-white"
                 : "text-zinc-500 hover:text-black"
             }`}
           >
-            Application Form
+            Track Application
           </span>
         </div>
 
@@ -195,14 +180,17 @@ export default function Navbar({ searchQuery = "", setSearchQuery }) {
               Openings
             </button>
             <button
-              onClick={scrollToJobs}
+              onClick={() => {
+                navigate("/track-application");
+                setMenuOpen(false);
+              }}
               className={`w-full text-left px-4 py-3 rounded-xl text-sm font-semibold font-jakarta transition-colors ${
-                isForm
+                isTracking
                   ? "bg-primary/10 text-primary"
                   : "text-zinc-500 hover:bg-bg hover:text-black"
               }`}
             >
-              Application Form
+              Track Application
             </button>
           </div>
         </div>

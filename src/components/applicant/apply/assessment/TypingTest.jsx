@@ -96,7 +96,7 @@ export default function TypingTest({ onStart, onFinish }) {
           </span>
         </div>
         <span className={`font-jakarta font-bold text-lg ${timeColor}`}>
-          {fmtTime(timeLeft)}
+          {started ? fmtTime(timeLeft) : "1 minute"}
         </span>
       </div>
 

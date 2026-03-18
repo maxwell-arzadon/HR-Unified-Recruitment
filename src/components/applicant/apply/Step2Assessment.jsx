@@ -25,6 +25,7 @@ export default function Step2Assessment({ onNext, onBack }) {
   const [typingStarted, setTypingStarted] = useState(false);
   const [essayStarted, setEssayStarted] = useState(false);
   const [typingDone, setTypingDone] = useState(false);
+  const [showWarning, setShowWarning] = useState(false);
 
   // Lifted grammar state
   const [grammarAnswers, setGrammarAnswers] = useState({});
@@ -50,7 +51,7 @@ export default function Step2Assessment({ onNext, onBack }) {
   };
 
   return (
-    <div className="bg-white border border-border rounded-2xl max-w-[860px]">
+    <div className="bg-white border border-border rounded-2xl p-6 sm:p-8">
       {/* Progress tabs */}
       <div className="flex items-center border-b border-border px-6 overflow-x-auto scrollbar-none">
         {tabs.map((tab, i) => {
@@ -120,6 +121,36 @@ export default function Step2Assessment({ onNext, onBack }) {
             Next
             <ArrowRight size={16} weight="bold" className="text-white" />
           </button>
+        </div>
+      )}
+
+      {/* Warning Dialog */}
+      {showWarning && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-2xl p-6 max-w-md mx-4">
+            <h3 className="text-lg font-semibold font-jakarta mb-2">Test in Progress</h3>
+            <p className="text-zinc-600 mb-6">
+              You have a test in progress. Going back will reset your progress. Are you sure you want to continue?
+            </p>
+            <div className="flex gap-3">
+              <button
+                onClick={() => setShowWarning(false)}
+                className="flex-1 border border-border text-zinc-500 hover:text-black hover:border-zinc-300 font-semibold font-jakarta text-sm py-3 rounded-full transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => {
+                  setShowWarning(false);
+                  if (activeIndex > 0) setActiveIndex((i) => i - 1);
+                  else onBack();
+                }}
+                className="flex-1 bg-red-500 hover:bg-red-600 text-white font-semibold font-jakarta text-sm py-3 rounded-full transition-colors"
+              >
+                Continue
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>

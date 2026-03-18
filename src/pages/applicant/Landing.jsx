@@ -2,7 +2,7 @@
  * Landing.jsx
  * Public landing page for job seekers.
  * Displays the hero section, job category cards,
- * job listings, and footer CTA.
+ * job listings, application tracker, and footer CTA.
  */
 
 import { useState } from "react";
@@ -11,7 +11,6 @@ import Hero from "../../components/applicant/layout/Hero";
 import CategoryCards from "../../components/applicant/shared/CategoryCards";
 import JobListings from "../../components/applicant/shared/JobListings";
 import FooterCTA from "../../components/applicant/shared/FooterCTA";
-import StatsBar from "../../components/applicant/shared/StatsBar";
 
 export default function Landing() {
   const [activeFilter, setActiveFilter] = useState("All");
@@ -35,7 +34,7 @@ export default function Landing() {
         </div>
       </div>
 
-      {/* Hero Section */}
+      {/* Hero */}
       <div className="-mt-[80px]">
         <Hero />
       </div>

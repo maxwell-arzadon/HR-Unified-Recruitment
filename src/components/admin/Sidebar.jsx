@@ -40,6 +40,10 @@ const NAV = [
         label: "Discontinued",
         to: "/admin/applicants/discontinued",
       },
+      {
+        label: "Archived",
+        to: "/admin/applicants/archived",
+      },
     ],
   },
   { label: "Jobs", icon: Briefcase, to: "/admin/jobs" },
@@ -84,14 +88,14 @@ export default function Sidebar({
 
   return (
     <>
-      {/* ── Desktop Sidebar ───────────────────────────────────── */}
+      {/* Desktop Sidebar */}
       <aside
         className={`hidden lg:flex fixed top-0 left-0 h-full min-h-screen bg-white border-r border-border flex-col z-30 transition-all duration-300 ${desktopWidth}`}
       >
         <SidebarContent {...sharedProps} showToggle={true} />
       </aside>
 
-      {/* ── Mobile Overlay Sidebar ────────────────────────────── */}
+      {/* Mobile Overlay Sidebar */}
       <aside
         className={`lg:hidden fixed top-0 left-0 h-full min-h-screen w-[280px] bg-white border-r border-border flex flex-col z-30 transition-transform duration-300 ${
           mobileOpen ? "translate-x-0" : "-translate-x-full"
@@ -109,7 +113,7 @@ export default function Sidebar({
   );
 }
 
-// ─── Shared Sidebar Content ───────────────────────────────────────
+//Shared Sidebar Content
 function SidebarContent({
   collapsed,
   onToggle,
@@ -162,7 +166,7 @@ function SidebarContent({
       {/* Nav */}
       <nav className="flex-1 overflow-y-auto px-3 py-4 flex flex-col gap-0.5">
         {NAV.map((item) => {
-          // ── Collapsible group ──
+          // Collapsible Applicants menu
           if (item.children) {
             return (
               <div key={item.label}>
@@ -229,7 +233,6 @@ function SidebarContent({
             );
           }
 
-          // ── Regular nav link ──
           return (
             <NavLink
               key={item.to}
@@ -249,21 +252,8 @@ function SidebarContent({
         })}
       </nav>
 
-      {/* Admin Profile + Logout */}
+      {/* Logout */}
       <div className="border-t border-border px-4 py-4">
-        <div
-          className={`flex items-center mb-3 ${collapsed ? "justify-center" : "gap-3"}`}
-        >
-          <div className="w-9 h-9 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
-            AD
-          </div>
-          {!collapsed && (
-            <div className="min-w-0">
-              <p className="text-sm font-semibold text-black truncate">Admin</p>
-              <p className="text-xs text-muted truncate">admin@rc.com</p>
-            </div>
-          )}
-        </div>
         <button
           onClick={handleLogout}
           title={collapsed ? "Logout" : undefined}

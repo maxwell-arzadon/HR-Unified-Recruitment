@@ -80,8 +80,10 @@ const FileUpload = ({ label, hint, accept, file, onFile }) => {
   );
 };
 
-export default function WorksTab() {
-  const [selectedHours, setSelectedHours] = useState("");
+export default function WorksTab({ jobType }) {
+  const [selectedHours, setSelectedHours] = useState(
+    jobType === "Full Time" ? "40+ hrs (Full Time)" : "",
+  );
   const [isAdult, setIsAdult] = useState(false);
   const [resume, setResume] = useState(null);
   const [govId, setGovId] = useState(null);
@@ -106,13 +108,12 @@ export default function WorksTab() {
             {hours.map((h) => (
               <button
                 key={h}
-                onClick={() => setSelectedHours(h)}
-                className={`px-4 py-2 border rounded-xl text-sm font-medium transition-all
-                  ${
-                    selectedHours === h
-                      ? "border-primary bg-red-50 text-primary font-semibold"
-                      : "border-border text-zinc-500 hover:border-zinc-300"
-                  }`}
+                onClick={() => jobType !== "Full Time" && setSelectedHours(h)}
+                className={`px-4 py-2 border rounded-xl text-sm font-medium transition-all ${
+                  selectedHours === h
+                    ? "border-primary bg-red-50 text-primary font-semibold"
+                    : "border-border text-zinc-500 hover:border-zinc-300"
+                } ${jobType === "Full Time" && h !== "40+ hrs (Full Time)" ? "opacity-40 cursor-not-allowed" : "cursor-pointer"}`}
               >
                 {h}
               </button>

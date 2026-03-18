@@ -13,12 +13,19 @@ import { ArrowLeft, ArrowRight, PaperPlaneTilt } from "@phosphor-icons/react";
 
 const tabs = ["Personal", "Education", "Skills & Language", "Works & Files"];
 
-export default function Step3AppForm({ onNext, onBack }) {
+export default function Step3AppForm({ onNext, onBack, job }) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [maxReachedIndex, setMaxReachedIndex] = useState(0); // ← add this
 
   const handleNext = () => {
-    if (activeIndex < tabs.length - 1) setActiveIndex((i) => i + 1);
-    else onNext();
+    if (activeIndex < tabs.length - 1) {
+      const nextIndex = activeIndex + 1;
+      setActiveIndex(nextIndex);
+      // Unlock the next tab
+      setMaxReachedIndex((prev) => Math.max(prev, nextIndex));
+    } else {
+      onNext();
+    }
   };
 
   const handleBack = () => {
@@ -27,7 +34,7 @@ export default function Step3AppForm({ onNext, onBack }) {
   };
 
   return (
-    <div className="bg-white border border-border rounded-2xl max-w-[860px]">
+    <div className="bg-white border border-border rounded-2xl p-6 sm:p-8">
       {/* Header */}
       <div className="px-8 pt-8 pb-0">
         <h2 className="font-jakarta font-bold text-black text-lg mb-1">
@@ -39,20 +46,27 @@ export default function Step3AppForm({ onNext, onBack }) {
 
         {/* Tabs */}
         <div className="flex items-center border-b border-border overflow-x-auto scrollbar-none">
-          {tabs.map((tab, i) => (
-            <button
-              key={tab}
-              onClick={() => setActiveIndex(i)}
-              className={`px-4 py-3 text-sm font-semibold font-jakarta whitespace-nowrap border-b-2 -mb-px transition-colors
-                ${
-                  activeIndex === i
-                    ? "text-primary border-primary"
-                    : "text-zinc-400 border-transparent hover:text-black"
-                }`}
-            >
-              {tab}
-            </button>
-          ))}
+          {tabs.map((tab, i) => {
+            const isActive = activeIndex === i;
+            const isUnlocked = i <= maxReachedIndex;
+
+            return (
+              <button
+                key={tab}
+                onClick={() => isUnlocked && setActiveIndex(i)}
+                className={`px-4 py-3 text-sm font-semibold font-jakarta whitespace-nowrap border-b-2 -mb-px transition-colors
+                  ${
+                    isActive
+                      ? "text-primary border-primary"
+                      : isUnlocked
+                        ? "text-zinc-400 border-transparent hover:text-black cursor-pointer"
+                        : "text-zinc-300 border-transparent cursor-not-allowed"
+                  }`}
+              >
+                {tab}
+              </button>
+            );
+          })}
         </div>
       </div>
 
@@ -61,7 +75,7 @@ export default function Step3AppForm({ onNext, onBack }) {
         {activeIndex === 0 && <PersonalTab />}
         {activeIndex === 1 && <EducationTab />}
         {activeIndex === 2 && <SkillsTab />}
-        {activeIndex === 3 && <WorksTab />}
+        {activeIndex === 3 && <WorksTab jobType={job?.type} />}
       </div>
 
       {/* Footer */}

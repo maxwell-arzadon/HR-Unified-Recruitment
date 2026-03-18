@@ -12,7 +12,7 @@ const MIN_CHARS = 100;
 const PROMPT =
   "Describe a time when you had to handle a difficult customer or situation at work. What did you do, and what was the outcome?";
 
-export default function EssayTest() {
+export default function EssayTest({ onStart }) {
   const [timeLeft, setTimeLeft] = useState(DURATION);
   const [essay, setEssay] = useState("");
   const [started, setStarted] = useState(false);
@@ -112,7 +112,7 @@ export default function EssayTest() {
           </span>
         </div>
         <span className={`font-jakarta font-bold text-lg ${timeColor}`}>
-          {fmtTime(timeLeft)}
+          {started ? fmtTime(timeLeft) : "25 minutes"}
         </span>
       </div>
 

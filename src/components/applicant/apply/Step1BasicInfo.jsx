@@ -3,13 +3,63 @@
  * First step of the application form.
  * Collects the applicant's basic personal information
  * before proceeding to the assessment step.
+ * Country is shown first — if Philippines, shows PH cities dropdown.
+ * If other country, shows free text city input.
  */
 
 import { useState } from "react";
-import { CaretDown, WarningCircle } from "@phosphor-icons/react";
-import { ArrowRight } from "@phosphor-icons/react";
+import { CaretDown, WarningCircle, ArrowRight } from "@phosphor-icons/react";
 
-const countries = [
+// ─── Constants ────────────────────────────────────────────────────
+const PH_CITIES = [
+  "Angeles City",
+  "Antipolo",
+  "Bacolod",
+  "Baguio City",
+  "Batangas City",
+  "Biñan",
+  "Butuan",
+  "Cabanatuan",
+  "Cagayan de Oro",
+  "Calamba",
+  "Caloocan",
+  "Cebu City",
+  "Cotabato City",
+  "Dagupan",
+  "Davao City",
+  "General Santos",
+  "Iligan",
+  "Iloilo City",
+  "Lapu-Lapu City",
+  "Las Piñas",
+  "Legazpi City",
+  "Lucena",
+  "Makati",
+  "Malabon",
+  "Mandaluyong",
+  "Manila",
+  "Marikina",
+  "Masbate City",
+  "Muntinlupa",
+  "Navotas",
+  "Olongapo",
+  "Ormoc",
+  "Paranaque",
+  "Pasay",
+  "Pasig",
+  "Puerto Princesa",
+  "Quezon City",
+  "San Jose del Monte",
+  "San Juan",
+  "Santa Rosa",
+  "Santiago",
+  "Tacloban",
+  "Taguig",
+  "Valenzuela",
+  "Zamboanga City",
+];
+
+const COUNTRIES = [
   "Philippines",
   "United States",
   "United Kingdom",
@@ -19,6 +69,27 @@ const countries = [
   "Singapore",
 ];
 
+// ─── Helpers ──────────────────────────────────────────────────────
+const FieldError = ({ msg }) =>
+  msg ? (
+    <div className="flex items-center gap-1.5 mt-1">
+      <WarningCircle size={13} className="text-primary flex-shrink-0" />
+      <span className="text-xs text-primary">{msg}</span>
+    </div>
+  ) : null;
+
+const inputClass = (error) =>
+  `border rounded-xl px-4 py-2.5 text-sm placeholder-zinc-300 outline-none transition-all w-full
+  ${
+    error
+      ? "border-primary bg-red-50 focus:border-primary focus:ring-2 focus:ring-primary/10"
+      : "border-border focus:border-primary focus:ring-2 focus:ring-primary/10"
+  }`;
+
+const selectClass =
+  "w-full appearance-none border border-border rounded-xl px-4 py-2.5 text-sm text-black outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all cursor-pointer pr-10";
+
+// ─── Validation ───────────────────────────────────────────────────
 const validate = (form) => {
   const errors = {};
   if (!form.firstName.trim()) errors.firstName = "First name is required";
@@ -30,29 +101,11 @@ const validate = (form) => {
   if (!form.mobile.trim()) errors.mobile = "Mobile number is required";
   else if (!/^\d{10}$/.test(form.mobile.replace(/\s/g, "")))
     errors.mobile = "Enter a valid 10-digit number";
-  if (!form.address.trim()) errors.address = "Address is required";
   if (!form.city.trim()) errors.city = "City is required";
   return errors;
 };
 
-// Error message component
-const FieldError = ({ msg }) =>
-  msg ? (
-    <div className="flex items-center gap-1.5 mt-1">
-      <WarningCircle size={13} className="text-primary flex-shrink-0" />
-      <span className="text-xs text-primary">{msg}</span>
-    </div>
-  ) : null;
-
-// Input class helper
-const inputClass = (error) =>
-  `border rounded-xl px-4 py-2.5 text-sm placeholder-zinc-300 outline-none transition-all w-full
-  ${
-    error
-      ? "border-primary bg-red-50 focus:border-primary focus:ring-2 focus:ring-primary/10"
-      : "border-border focus:border-primary focus:ring-2 focus:ring-primary/10"
-  }`;
-
+// ─── Component ────────────────────────────────────────────────────
 export default function Step1BasicInfo({ onNext }) {
   const [form, setForm] = useState({
     firstName: "",
@@ -61,22 +114,28 @@ export default function Step1BasicInfo({ onNext }) {
     birthday: "",
     mobile: "",
     gender: "Male",
-    address: "",
-    city: "",
     country: "Philippines",
+    city: "",
     sssNumber: "",
   });
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
 
-  const set = (k, v) => setForm((f) => ({ ...f, [k]: v }));
+  const set = (k, v) => {
+    // Reset city when country changes
+    if (k === "country") {
+      setForm((f) => ({ ...f, country: v, city: "" }));
+    } else {
+      setForm((f) => ({ ...f, [k]: v }));
+    }
+  };
+
   const touch = (k) => setTouched((t) => ({ ...t, [k]: true }));
 
   const handleNext = () => {
     const errs = validate(form);
     if (Object.keys(errs).length > 0) {
       setErrors(errs);
-      // Mark all as touched to show all errors
       const allTouched = Object.keys(form).reduce(
         (a, k) => ({ ...a, [k]: true }),
         {},
@@ -87,17 +146,16 @@ export default function Step1BasicInfo({ onNext }) {
     onNext();
   };
 
-  // Validate on blur
   const handleBlur = (k) => {
     touch(k);
-    const errs = validate(form);
-    setErrors(errs);
+    setErrors(validate(form));
   };
 
   const err = (k) => (touched[k] ? errors[k] : undefined);
+  const isPhilippines = form.country === "Philippines";
 
   return (
-    <div className="bg-white border border-border rounded-2xl p-8 max-w-[860px]">
+    <div className="bg-white border border-border rounded-2xl p-6 sm:p-8">
       <h2 className="font-jakarta font-bold text-black text-lg mb-1">
         Basic Information
       </h2>
@@ -172,8 +230,11 @@ export default function Step1BasicInfo({ onNext }) {
               Mobile Number <span className="text-primary">*</span>
             </label>
             <div
-              className={`flex items-center border rounded-xl overflow-hidden transition-all
-              ${err("mobile") ? "border-primary bg-red-50" : "border-border focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/10"}`}
+              className={`flex items-center border rounded-xl overflow-hidden transition-all ${
+                err("mobile")
+                  ? "border-primary bg-red-50"
+                  : "border-border focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/10"
+              }`}
             >
               <span className="px-3 py-2.5 text-sm font-medium text-black border-r border-border bg-zinc-50 flex-shrink-0">
                 +63
@@ -196,13 +257,13 @@ export default function Step1BasicInfo({ onNext }) {
             Gender <span className="text-primary">*</span>
           </label>
           <div className="flex items-center flex-wrap gap-x-4 gap-y-2 mt-2">
-            {" "}
             {["Male", "Female", "Other"].map((g) => (
               <label key={g} className="flex items-center gap-2 cursor-pointer">
                 <div
                   onClick={() => set("gender", g)}
-                  className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all cursor-pointer
-                    ${form.gender === g ? "border-primary" : "border-zinc-300"}`}
+                  className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all cursor-pointer ${
+                    form.gender === g ? "border-primary" : "border-zinc-300"
+                  }`}
                 >
                   {form.gender === g && (
                     <div className="w-2.5 h-2.5 rounded-full bg-primary" />
@@ -214,36 +275,9 @@ export default function Step1BasicInfo({ onNext }) {
           </div>
         </div>
 
-        {/* Address */}
-        <div>
-          <label className="text-sm font-medium text-black">
-            Address <span className="text-primary">*</span>
-          </label>
-          <input
-            placeholder="Street, Barangay"
-            value={form.address}
-            onChange={(e) => set("address", e.target.value)}
-            onBlur={() => handleBlur("address")}
-            className={inputClass(err("address"))}
-          />
-          <FieldError msg={err("address")} />
-        </div>
-
-        {/* City + Country */}
+        {/* Country + City — Country first, City filters based on country */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label className="text-sm font-medium text-black">
-              City <span className="text-primary">*</span>
-            </label>
-            <input
-              placeholder="Quezon City"
-              value={form.city}
-              onChange={(e) => set("city", e.target.value)}
-              onBlur={() => handleBlur("city")}
-              className={inputClass(err("city"))}
-            />
-            <FieldError msg={err("city")} />
-          </div>
+          {/* Country */}
           <div>
             <label className="text-sm font-medium text-black">
               Country <span className="text-primary">*</span>
@@ -252,9 +286,9 @@ export default function Step1BasicInfo({ onNext }) {
               <select
                 value={form.country}
                 onChange={(e) => set("country", e.target.value)}
-                className="w-full appearance-none border border-border rounded-xl px-4 py-2.5 text-sm text-black outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all cursor-pointer pr-10"
+                className={selectClass}
               >
-                {countries.map((c) => (
+                {COUNTRIES.map((c) => (
                   <option key={c}>{c}</option>
                 ))}
               </select>
@@ -263,6 +297,41 @@ export default function Step1BasicInfo({ onNext }) {
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none"
               />
             </div>
+          </div>
+
+          {/* City*/}
+          <div>
+            <label className="text-sm font-medium text-black">
+              City <span className="text-primary">*</span>
+            </label>
+            {isPhilippines ? (
+              <div className="relative">
+                <select
+                  value={form.city}
+                  onChange={(e) => set("city", e.target.value)}
+                  onBlur={() => handleBlur("city")}
+                  className={`appearance-none pr-10 ${inputClass(err("city"))}`}
+                >
+                  <option value="">Select city</option>
+                  {PH_CITIES.map((c) => (
+                    <option key={c}>{c}</option>
+                  ))}
+                </select>
+                <CaretDown
+                  size={14}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none"
+                />
+              </div>
+            ) : (
+              <input
+                placeholder="Enter your city"
+                value={form.city}
+                onChange={(e) => set("city", e.target.value)}
+                onBlur={() => handleBlur("city")}
+                className={inputClass(err("city"))}
+              />
+            )}
+            <FieldError msg={err("city")} />
           </div>
         </div>
 
@@ -279,15 +348,13 @@ export default function Step1BasicInfo({ onNext }) {
         </div>
 
         {/* Next button */}
-        <div className="flex justify-end mt-2">
-          <button
-            onClick={handleNext}
-            className="w-full justify-center gradient-bg hover:opacity-90 text-white font-semibold font-jakarta text-sm px-8 py-3 rounded-full flex items-center gap-2 transition-opacity"
-          >
-            Next: Assessment Test
-            <ArrowRight size={16} weight="bold" className="text-white" />
-          </button>
-        </div>
+        <button
+          onClick={handleNext}
+          className="w-full gradient-bg hover:opacity-90 text-white font-semibold font-jakarta text-sm px-8 py-3 rounded-full flex items-center justify-center gap-2 transition-opacity mt-2"
+        >
+          Next: Assessment Test
+          <ArrowRight size={16} weight="bold" className="text-white" />
+        </button>
       </div>
     </div>
   );

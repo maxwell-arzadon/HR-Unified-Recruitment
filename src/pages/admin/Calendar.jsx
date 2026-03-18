@@ -7,7 +7,7 @@
 
 import { useState } from "react";
 import { CaretLeft, CaretRight } from "@phosphor-icons/react";
-import { INTERVIEWS, CHIP_COLORS } from "../../data/calendar";
+import { INTERVIEWS } from "../../data/calendar";
 import PageHeader from "../../components/admin/PageHeader";
 
 const DAYS_OF_WEEK_FULL = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -226,16 +226,11 @@ export default function Calendar({ onMenuOpen }) {
                           >
                             {day}
                           </span>
-                          {dayEvents.map((ev, ei) => (
-                            <span
-                              key={ev.id}
-                              className={`text-white text-[9px] sm:text-[10px] font-semibold px-1 sm:px-2 py-0.5 rounded-md truncate w-full block ${
-                                CHIP_COLORS[ei % CHIP_COLORS.length]
-                              }`}
-                            >
-                              {ev.name.split(" ")[0]}
+                          {dayEvents.length > 0 && (
+                            <span className="text-white text-[9px] sm:text-[10px] font-semibold px-1 sm:px-2 py-0.5 rounded-md w-full block bg-primary">
+                              Interviews +{dayEvents.length}
                             </span>
-                          ))}
+                          )}
                         </>
                       )}
                     </div>

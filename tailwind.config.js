@@ -9,10 +9,6 @@ export default {
       maxWidth: {
         content: "1280px",
       },
-    },
-  },
-  theme: {
-    extend: {
       colors: {
         primary: "#FF4545",
         accent: "#F17F33",
